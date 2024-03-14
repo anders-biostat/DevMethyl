@@ -1,5 +1,7 @@
 .onLoad <- function(libname, pkgname) {
 
+  numpy <- import("numpy")
+
   res <- try( reticulate::import("numba"), silent=TRUE )
   if( inherits( res, "try-error" ) ) {
     if( grep( "ModuleNotFoundError", res ) )

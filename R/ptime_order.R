@@ -39,9 +39,9 @@ ptime_order <- function(spM, meta, header, start, end ) {
       mutate(index = 0:(n() - 1)) %>%
       dplyr::select(index, ptime) -> sorted_ptime
 
-    mapped_ptimes <- sorted_ptime$ptime[match(TspM@j, sorted_ptime$index)]
+    mappedpt <- sorted_ptime$ptime[match(TspM@j, sorted_ptime$index)]
 
-    mapped_ptime_df <- data.frame(i = TspM@i, ptimes = mapped_ptimes, data = TspM@x)
+    mappedpt_df <- data.frame(pos = TspM@i, pt = mappedpt, methyl = TspM@x)
 
-  return(mapped_ptime_df)
+  return(mappedpt_df)
 }

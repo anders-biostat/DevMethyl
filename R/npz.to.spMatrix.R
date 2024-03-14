@@ -8,8 +8,7 @@
 #' @examples
 npz.to.spMatrix <- function(npzPath) {
 # need reticulate and Matrix
-np <- import("numpy")
-npz <- np$load(npzPath)
+npz <- numpy$load(npzPath)
 sp <- sparseMatrix( j=npz["indices"], p=npz["indptr"], x=npz["data"], index1=FALSE, dims=npz["shape"], repr="T" )
 return(sp)
 }

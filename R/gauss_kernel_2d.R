@@ -1,4 +1,4 @@
-#' Title2
+#' Gaussian Filter applied to 2 dimensinal methylation data
 #'
 #' @param x
 #' @param t
@@ -16,9 +16,9 @@
 #' @export
 #'
 #' @examples
-gauss_kernel_2d <- function(x, t, v, xmin, xmax, delta_x, tmin, tmax, delta_t, hx, ht) {
+gauss_kernel_2d <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange=range(mappedpt$pt) ) {
 
-  pyfcts$gaussian_smoothing(x, t, v, xmin, xmax, delta_x, tmin, tmax, delta_t, hx, ht)
+  pyfcts$gaussian_smoothing(mappedpt$pos, mappedpt$pt, mappedpt$methyl, xrange[1], xrange[2], delx, trange[1], trange[2], delt, hx, ht)
 
 }
 
