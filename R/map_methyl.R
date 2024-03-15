@@ -1,8 +1,8 @@
-#' Create data frame from sparse Matrix
+#' Map methylation data to pseudotime
 #'
-#' @param spM sparse Matrix
-#' @param meta meta data
-#' @param header column header for spM
+#' @param spM sparse Matrix received from function npz.to.spM or with same format
+#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime)
+#' @param header data frame containing cell IDs for spM
 #' @param start integer defining the start position of the analysed genomic region
 #' @param end integer defining the end position of the analysed genomic region
 #'
@@ -10,10 +10,10 @@
 #' @export
 #'
 #' @examples
-ptime_order <- function(spM, meta, header, start, end ) {
+map_methyl <- function(spM, meta, header, start, end ) {
 
   #prepare headers and add to spM
-    names(header)[names(header) == "."] <- "cell_id"
+    names(header)[names(header) == "."] <- "cell_id" # should this be removed for package?
 
     header %>%
       mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header_df

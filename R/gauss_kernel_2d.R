@@ -1,18 +1,14 @@
 #' Gaussian Filter applied to 2 dimensinal methylation data
 #'
-#' @param x
-#' @param t
-#' @param v
-#' @param xmin
-#' @param xmax
-#' @param delta_x
-#' @param tmin
-#' @param tmax
-#' @param delta_t
-#' @param hx
-#' @param ht
+#' @param hx width of the kernel  ?
+#' @param ht hight of the kernel ?
+#' @param mappedpt dataframe received from function ptime_order containing relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).
+#' @param delx width of the window?
+#' @param delt height of the window ?
+#' @param xrange vector containing minimum and maximum of the genomic region
+#' @param trange vector containing minimum and maximum of the pseudo time
 #'
-#' @return
+#' @return matrix
 #' @export
 #'
 #' @examples
@@ -22,9 +18,9 @@ gauss_kernel_2d <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  x
 
 }
 
-#' Title
+#' test
 #'
-#' @return
+#' @return double
 #' @export
 #'
 #' @examples
