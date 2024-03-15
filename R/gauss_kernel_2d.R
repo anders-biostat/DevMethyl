@@ -1,10 +1,10 @@
-#' Gaussian Filter applied to 2 dimensinal methylation data
+#' Gaussian Filter applied to 2 dimensional methylation data
 #'
-#' @param hx width of the kernel  ?
-#' @param ht hight of the kernel ?
-#' @param mappedpt dataframe received from function ptime_order containing relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).
-#' @param delx width of the window?
-#' @param delt height of the window ?
+#' @param hx width of the kernel
+#' @param ht height of the kernel
+#' @param mappedpt data frame received from function *ptime_order* containing relative genomic position (pos), pseudo time of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).
+#' @param delx width of the grids
+#' @param delt height of the grids
 #' @param xrange vector containing minimum and maximum of the genomic region
 #' @param trange vector containing minimum and maximum of the pseudo time
 #'

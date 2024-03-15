@@ -2,6 +2,7 @@
 
 export(gauss_kernel_2d)
 export(get_CpGs)
+export(get_genemodel)
 export(map_methyl)
 export(npz.to.spM)
 export(plot_CpGs)
