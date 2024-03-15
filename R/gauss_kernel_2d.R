@@ -8,7 +8,7 @@
 #' @param xrange vector containing minimum and maximum of the genomic region
 #' @param trange vector containing minimum and maximum of the pseudo time
 #'
-#' @return matrix
+#' @return matrix ...
 #' @export
 #'
 #' @examples

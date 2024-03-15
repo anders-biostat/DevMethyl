@@ -2,10 +2,13 @@
 % Please edit documentation in R/gauss_kernel_2d.R
 \name{test_numba}
 \alias{test_numba}
-\title{Title}
+\title{test}
 \usage{
 test_numba()
 }
+\value{
+double
+}
 \description{
-Title
+test
 }
