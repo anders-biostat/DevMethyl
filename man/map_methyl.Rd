@@ -7,7 +7,7 @@
 map_methyl(spM, meta, header, start, end)
 }
 \arguments{
-\item{spM}{sparse Matrix received from function npz.to.spM or with same format}
+\item{spM}{sparse Matrix received from function \emph{npz.to.spM} or with same format}
 
 \item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime)}
 

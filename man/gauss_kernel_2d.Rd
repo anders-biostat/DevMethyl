@@ -2,7 +2,7 @@
 % Please edit documentation in R/gauss_kernel_2d.R
 \name{gauss_kernel_2d}
 \alias{gauss_kernel_2d}
-\title{Gaussian Filter applied to 2 dimensinal methylation data}
+\title{Gaussian Filter applied to 2 dimensional methylation data}
 \usage{
 gauss_kernel_2d(
   mappedpt,
@@ -15,15 +15,15 @@ gauss_kernel_2d(
 )
 }
 \arguments{
-\item{mappedpt}{dataframe received from function ptime_order containing relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).}
+\item{mappedpt}{data frame received from function \emph{ptime_order} containing relative genomic position (pos), pseudo time of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).}
 
-\item{hx}{width of the kernel  ?}
+\item{hx}{width of the kernel}
 
-\item{ht}{hight of the kernel ?}
+\item{ht}{height of the kernel}
 
-\item{delx}{width of the window?}
+\item{delx}{width of the grids}
 
-\item{delt}{height of the window ?}
+\item{delt}{height of the grids}
 
 \item{xrange}{vector containing minimum and maximum of the genomic region}
 
@@ -33,5 +33,5 @@ gauss_kernel_2d(
 matrix ...
 }
 \description{
-Gaussian Filter applied to 2 dimensinal methylation data
+Gaussian Filter applied to 2 dimensional methylation data
 }

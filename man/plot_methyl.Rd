@@ -4,10 +4,12 @@
 \alias{plot_methyl}
 \title{Plot mapped methylation data}
 \usage{
-plot_methyl(m)
+plot_methyl(m, mappedpt)
 }
 \arguments{
-\item{m}{matrix received from function \emph{map_methyl}}
+\item{m}{matrix received from \emph{gauss_kernel_2d}}
+
+\item{mappedpt}{data frame containing pseudo times received from \emph{map_methyl}}
 }
 \value{
 tile plot
