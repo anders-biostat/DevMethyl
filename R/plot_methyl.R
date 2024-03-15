@@ -1,10 +1,26 @@
 
-methyl_tileplot <- function(m) {
+#' Plot mapped methylation data
+#'
+#' @param m matrix received from function *map_methyl*
+#'
+#' @return tile plot
+#' @export
+#'
+#' @examples
+plot_methyl <- function(m) {
 
-  df <- as.data.frame(m)
+  as.data.frame(m)  -> df
+
+  colnames(df) <- gsub("^V", "", colnames(df))
+
+  df %>%
+    mutate(pos = row_number()) %>%
+    pivot_longer( cols = -pos, names_to = "ptime", values_to = "Value") -> df
+
+  df$ptime <- as.integer(df$ptime)
 
   df%>%
-    ggplot(aes(x=x0, y=t0, fill=smooth_value)) +
+    ggplot(aes(x=pos, y=ptime, fill=Value)) +
     geom_tile() +
     labs(fill = "Methylation Status") +
     scale_fill_viridis(option= "D",
@@ -25,4 +41,9 @@ methyl_tileplot <- function(m) {
     labs( y="ptime")
 
 }
+
+# still some bug because plot looks different
+# need to adjust axis
+
+
 

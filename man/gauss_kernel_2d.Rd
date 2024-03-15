@@ -30,7 +30,7 @@ gauss_kernel_2d(
 \item{trange}{vector containing minimum and maximum of the pseudo time}
 }
 \value{
-matrix
+matrix ...
 }
 \description{
 Gaussian Filter applied to 2 dimensinal methylation data

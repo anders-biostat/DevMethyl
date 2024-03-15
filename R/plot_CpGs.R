@@ -8,7 +8,7 @@
 #' @export
 #'
 #' @examples
-CpG_barplot <- function(chr, start, end) {
+plot_CpGs <- function(chr, start, end) {
 
   cpg_positions <- get_CpGs(chr, start, end)
 
