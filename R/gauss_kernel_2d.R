@@ -18,12 +18,3 @@ gauss_kernel_2d <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  x
 
 }
 
-#' test
-#'
-#' @return double
-#' @export
-#'
-#' @examples
-test_numba <- function() {
-  pyfcts$norm_pdf(1)
-}

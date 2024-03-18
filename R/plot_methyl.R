@@ -10,7 +10,7 @@
 #' @examples
 plot_methyl <- function(m, mappedpt) {
 
-  as.data.frame(m)  -> df
+  as.data.frame(m)  -> df #or should I insteadt include the function for m and mappedpt?
 
   colnames(df) <- gsub("^V", "", colnames(df))
 
