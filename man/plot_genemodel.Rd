@@ -4,7 +4,7 @@
 \alias{plot_genemodel}
 \title{Plot gene model}
 \usage{
-plot_genemodel(gtf, start_pos, end_pos)
+plot_genemodel(gtf, chr, start_pos, end_pos)
 }
 \arguments{
 \item{gtf}{pathway to gtf file downloaded from...}

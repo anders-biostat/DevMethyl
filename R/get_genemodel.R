@@ -8,12 +8,12 @@
 #' @export
 #'
 #' @examples
-get_genemodel <- function(gtf, start_pos, end_pos) {
+get_genemodel <- function(gtf, chr, start_pos, end_pos) {
 
   ens<- readGFF(gtf)
 
   ens %>%
-    dplyr::filter(seqid==chromosome) %>%
+    dplyr::filter(seqid==chr) %>%
     dplyr::filter( start < end_pos , end > start_pos, type != "transcript") %>%
     mutate(strand_boolean = if_else(strand=="+", TRUE, FALSE) ) -> reg
 

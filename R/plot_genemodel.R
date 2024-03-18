@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @examples
-plot_genemodel <- function(gtf, start_pos, end_pos) {
+plot_genemodel <- function(gtf, chr, start_pos, end_pos) {
 
-  get_genemodel(gtf, start_pos, end_pos) -> reg
+  get_genemodel(gtf, chr, start_pos, end_pos) -> reg
 
   reg$start[reg$start < start_pos] <- start_pos
   reg$end[reg$end > end_pos] <- end_pos

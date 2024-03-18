@@ -1,6 +1,6 @@
 #' Get bar plot visualizing amounts of CpGs within a genomic region
 #'
-#' @param chr integer number chosen chromosome
+#' @param chr integer number chromosome
 #' @param start integer defining the start position of the analysed genomic region
 #' @param end integer defining the end position of the analysed genomic region
 #'

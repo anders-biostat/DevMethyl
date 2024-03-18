@@ -4,7 +4,7 @@
 \alias{get_genemodel}
 \title{Get gene model of genomic region}
 \usage{
-get_genemodel(gtf, start_pos, end_pos)
+get_genemodel(gtf, chr, start_pos, end_pos)
 }
 \arguments{
 \item{gtf}{pathway to gtf file downloaded from...}

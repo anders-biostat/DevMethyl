@@ -4,7 +4,7 @@
 \alias{get_regfeatures}
 \title{Get regulatory features of genomic region}
 \usage{
-get_regfeatures(regfeatures)
+get_regfeatures(regfeatures, chr, start_pos, end_pos)
 }
 \arguments{
 \item{regfeatures}{pathway of gtf file downloaded from ensemble containing ...}

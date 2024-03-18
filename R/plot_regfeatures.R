@@ -10,15 +10,15 @@
 #' @export
 #'
 #' @examples
-plot_regfeatures <- function(regfeatures, start_pos, end_pos, start_VR = 0, end_VR = 0) {
+plot_regfeatures <- function(regfeatures, chr, start_pos, end_pos, start_VR=0, end_VR=0) {
 
-  get_regfeatures(regfeatures) -> feat_reg
+  get_regfeatures(regfeatures, chr, start_pos, end_pos) -> feat_reg
 
   feat_reg$start[feat_reg$start < start_position] <- start_pos
   feat_reg$end[feat_reg$end > end_position] <- end_pos
 
   ggplot(feat_reg, aes(y = type, x = start, xend = end, yend = type)) +
-    geom_segment(size = 4, color = "black", alpha = 0.7) +
+    geom_segment(linewidth = 4, color = "black", alpha = 0.7) +
     labs( x= "genomic position") +
     xlim(start_position, end_position) +
     scale_y_discrete(position = "right") +
@@ -32,6 +32,6 @@ plot_regfeatures <- function(regfeatures, start_pos, end_pos, start_VR = 0, end_
     theme(panel.grid.major.x = element_blank(),  # Remove horizontal grid lines
           panel.grid.minor.x = element_blank(),
           axis.title.x = element_text(margin = margin(t = 10))) +
-    annotate("rect",xmin=start_VR, xmax=end_VR, ymin=0,
-                                      ymax=0.05, color="transparent", fill="red")
+    annotate("rect",xmin=start_VR, xmax=end_VR, ymin=0, ymax=0.05, color="transparent", fill="red")
+
 }

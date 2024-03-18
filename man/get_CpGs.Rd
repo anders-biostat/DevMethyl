@@ -7,7 +7,7 @@
 get_CpGs(chr, start, end)
 }
 \arguments{
-\item{chr}{integer number chosen chromosome}
+\item{chr}{integer number of chromosome}
 
 \item{start}{integer defining the start position of the analysed genomic region}
 

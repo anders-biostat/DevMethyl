@@ -7,6 +7,7 @@
 #'
 #' @examples
 npz.to.spM <- function(npzPath) {
+
   numpy <- reticulate::import("numpy")  # somehow only works with this line in the function
   npz <- numpy$load(npzPath)
 

@@ -4,7 +4,14 @@
 \alias{plot_regfeatures}
 \title{Plot regulatory features of genomic region}
 \usage{
-plot_regfeatures(regfeatures, start_pos, end_pos, start_VR = 0, end_VR = 0)
+plot_regfeatures(
+  regfeatures,
+  chr,
+  start_pos,
+  end_pos,
+  start_VR = 0,
+  end_VR = 0
+)
 }
 \arguments{
 \item{regfeatures}{pathway of gtf file downloaded from ensemble containing ...}

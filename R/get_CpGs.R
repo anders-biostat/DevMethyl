@@ -1,6 +1,6 @@
 #' Get Positions of CpGs in a genomic region
 #'
-#' @param chr integer number chosen chromosome
+#' @param chr integer number of chromosome
 #' @param start integer defining the start position of the analysed genomic region
 #' @param end integer defining the end position of the analysed genomic region
 #'
