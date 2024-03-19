@@ -1,18 +1,18 @@
 #' Get Positions of CpGs in a genomic region
 #'
 #' @param chr integer number of chromosome
-#' @param start integer defining the start position of the analysed genomic region
-#' @param end integer defining the end position of the analysed genomic region
+#' @param startpos integer defining the start position of the analysed genomic region
+#' @param endpos integer defining the end position of the analysed genomic region
 #'
 #' @return integer list
 #' @export
 #'
 #' @examples
-get_CpGs <- function(chr, start, end) {
+get_CpGs <- function(chr, startpos, endpos) {
 
   ext_muster <- "/sequence/region/mouse/%s:%s..%s:1?"
 
-  ext <- sprintf(ext_muster,chr, start, end)
+  ext <- sprintf(ext_muster, chr, startpos, endpos)
 
   server <- "https://rest.ensembl.org"
 

@@ -4,21 +4,16 @@
 \alias{plot_regfeatures}
 \title{Plot regulatory features of genomic region}
 \usage{
-plot_regfeatures(
-  regfeatures,
-  chr,
-  start_pos,
-  end_pos,
-  start_VR = 0,
-  end_VR = 0
-)
+plot_regfeatures(regfeatures, chr, startpos, endpos, start_VR = 0, end_VR = 0)
 }
 \arguments{
 \item{regfeatures}{pathway of gtf file downloaded from ensemble containing ...}
 
-\item{start_pos}{integer defining the start position of the analysed genomic region}
+\item{chr}{integer number of chromosome}
 
-\item{end_pos}{integer defining the end position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
+
+\item{endpos}{integer defining the end position of the analysed genomic region}
 
 \item{start_VR}{integer defining the start position of the variable region}
 

@@ -1,19 +1,20 @@
 #' Plot gene model
 #'
 #' @param gtf pathway to gtf file downloaded from...
-#' @param start_pos integer defining the start position of the analysed genomic region
-#' @param end_pos integer defining the end position of the analysed genomic region
+#' @param chr integer number of chromosome
+#' @param startpos integer defining the start position of the analysed genomic region
+#' @param endpos integer defining the end position of the analysed genomic region
 #'
 #' @return arrow plot
 #' @export
 #'
 #' @examples
-plot_genemodel <- function(gtf, chr, start_pos, end_pos) {
+plot_genemodel <- function(gtf, chr, startpos, endpos) {
 
-  get_genemodel(gtf, chr, start_pos, end_pos) -> reg
+  get_genemodel(gtf, chr, startpos, endpos) -> reg
 
-  reg$start[reg$start < start_pos] <- start_pos
-  reg$end[reg$end > end_pos] <- end_pos
+  reg$start[reg$start < startpos] <- startpos
+  reg$end[reg$end > endpos] <- endpos
 
   reg %>% dplyr::filter(type=="gene") -> reg_genes
 
@@ -23,10 +24,10 @@ plot_genemodel <- function(gtf, chr, start_pos, end_pos) {
 
   reg_subgenes$type <- factor(reg_subgenes$type, levels =c( "exon", "CDS", "start_codon", "stop_codon", "five_prime_utr",  "three_prime_utr", "Selenocysteine"))
 
-  ggplot( NULL, aes( xmin=start, xmax=end, y=gene_name, forward=strand_boolean ) ) +
+  ggplot( NULL, aes( xmin=startpos, xmax=endpos, y=gene_name, forward=strand_boolean ) ) +
     geom_gene_arrow( data=reg_genes) +
     geom_subgene_arrow( aes(xsubmin=substart, xsubmax=subend, fill=type ), color=NA, data=reg_subgenes ) +
-    xlim(start_position, end_position) +
+    xlim(startpos, endpos) +
     theme_genes() +
     theme(legend.text = element_text(size = 10),
           legend.key.size = unit(0.4, "cm"),

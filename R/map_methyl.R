@@ -1,16 +1,16 @@
-#' Map methylation data to pseudotime
+#' Map methylation data to pseudo time
 #'
 #' @param spM sparse Matrix received from function *npz.to.spM* or with same format
-#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime)
+#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)
 #' @param header data frame containing cell IDs for spM
-#' @param start integer defining the start position of the analysed genomic region
-#' @param end integer defining the end position of the analysed genomic region
+#' @param startpos integer defining the start position of the analysed genomic region
+#' @param endpos integer defining the end position of the analysed genomic region
 #'
 #' @return data frame containing information of spM for the selected genomic region, sorted by ptime. Here i is the row index giving information of the genomic position , ptimes contains the sorted pseudo times of the cells and data contains either value -1 or 1 specifying the methylation status (unmethylated, methylated).
 #' @export
 #'
 #' @examples
-map_methyl <- function(spM, meta, header, start, end ) {
+map_methyl <- function(spM, meta, header, startpos, endpos ) {
 
   #prepare headers and add to spM
     names(header)[names(header) == "."] <- "cell_id" # should this be removed for package?
@@ -32,7 +32,7 @@ map_methyl <- function(spM, meta, header, start, end ) {
       sorted_cellID <- sorted_cellID_df$cell_id_dna
 
   #created TspM for selected region(rows?), containing only columns?/cellIDs with ptime
-    TspM <- as( spM[start:end, sorted_cellID], "TsparseMatrix" )
+    TspM <- as( spM[startpos:endpos, sorted_cellID], "TsparseMatrix" )
 
   #match sorted ptime with spMatrix
     sorted_cellID_df %>%

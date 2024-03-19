@@ -3,14 +3,15 @@
 #'
 #' @param m matrix received from *gauss_kernel_2d*
 #' @param mappedpt data frame containing pseudo times received from *map_methyl*
+#' @param startpos integer defining the start position of the analysed genomic region
 #'
 #' @return tile plot
 #' @export
 #'
 #' @examples
-plot_methyl <- function(m, mappedpt) {
+plot_methyl <- function(m, mappedpt, startpos) {
 
-  as.data.frame(m)  -> df #or should I insteadt include the function for m and mappedpt?
+  as.data.frame(m)  -> df #or should I instead include the function for m and mappedpt?
 
   colnames(df) <- gsub("^V", "", colnames(df))
 
@@ -31,7 +32,7 @@ plot_methyl <- function(m, mappedpt) {
                        labels = seq(0, max(mappedpt$pt), by = 1),
                        expand = c(0, 0) )+
    scale_x_continuous(breaks = c(seq(0, max(df$pos), by = floor(max(df$pos)/4)) ),
-                       labels = function(x) x + start_position ,
+                       labels = function(x) x + startpos ,
                        expand = expansion(add = c(1, 1))) +
     theme( panel.background = element_rect(fill = "transparent")) +
     theme(axis.title.x = element_text(size = 10),
@@ -45,7 +46,6 @@ plot_methyl <- function(m, mappedpt) {
     labs(x = "genomic position", y = "ptime")
 
 }
-
 
 
 

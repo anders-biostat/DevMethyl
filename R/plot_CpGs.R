@@ -1,27 +1,27 @@
 #' Get bar plot visualizing amounts of CpGs within a genomic region
 #'
-#' @param chr integer number chromosome
-#' @param start integer defining the start position of the analysed genomic region
-#' @param end integer defining the end position of the analysed genomic region
+#' @param chr integer number of chromosome
+#' @param startpos integer defining the start position of the analysed genomic region
+#' @param endpos integer defining the end position of the analysed genomic region
 #'
 #' @return bar plot
 #' @export
 #'
 #' @examples
-plot_CpGs <- function(chr, start, end) {
+plot_CpGs <- function(chr, startpos, endpos) {
 
-  cpg_positions <- get_CpGs(chr, start, end)
+  cpg_positions <- get_CpGs(chr, startpos, endpos)
 
-  count_bp <- end-start
+  count_bp <- endpos-startpos
 
-  x_axis4 <- cut(cpg_positions, breaks=50, labels = seq(start,floor(end-floor(count_bp/50)), by=floor(count_bp/50)) )
+  x_axis <- cut(cpg_positions, breaks=50, labels = seq(startpos,floor(endpos-floor(count_bp/50)), by=floor(count_bp/50)) )
 
   as.data.frame(cpg_positions) -> cpg_df
 
-  barplot_cpgs <- ggplot(cpg_df, aes(x=x_axis4) )+
+  barplot_cpgs <- ggplot(cpg_df, aes(x=x_axis) )+
                   geom_bar() +
                   labs(y="CpG count") +
-                  scale_x_discrete(breaks=c(start,max(levels(x_axis4)))) +
+                  scale_x_discrete(breaks=c(startpos,max(levels(x_axis)))) +
                   theme_minimal() +
                   theme(axis.text.y = element_text(size = 10),
                         axis.title.x = element_blank(),

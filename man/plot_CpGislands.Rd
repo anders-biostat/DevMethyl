@@ -4,16 +4,16 @@
 \alias{plot_CpGislands}
 \title{Plot CpG islands}
 \usage{
-plot_CpGislands(path, chr, start_pos, end_pos)
+plot_CpGislands(path, chr, startpos, endpos)
 }
 \arguments{
-\item{path}{path to txt file containing information about CpGislands retrieved from ...}
+\item{path}{path to txt file containing information about CpG islands retrieved from ...}
 
-\item{chr}{integer number chromosome}
+\item{chr}{integer number of chromosome}
 
-\item{start_pos}{integer defining the start position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
 
-\item{end_pos}{integer defining the end position of the analysed genomic region}
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 segment plot

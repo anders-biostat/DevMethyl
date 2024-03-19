@@ -4,14 +4,14 @@
 \alias{get_CpGs}
 \title{Get Positions of CpGs in a genomic region}
 \usage{
-get_CpGs(chr, start, end)
+get_CpGs(chr, startpos, endpos)
 }
 \arguments{
 \item{chr}{integer number of chromosome}
 
-\item{start}{integer defining the start position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
 
-\item{end}{integer defining the end position of the analysed genomic region}
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 integer list

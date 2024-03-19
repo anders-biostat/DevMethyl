@@ -4,14 +4,14 @@
 \alias{plot_CpGs}
 \title{Get bar plot visualizing amounts of CpGs within a genomic region}
 \usage{
-plot_CpGs(chr, start, end)
+plot_CpGs(chr, startpos, endpos)
 }
 \arguments{
-\item{chr}{integer number chromosome}
+\item{chr}{integer number of chromosome}
 
-\item{start}{integer defining the start position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
 
-\item{end}{integer defining the end position of the analysed genomic region}
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 bar plot

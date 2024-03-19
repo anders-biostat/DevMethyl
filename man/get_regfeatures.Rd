@@ -4,10 +4,16 @@
 \alias{get_regfeatures}
 \title{Get regulatory features of genomic region}
 \usage{
-get_regfeatures(regfeatures, chr, start_pos, end_pos)
+get_regfeatures(regfeatures, chr, startpos, endpos)
 }
 \arguments{
 \item{regfeatures}{pathway of gtf file downloaded from ensemble containing ...}
+
+\item{chr}{integer number of chromosome}
+
+\item{startpos}{integer defining the start position of the analysed genomic region}
+
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 data frame ...

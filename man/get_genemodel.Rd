@@ -4,14 +4,16 @@
 \alias{get_genemodel}
 \title{Get gene model of genomic region}
 \usage{
-get_genemodel(gtf, chr, start_pos, end_pos)
+get_genemodel(gtf, chr, startpos, endpos)
 }
 \arguments{
 \item{gtf}{pathway to gtf file downloaded from...}
 
-\item{start_pos}{integer defining the start position of the analysed genomic region}
+\item{chr}{integer number of chromosome}
 
-\item{end_pos}{integer defining the end position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
+
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 data frame

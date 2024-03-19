@@ -2,24 +2,24 @@
 % Please edit documentation in R/map_methyl.R
 \name{map_methyl}
 \alias{map_methyl}
-\title{Map methylation data to pseudotime}
+\title{Map methylation data to pseudo time}
 \usage{
-map_methyl(spM, meta, header, start, end)
+map_methyl(spM, meta, header, startpos, endpos)
 }
 \arguments{
 \item{spM}{sparse Matrix received from function \emph{npz.to.spM} or with same format}
 
-\item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime)}
+\item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)}
 
 \item{header}{data frame containing cell IDs for spM}
 
-\item{start}{integer defining the start position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region}
 
-\item{end}{integer defining the end position of the analysed genomic region}
+\item{endpos}{integer defining the end position of the analysed genomic region}
 }
 \value{
 data frame containing information of spM for the selected genomic region, sorted by ptime. Here i is the row index giving information of the genomic position , ptimes contains the sorted pseudo times of the cells and data contains either value -1 or 1 specifying the methylation status (unmethylated, methylated).
 }
 \description{
-Map methylation data to pseudotime
+Map methylation data to pseudo time
 }

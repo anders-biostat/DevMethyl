@@ -4,12 +4,14 @@
 \alias{plot_methyl}
 \title{Plot mapped methylation data}
 \usage{
-plot_methyl(m, mappedpt)
+plot_methyl(m, mappedpt, startpos)
 }
 \arguments{
 \item{m}{matrix received from \emph{gauss_kernel_2d}}
 
 \item{mappedpt}{data frame containing pseudo times received from \emph{map_methyl}}
+
+\item{startpos}{integer defining the start position of the analysed genomic region}
 }
 \value{
 tile plot

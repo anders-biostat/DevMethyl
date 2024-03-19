@@ -1,8 +1,9 @@
 #' Plot regulatory features of genomic region
 #'
 #' @param regfeatures pathway of gtf file downloaded from ensemble containing ...
-#' @param start_pos integer defining the start position of the analysed genomic region
-#' @param end_pos integer defining the end position of the analysed genomic region
+#' @param chr integer number of chromosome
+#' @param startpos integer defining the start position of the analysed genomic region
+#' @param endpos integer defining the end position of the analysed genomic region
 #' @param start_VR integer defining the start position of the variable region
 #' @param end_VR integer defining the end position of the variable region
 #'
@@ -10,17 +11,17 @@
 #' @export
 #'
 #' @examples
-plot_regfeatures <- function(regfeatures, chr, start_pos, end_pos, start_VR=0, end_VR=0) {
+plot_regfeatures <- function(regfeatures, chr, startpos, endpos, start_VR=0, end_VR=0) {
 
-  get_regfeatures(regfeatures, chr, start_pos, end_pos) -> feat_reg
+  get_regfeatures(regfeatures, chr, startpos, endpos) -> feat_reg
 
-  feat_reg$start[feat_reg$start < start_position] <- start_pos
-  feat_reg$end[feat_reg$end > end_position] <- end_pos
+  feat_reg$start[feat_reg$start < startpos] <- startpos
+  feat_reg$end[feat_reg$end > endpos] <- endpos
 
   ggplot(feat_reg, aes(y = type, x = start, xend = end, yend = type)) +
     geom_segment(linewidth = 4, color = "black", alpha = 0.7) +
     labs( x= "genomic position") +
-    xlim(start_position, end_position) +
+    xlim(startpos, endpos) +
     scale_y_discrete(position = "right") +
     theme_minimal() +
     theme(axis.line.x = element_line(linewidth=0.5, colour = "black", linetype=1),
