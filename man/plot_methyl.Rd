@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_methyl.R
 \name{plot_methyl}
 \alias{plot_methyl}
-\title{Plot mapped methylation data}
+\title{Plot of mapped methylation data}
 \usage{
 plot_methyl(m, mappedpt, startpos)
 }
@@ -17,5 +17,9 @@ plot_methyl(m, mappedpt, startpos)
 tile plot
 }
 \description{
-Plot mapped methylation data
+Plot of mapped methylation data
+}
+\examples{
+ # dont run
+plot_methyl(m, mappedpt, 8628165)
 }

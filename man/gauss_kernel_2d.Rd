@@ -17,13 +17,13 @@ gauss_kernel_2d(
 \arguments{
 \item{mappedpt}{data frame received from function \emph{ptime_order} containing relative genomic position (pos), pseudo time of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated).}
 
-\item{hx}{width of the kernel}
+\item{hx}{width of kernel}
 
-\item{ht}{height of the kernel}
+\item{ht}{height of kernel}
 
-\item{delx}{width of the grids}
+\item{delx}{width of grids}
 
-\item{delt}{height of the grids}
+\item{delt}{height of grids}
 
 \item{xrange}{vector containing minimum and maximum of the genomic region}
 
@@ -34,4 +34,8 @@ matrix ...
 }
 \description{
 Gaussian Filter applied to 2 dimensional methylation data
+}
+\examples{
+# dont run
+gauss_kernel_2d(mappedpt, 400, 0.8, 40, 0.08,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)
 }

@@ -11,7 +11,7 @@ map_methyl(spM, meta, header, startpos, endpos)
 
 \item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)}
 
-\item{header}{data frame containing cell IDs for spM}
+\item{header}{data frame containing cell IDs for spM, cell IDs have to have same format as in meta}
 
 \item{startpos}{integer defining the start position of the analysed genomic region}
 
@@ -22,4 +22,8 @@ data frame containing information of spM for the selected genomic region, sorted
 }
 \description{
 Map methylation data to pseudo time
+}
+\examples{
+# dont run
+map_methyl( spM, meta, header, 8628165, 8684055)
 }

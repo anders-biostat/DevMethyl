@@ -1,29 +1,30 @@
 #' Plotting of CpG, GpC and gene data
 #'
-#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)
+#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")
 #' @param header data frame containing cell IDs for spM
-#' @param header_acc data frame containing cell IDs for spM
-#' @param hx width of the kernel
-#' @param ht height of the kernel
+#' @param header_acc data frame containing cell IDs for spM of accessibility data?
+#' @param hx width of kernel
+#' @param ht height of kernel
 #' @param chr integer number of chromosome
 #' @param start_VR integer defining the start position of the variable region
 #' @param end_VR integer defining the end position of the variable region
-#' @param cpgifile path to txt file containing information about CpG islands retrieved from ...
-#' @param npz pathway of npz file
+#' @param cpgipath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.
+#' @param npz pathway of npz file containing CpG methylation.
 #' @param npz_acc pathway of npz file containing GpC methylation. Used for chromatin accessibility analysis
-#' @param featurefile pathway of gtf file downloaded from ensemble containing ...
-#' @param genefile pathway to gtf file downloaded from...
+#' @param featurepath Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.
+#' @param genepath Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.
 #' @param startpos integer defining the start position of the analysed genomic region
 #' @param endpos integer defining the end position of the analysed genomic region
 #'
 #' @return Plot
 #' @export
 #'
-#' @examples
-plot_all <- function(cpgifile, npz, meta, header, npz_acc, header_acc, featurefile, genefile, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
+#' @examples # dont run
+#' plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)
+plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
 
   # CpGislands
-        read.table(cpgifile) -> cpgi
+        read.table(cpgipath) -> cpgi
 
         table_scheme <- c("bin", "chrom", "chrStart", "chrEnd", "name", "length", "cpgNum", "cgNum", "perCpG", "perGC", "obsExp")
 
@@ -153,7 +154,7 @@ plot_all <- function(cpgifile, npz, meta, header, npz_acc, header_acc, featurefi
             labs( y = "ptime") -> acc_plot
 
   # gene model
-          get_genemodel(genefile, chr, startpos, endpos) -> reg
+          get_genemodel(genepath, chr, startpos, endpos) -> reg
 
           reg$start[reg$start < startpos] <- startpos
           reg$end[reg$end > endpos] <- endpos
@@ -183,7 +184,7 @@ plot_all <- function(cpgifile, npz, meta, header, npz_acc, header_acc, featurefi
 
 
   # genomic features
-          plot_regfeatures(featurefile, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
+          plot_regfeatures(featurepath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
 
   # combine plots
           design <- "

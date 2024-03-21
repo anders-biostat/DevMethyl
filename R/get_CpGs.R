@@ -7,7 +7,7 @@
 #' @return integer list
 #' @export
 #'
-#' @examples
+#' @examples get_CpGs(8, 8628165, 8684055)
 get_CpGs <- function(chr, startpos, endpos) {
 
   ext_muster <- "/sequence/region/mouse/%s:%s..%s:1?"
@@ -21,7 +21,7 @@ get_CpGs <- function(chr, startpos, endpos) {
   stop_for_status(url)
   sequence <- content(url)
 
-  cpg_positions<- unlist(gregexpr("CG", sequence))
+  cpg_positions <- unlist(gregexpr("CG", sequence))
 
   return(cpg_positions)
 }

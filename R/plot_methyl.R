@@ -1,5 +1,5 @@
 
-#' Plot mapped methylation data
+#' Plot of mapped methylation data
 #'
 #' @param m matrix received from *gauss_kernel_2d*
 #' @param mappedpt data frame containing pseudo times received from *map_methyl*
@@ -8,7 +8,8 @@
 #' @return tile plot
 #' @export
 #'
-#' @examples
+#' @examples  # dont run
+#' plot_methyl(m, mappedpt, 8628165)
 plot_methyl <- function(m, mappedpt, startpos) {
 
   as.data.frame(m)  -> df #or should I instead include the function for m and mappedpt?

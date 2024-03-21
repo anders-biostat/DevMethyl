@@ -19,3 +19,6 @@ bar plot
 \description{
 Get bar plot visualizing amounts of CpGs within a genomic region
 }
+\examples{
+plot_CpGs(8, 8628165, 8684055)
+}

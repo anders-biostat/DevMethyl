@@ -5,14 +5,14 @@
 \title{Plotting of CpG, GpC and gene data}
 \usage{
 plot_all(
-  cpgifile,
+  cpgipath,
   npz,
   meta,
   header,
   npz_acc,
   header_acc,
-  featurefile,
-  genefile,
+  featurepath,
+  genepath,
   hx,
   ht,
   chr,
@@ -23,25 +23,25 @@ plot_all(
 )
 }
 \arguments{
-\item{cpgifile}{path to txt file containing information about CpG islands retrieved from ...}
+\item{cpgipath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.}
 
-\item{npz}{pathway of npz file}
+\item{npz}{pathway of npz file containing CpG methylation.}
 
-\item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)}
+\item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")}
 
 \item{header}{data frame containing cell IDs for spM}
 
 \item{npz_acc}{pathway of npz file containing GpC methylation. Used for chromatin accessibility analysis}
 
-\item{header_acc}{data frame containing cell IDs for spM}
+\item{header_acc}{data frame containing cell IDs for spM of accessibility data?}
 
-\item{featurefile}{pathway of gtf file downloaded from ensemble containing ...}
+\item{featurepath}{Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.}
 
-\item{genefile}{pathway to gtf file downloaded from...}
+\item{genepath}{Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.}
 
-\item{hx}{width of the kernel}
+\item{hx}{width of kernel}
 
-\item{ht}{height of the kernel}
+\item{ht}{height of kernel}
 
 \item{chr}{integer number of chromosome}
 
@@ -58,4 +58,8 @@ Plot
 }
 \description{
 Plotting of CpG, GpC and gene data
+}
+\examples{
+# dont run
+plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)
 }

@@ -1,0 +1,5 @@
+load("/Users/hannahglaser/Labrotation Anders/DevMethyl/data/ex_cpgi.rda")
+load("/Users/hannahglaser/Labrotation Anders/DevMethyl/data/ex_cpgi.rda")-> cpgi
+print(cpgi)
+load("/Users/hannahglaser/Labrotation Anders/DevMethyl/data/ex_header.rda")
+load("/Users/hannahglaser/Labrotation Anders/DevMethyl/data/ex_cpgi.rda")

@@ -4,10 +4,10 @@
 \alias{plot_regfeatures}
 \title{Plot regulatory features of genomic region}
 \usage{
-plot_regfeatures(regfeatures, chr, startpos, endpos, start_VR = 0, end_VR = 0)
+plot_regfeatures(gffpath, chr, startpos, endpos, start_VR = 0, end_VR = 0)
 }
 \arguments{
-\item{regfeatures}{pathway of gtf file downloaded from ensemble containing ...}
+\item{gffpath}{Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.}
 
 \item{chr}{integer number of chromosome}
 
@@ -24,4 +24,7 @@ segment plot
 }
 \description{
 Plot regulatory features of genomic region
+}
+\examples{
+plot_regfeatures("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
 }

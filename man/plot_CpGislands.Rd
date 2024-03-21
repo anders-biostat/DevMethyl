@@ -2,12 +2,12 @@
 % Please edit documentation in R/plot_CpGislands.R
 \name{plot_CpGislands}
 \alias{plot_CpGislands}
-\title{Plot CpG islands}
+\title{Plot cpg islands}
 \usage{
-plot_CpGislands(path, chr, startpos, endpos)
+plot_CpGislands(txtpath, chr, startpos, endpos)
 }
 \arguments{
-\item{path}{path to txt file containing information about CpG islands retrieved from ...}
+\item{txtpath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.}
 
 \item{chr}{integer number of chromosome}
 
@@ -19,5 +19,9 @@ plot_CpGislands(path, chr, startpos, endpos)
 segment plot
 }
 \description{
-Plot CpG islands
+Plot cpg islands
+}
+\examples{
+# dont run
+plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)
 }

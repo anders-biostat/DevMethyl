@@ -15,3 +15,7 @@ Tsparse Matrix with j = indices, p = indptr and x = data
 \description{
 Transform npz file to sparse Matrix
 }
+\examples{
+# dont run
+npz.to.spM(~/chr8.npz)
+}

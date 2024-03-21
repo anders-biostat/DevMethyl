@@ -19,3 +19,6 @@ integer list
 \description{
 Get Positions of CpGs in a genomic region
 }
+\examples{
+get_CpGs(8, 8628165, 8684055)
+}

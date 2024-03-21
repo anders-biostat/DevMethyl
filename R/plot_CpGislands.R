@@ -1,6 +1,6 @@
-#' Plot CpG islands
+#' Plot cpg islands
 #'
-#' @param path path to txt file containing information about CpG islands retrieved from ...
+#' @param txtpath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
 #' @param chr integer number of chromosome
 #' @param startpos integer defining the start position of the analysed genomic region
 #' @param endpos integer defining the end position of the analysed genomic region
@@ -8,10 +8,11 @@
 #' @return segment plot
 #' @export
 #'
-#' @examples
-plot_CpGislands <- function(path, chr, startpos, endpos) {
+#' @examples # dont run
+#' plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)
+plot_CpGislands <- function(txtpath, chr, startpos, endpos) {
 
-  read.table(path) -> cpgi
+  read.table(txtpath) -> cpgi
 
   table_scheme <- c("bin", "chrom", "chrStart", "chrEnd", "name", "length", "cpgNum", "cgNum", "perCpG", "perGC", "obsExp")
 

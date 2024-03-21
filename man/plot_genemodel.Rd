@@ -4,10 +4,10 @@
 \alias{plot_genemodel}
 \title{Plot gene model}
 \usage{
-plot_genemodel(gtf, chr, startpos, endpos)
+plot_genemodel(gtfpath, chr, startpos, endpos)
 }
 \arguments{
-\item{gtf}{pathway to gtf file downloaded from...}
+\item{gtfpath}{Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.}
 
 \item{chr}{integer number of chromosome}
 
@@ -20,4 +20,7 @@ arrow plot
 }
 \description{
 Plot gene model
+}
+\examples{
+get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
 }

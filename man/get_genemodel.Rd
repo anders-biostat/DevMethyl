@@ -4,10 +4,10 @@
 \alias{get_genemodel}
 \title{Get gene model of genomic region}
 \usage{
-get_genemodel(gtf, chr, startpos, endpos)
+get_genemodel(gtfpath, chr, startpos, endpos)
 }
 \arguments{
-\item{gtf}{pathway to gtf file downloaded from...}
+\item{gtfpath}{Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.}
 
 \item{chr}{integer number of chromosome}
 
@@ -20,4 +20,7 @@ data frame
 }
 \description{
 Get gene model of genomic region
+}
+\examples{
+get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
 }
