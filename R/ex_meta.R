@@ -10,7 +10,9 @@
 #' @format A data frame containing 493 rows and 2 columns
 #' \describe{
 #'   \item{cell_id_dna}{cell id}
-#'   \item{ptime}{pseudo time} }
+#'   \item{ptime}{pseudo time 1}
+#'   \item{ptime2}{pseudo time 2}
+#'   \item{pt_avg}{average pseudo time}}
 #'
 #' @keywords datasets
 #'

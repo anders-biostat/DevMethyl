@@ -19,10 +19,10 @@ map_methyl <- function(spM, meta, header, startpos, endpos ) {
   #prepare meta data
     meta %>%
       as.data.frame() %>%
-      dplyr::select(cell_id_dna, ptime) %>%
-      filter(!is.na(ptime)) -> meta2
+      dplyr::select(cell_id_dna, pt_avg) %>%
+      filter(!is.na(pt_avg)) -> meta2
 
-      sorted_cellID_df <- meta2[order(meta2$ptime), ]
+      sorted_cellID_df <- meta2[order(meta2$pt_avg), ]
       rownames(sorted_cellID_df) <- NULL
       sorted_cellID <- sorted_cellID_df$cell_id_dna
 
@@ -31,9 +31,9 @@ map_methyl <- function(spM, meta, header, startpos, endpos ) {
   #match sorted ptime with spMatrix
     sorted_cellID_df %>%
       mutate(index = 0:(n() - 1)) %>%
-      dplyr::select(index, ptime) -> sorted_ptime
+      dplyr::select(index, pt_avg) -> sorted_ptime
 
-    mappedpt <- sorted_ptime$ptime[match(TspM@j, sorted_ptime$index)]
+    mappedpt <- sorted_ptime$pt_avg[match(TspM@j, sorted_ptime$index)]
 
     mappedpt_df <- data.frame(pos = TspM@i, pt = mappedpt, methyl = TspM@x)
 
