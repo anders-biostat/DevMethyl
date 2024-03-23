@@ -36,6 +36,5 @@ matrix ...
 Gaussian Filter applied to 2 dimensional methylation data
 }
 \examples{
-# dont run
-gauss_kernel_2d(mappedpt, 400, 0.8, 40, 0.08,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)
+\dontrun{gauss_kernel_2d(mappedpt, 400, 0.8, 40, 0.08,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)}
 }

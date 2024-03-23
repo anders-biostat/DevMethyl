@@ -8,8 +8,7 @@
 #' @return tile plot
 #' @export
 #'
-#' @examples  # dont run
-#' plot_methyl(m, mappedpt, 8628165)
+#' @examples \dontrun{plot_methyl(m, mappedpt, 8628165)}
 plot_methyl <- function(m, mappedpt, startpos) {
 
   as.data.frame(m)  -> df #or should I instead include the function for m and mappedpt?
@@ -27,8 +26,9 @@ plot_methyl <- function(m, mappedpt, startpos) {
     geom_tile() +
     labs(fill = "methylation status") +
     scale_fill_viridis(option= "D",
-                       breaks= c(0.8,-0.8),
-                       labels = c("methylated", "unmethylated")) +
+                       breaks= c(-0.8, 0.8),
+                       labels = c("unmethylated", "methylated"),
+                       limits= c(-1, 1)) +
     scale_y_continuous(breaks = seq(0, max(df$ptime), by = floor(max(df$ptime) / floor(max(mappedpt$pt)))),
                        labels = seq(0, max(mappedpt$pt), by = 1),
                        expand = c(0, 0) )+

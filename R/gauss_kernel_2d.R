@@ -11,8 +11,7 @@
 #' @return matrix ...
 #' @export
 #'
-#' @examples # dont run
-#' gauss_kernel_2d(mappedpt, 400, 0.8, 40, 0.08,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)
+#' @examples \dontrun{gauss_kernel_2d(mappedpt, 400, 0.8, 40, 0.08,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)}
 gauss_kernel_2d <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange=range(mappedpt$pt) ) {
 
   pyfcts$gaussian_smoothing(mappedpt$pos, mappedpt$pt, mappedpt$methyl, xrange[1], xrange[2], delx, trange[1], trange[2], delt, hx, ht)

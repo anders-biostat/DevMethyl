@@ -1,4 +1,4 @@
-#' Plot cpg islands
+#' Plot cpg islands of specific genomic region
 #'
 #' @param txtpath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
 #' @param chr integer number of chromosome
@@ -8,8 +8,7 @@
 #' @return segment plot
 #' @export
 #'
-#' @examples # dont run
-#' plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)
+#' @examples \dontrun{plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)}
 plot_CpGislands <- function(txtpath, chr, startpos, endpos) {
 
   read.table(txtpath) -> cpgi

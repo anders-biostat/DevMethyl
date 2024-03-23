@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_CpGislands.R
 \name{plot_CpGislands}
 \alias{plot_CpGislands}
-\title{Plot cpg islands}
+\title{Plot cpg islands of specific genomic region}
 \usage{
 plot_CpGislands(txtpath, chr, startpos, endpos)
 }
@@ -19,9 +19,8 @@ plot_CpGislands(txtpath, chr, startpos, endpos)
 segment plot
 }
 \description{
-Plot cpg islands
+Plot cpg islands of specific genomic region
 }
 \examples{
-# dont run
-plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)
+\dontrun{plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)}
 }

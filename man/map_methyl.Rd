@@ -24,6 +24,5 @@ data frame containing information of spM for the selected genomic region, sorted
 Map methylation data to pseudo time
 }
 \examples{
-# dont run
-map_methyl( spM, meta, header, 8628165, 8684055)
+\dontrun{map_methyl( spM, meta, header, 8628165, 8684055)}
 }

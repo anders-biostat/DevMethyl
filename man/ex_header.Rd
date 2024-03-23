@@ -16,7 +16,7 @@ data(ex_header)
 Data frame with cell ids for the used sparse Matrix ex_spM
 }
 \examples{
-\donttest{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
+\dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
 }
 \references{
 ?

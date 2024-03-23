@@ -24,7 +24,7 @@ plot_genemodel <- function(gtfpath, chr, startpos, endpos) {
 
   reg_subgenes$type <- factor(reg_subgenes$type, levels =c( "exon", "CDS", "start_codon", "stop_codon", "five_prime_utr",  "three_prime_utr", "Selenocysteine"))
 
-  ggplot( NULL, aes( xmin=startpos, xmax=endpos, y=gene_name, forward=strand_boolean ) ) +
+  ggplot( NULL, aes( xmin=start, xmax=end, y=gene_name, forward=strand_boolean ) ) +
     geom_gene_arrow( data=reg_genes) +
     geom_subgene_arrow( aes(xsubmin=substart, xsubmax=subend, fill=type ), color=NA, data=reg_subgenes ) +
     xlim(startpos, endpos) +

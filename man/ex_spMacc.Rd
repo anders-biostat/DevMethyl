@@ -14,7 +14,7 @@ data(ex_spMacc)
 dgTMatrix containing GpC methylation data of astrocytes and the NSC lineage
 }
 \examples{
-\donttest{map_methyl( ex_spMacc, ex_meta, ex_headeracc, 8000, 64000)}
+\dontrun{map_methyl( ex_spMacc, ex_meta, ex_headeracc, 8000, 64000)}
 }
 \references{
 ?

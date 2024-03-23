@@ -20,6 +20,5 @@ tile plot
 Plot of mapped methylation data
 }
 \examples{
- # dont run
-plot_methyl(m, mappedpt, 8628165)
+\dontrun{plot_methyl(m, mappedpt, 8628165)}
 }

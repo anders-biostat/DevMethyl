@@ -9,8 +9,7 @@
 #' @return data frame containing information of spM for the selected genomic region, sorted by ptime. Here i is the row index giving information of the genomic position , ptimes contains the sorted pseudo times of the cells and data contains either value -1 or 1 specifying the methylation status (unmethylated, methylated).
 #' @export
 #'
-#' @examples # dont run
-#' map_methyl( spM, meta, header, 8628165, 8684055)
+#' @examples \dontrun{map_methyl( spM, meta, header, 8628165, 8684055)}
 map_methyl <- function(spM, meta, header, startpos, endpos ) {
 
     cell_ID <- header$cell_id

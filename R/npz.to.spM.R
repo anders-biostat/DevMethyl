@@ -5,8 +5,7 @@
 #' @return Tsparse Matrix with j = indices, p = indptr and x = data
 #' @export
 #'
-#' @examples # dont run
-#' npz.to.spM(~/chr8.npz)
+#' @examples \dontrun{npz.to.spM(~/chr8.npz)}
 npz.to.spM <- function(npzPath) {
 
   numpy <- reticulate::import("numpy")  # somehow only works with this line in the function

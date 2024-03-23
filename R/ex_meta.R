@@ -18,6 +18,5 @@
 #'
 #' @references ?
 #'
-#' @examples
-#' \donttest{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
+#' @examples \dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
 "ex_meta"

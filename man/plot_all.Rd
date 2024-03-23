@@ -60,6 +60,5 @@ Plot
 Plotting of CpG, GpC and gene data
 }
 \examples{
-# dont run
-plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)
+\dontrun{plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
 }

@@ -19,7 +19,7 @@ data(ex_meta)
 Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc
 }
 \examples{
-\donttest{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
+\dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
 }
 \references{
 ?

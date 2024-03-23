@@ -15,12 +15,12 @@
 #'   \item{V4}{End position in chromosome}
 #'   \item{V5}{island name part1}
 #'   \item{V6}{island name part2}
-#'   \item{V7}{Island Length}
+#'   \item{V7}{Island length}
 #'   \item{V8}{Number of CpGs in island}
 #'   \item{V9}{Number of C and G in island}
 #'   \item{V10}{Percentage of island that is CpG}
 #'   \item{V11}{Percentage of island that is C or G}
-#'   \item{V12}{Ratio of observed(cpgNum) to expected(numC*numG/length) CpG in island}}
+#'   \item{V12}{Ratio of observed (cpgNum) to expected (numC*numG/length) CpG in island}}
 #'
 #' @keywords datasets
 #'
@@ -28,8 +28,7 @@
 #'
 #' @source \href{https://genome.ucsc.edu/cgi-bin/hgTables}{UCSC Table Browser}
 #'
-#' @examples
-#' \donttest{cpgipath <- "~/ex_cpgi"
+#' @examples \dontrun{cpgipath <- "~/ex_cpgi"
 #' write.table(ex_cpgi, file=cpgipath, row.names = FALSE, col.names = FALSE)
 #' plot_CpGislands(cpgipath, 8, 8628165, 8684055)}
 "ex_cpgi"
