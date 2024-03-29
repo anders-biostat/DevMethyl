@@ -1,8 +1,7 @@
-
 #' Plot of mapped methylation data
 #'
-#' @param m matrix received from *gauss_kernel_2d*
-#' @param mappedpt data frame containing pseudo times received from *map_methyl*
+#' @param m matrix received from `smooth2d`
+#' @param mappedpt data frame containing pseudo times received from `map_methyl`
 #' @param startpos integer defining the start position of the analysed genomic region
 #'
 #' @return tile plot

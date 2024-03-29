@@ -1,7 +1,7 @@
 #' Map methylation data to pseudo time
 #'
-#' @param spM sparse Matrix received from function *npz.to.spM* or with same format
-#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime)
+#' @param spM sparse Matrix received from function `npz.to.spM` or with same format
+#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")
 #' @param header data frame containing cell IDs for spM, cell IDs have to have same format as in meta
 #' @param startpos integer defining the start position of the analysed genomic region
 #' @param endpos integer defining the end position of the analysed genomic region

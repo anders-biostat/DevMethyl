@@ -7,10 +7,10 @@
 #' @return bar plot
 #' @export
 #'
-#' @examples plot_CpGs(8, 8628165, 8684055)
-plot_CpGs <- function(chr, startpos, endpos) {
+#' @examples plot_cpgs(8, 8628165, 8684055)
+plot_cpgs <- function(chr, startpos, endpos) {
 
-  cpg_positions <- get_CpGs(chr, startpos, endpos)
+  cpg_positions <- get_cpgs(chr, startpos, endpos)
 
   count_bp <- endpos-startpos
 

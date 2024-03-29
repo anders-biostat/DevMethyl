@@ -55,7 +55,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
                 plot.margin = margin(0,1,0,1, "cm")) -> cpgi_plot
 
   # CpGs
-          cpg_positions <- get_CpGs(chr, startpos, endpos)
+          cpg_positions <- get_cpgs(chr, startpos, endpos)
 
           count_bp <- endpos-startpos
 
@@ -82,7 +82,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
   # DNA methylation
           npz.to.spM(npz) -> sp
           map_methyl(sp, meta, header, startpos, endpos) -> mappedpt
-          gauss_kernel_2d(mappedpt, hx, ht) -> m
+          smooth2d(mappedpt, hx, ht) -> m
 
           as.data.frame(m)  -> df
 
@@ -122,7 +122,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
   # Chromatin accessibility
           npz.to.spM(npz_acc) -> sp_acc
           map_methyl(sp_acc, meta, header_acc, startpos, endpos) -> mappedpt_acc
-          gauss_kernel_2d(mappedpt_acc, hx, ht) -> m_acc
+          smooth2d(mappedpt_acc, hx, ht) -> m_acc
 
           as.data.frame(m_acc)  -> df_acc
 
@@ -185,7 +185,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
 
 
   # genomic features
-          plot_regfeatures(featurepath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
+          plot_regulation(featurepath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
 
   # combine plots
           design <- "

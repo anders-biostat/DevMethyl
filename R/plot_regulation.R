@@ -1,6 +1,6 @@
 #' Plot regulatory features of genomic region
 #'
-#' @param gffpath Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.
+#' @param gffpath Location of the gff file to be read. Can be a single string of the file path, the URL or can be a connection.
 #' @param chr integer number of chromosome
 #' @param startpos integer defining the start position of the analysed genomic region
 #' @param endpos integer defining the end position of the analysed genomic region
@@ -10,10 +10,10 @@
 #' @return segment plot
 #' @export
 #'
-#' @examples plot_regfeatures("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
-plot_regfeatures <- function(gffpath, chr, startpos, endpos, start_VR=0, end_VR=0) {
+#' @examples plot_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
+plot_regulation <- function(gffpath, chr, startpos, endpos, start_VR=0, end_VR=0) {
 
-  get_regfeatures(gffpath, chr, startpos, endpos) -> feat_reg
+  get_regulation(gffpath, chr, startpos, endpos) -> feat_reg
 
   feat_reg$start[feat_reg$start < startpos] <- startpos
   feat_reg$end[feat_reg$end > endpos] <- endpos

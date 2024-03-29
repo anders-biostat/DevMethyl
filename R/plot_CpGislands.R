@@ -8,8 +8,8 @@
 #' @return segment plot
 #' @export
 #'
-#' @examples \dontrun{plot_CpGislands("~/gpgi_file", 8, 8628165, 8684055)}
-plot_CpGislands <- function(txtpath, chr, startpos, endpos) {
+#' @examples \dontrun{plot_cpgislands("~/gpgi_file", 8, 8628165, 8684055)}
+plot_cpgislands <- function(txtpath, chr, startpos, endpos) {
 
   read.table(txtpath) -> cpgi
 

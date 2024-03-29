@@ -8,8 +8,8 @@
 #' @return data frame ...
 #' @export
 #'
-#' @examples get_regfeatures("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
-get_regfeatures <- function(gffpath, chr, startpos, endpos) {
+#' @examples get_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
+get_regulation <- function(gffpath, chr, startpos, endpos) {
 
   ens_feat <- readGFF(gffpath)
 
