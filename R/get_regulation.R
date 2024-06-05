@@ -11,10 +11,10 @@
 #' @examples get_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
 get_regulation <- function(gffpath, chr, startpos, endpos) {
 
-  ens_feat <- readGFF(gffpath)
+  ens_feat<- as.data.frame(import.gff(gffpath))
 
   ens_feat %>%
-    dplyr::filter(seqid==chr) %>%
+    dplyr::filter(seqnames==chr) %>%
     dplyr::filter(!start > endpos , !end < startpos) -> feat_reg
 
  return(feat_reg)
