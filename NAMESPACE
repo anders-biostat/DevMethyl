@@ -3,6 +3,7 @@
 export(get_cpgs)
 export(get_genemodel)
 export(get_regulation)
+export(load_exdata)
 export(map_methyl)
 export(npz.to.spM)
 export(plot_all)

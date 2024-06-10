@@ -1,5 +1,6 @@
 ---
 title: "DevMethyl"
+author: "Hannah Glaser"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{DevMethyl}
@@ -7,40 +8,21 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
+```{r message=FALSE, warning=FALSE}
+library(DevMethyl)
 ```
 
-
-# 1 Introduction
-  `DevMethyl` is a package used for analysis of DNA methylation changes during cell differentiation. scNMT-seq data of various differentiation stages (pseudotimes) can be used to compare DNA methylation and chromatin accessibility of a chosen genomic region during the process. Further, this package offers more functions to access and visualize CpG content, genomic and regulatory features of a genomic region.
-  
-# 2 Getting Started
-
-## 2.1 Installation 
-```{r eval=FALSE, include=FALSE}
-install("DevMethyl")
-```
-  
-## 2.2 Load the package
-```{r setup}
-suppressPackageStartupMessages(
-  library(DevMethyl)
-  )
+```{r}
+load_exdata() -> file_paths
+file_paths[[1]] -> methylpath
+file_paths[[2]]-> accpath
+system.file("extdata", "column_header.txt", package = "DevMethyl") -> headerpath
+system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl") -> acc_headerpath
+system.file("extdata", "cell-annotation.tsv", package = "DevMethyl") -> metapath
+system.file("extdata", "cpgIslandExtUnmasked.txt" , package = "DevMethyl") -> cpgipath
 ```
 
-```{r echo=FALSE}
- "/Users/hannahglaser/Labrotation Anders/8.npz" -> npzpath
-"/Users/hannahglaser/Labrotation Anders/8_GpC.npz" -> npzpathAcc
- "/Users/hannahglaser/Labrotation Anders/raw_data/column_header.txt" -> headerpath
-"/Users/hannahglaser/Labrotation Anders/raw_data/21-11-10_cell-annotation.tsv" -> metapath
-cpgipath <- "/Users/hannahglaser/Labrotation Anders/raw_data/cpgIslandExtUnmasked.txt"
-```
-
-## 2.3 Preparations
+## 2.2 Preparations
 The analysis starts by choosing a genomic region of interest (ROI). Depending on the extend of your analysis it might save you time to assign your settings to variables. In this example we chose chromosome 8 to analyse the variable region (VR) 8653165-8659055. To compare our VR with non-VRs we chose our ROI 8628165-8684055. If you don't know any VRs you can leave these variables out and continue using a random ROI. Depending on the used sparse matrix and ROI, you might need to adjust your kernel size (hx, ht).
 ```{r Settings}
 chr <- 8
@@ -55,19 +37,18 @@ ht <- 0.4
 # 3 Visualizing methylation data
 If you are working with a numpy array file (npz), you have to convert it into a sparse matrix first using `npz.to.spM`.
 ```{r npz.to.spM()}
-npz.to.spM(npzpath) -> sp
+npz.to.spM(methylpath) -> sp
 ```
 
 To plot your methylation data, you first use `map_methyl()` to map your sparse matrix to the cell ids and pseudotimes.
 For this you have to make sure the cell ids are stored in a column "cell_id" of a data frame and are of the same format as in your meta data containing the pseudotimes.
-
 ```{r}
-  header <- readLines(headerpath) %>% as.data.frame()
+header <- readLines(headerpath) %>% as.data.frame()
 
-  names(header)[names(header) == "."] <- "cell_id"
+names(header)[names(header) == "."] <- "cell_id"
   
-  header %>%
-    mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header
+header %>%
+  mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header
 
 ```
 
@@ -87,7 +68,6 @@ mappedpt %>% head()
 With the mapped pseudotimes and your chosen kernel size, you now smooth the data using `smooth2d`. The function will return a matrix with your values smoothed by the a gaussian kernel.
 ```{r gauss_kernel}
 smooth2d(mappedpt, hx, ht) -> m
-m %>% head(1)
 ```
 
 Finally you can plot your matrix using `plot_methyl`. This will return a tile plot visualizing how the methylation pattern changes during differentiation.
@@ -97,9 +77,12 @@ plot_methyl(m, mappedpt, rstart)
 
 The same can be repeated for chromatin accessibility data.
 ```{r accessibility, echo=FALSE}
-npz.to.spM("/Users/hannahglaser/Labrotation Anders/8_GpC.npz") ->spAcc
- header_acc <- readLines("/Users/hannahglaser/Labrotation Anders/raw_data/column_header_accessibility.txt") %>% as.data.frame()
+npz.to.spM(accpath) ->spAcc
+
+header_acc <- readLines(acc_headerpath) %>% as.data.frame()
+ 
 names(header_acc)[names(header_acc) == "."] <- "cell_id"
+
   header_acc %>%
     mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header_acc
   map_methyl(spAcc, meta, header_acc, rstart, rend) -> mappedpt_acc
@@ -158,8 +141,8 @@ plot_regulation(regpath, chr, rstart, rend, startVR, endVR)
   
 # 5 Creating summary plot
 The easiest way to get a comprehensive summary is to plot all data in one plot using `plot_all`. 
-```{r plot features, fig.height=10, fig.width=12}
-plot_all(cpgipath, npzpath, meta, header, npzpathAcc, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
+```{r plot features, fig.height=8, fig.width=10}
+plot_all(cpgipath, methylpath, meta, header, accpath, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
 
 ```
 
