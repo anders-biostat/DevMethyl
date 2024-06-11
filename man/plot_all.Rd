@@ -6,10 +6,10 @@
 \usage{
 plot_all(
   cpgipath,
-  npz,
+  spM,
   meta,
   header,
-  npz_acc,
+  spMacc,
   header_acc,
   featurepath,
   genepath,
@@ -25,13 +25,13 @@ plot_all(
 \arguments{
 \item{cpgipath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.}
 
-\item{npz}{pathway of npz file containing CpG methylation.}
+\item{spM}{dgTMatrix containing CpG methylation.}
 
 \item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")}
 
 \item{header}{data frame containing cell IDs for spM}
 
-\item{npz_acc}{pathway of npz file containing GpC methylation. Used for chromatin accessibility analysis}
+\item{spMacc}{dgTMatrix containing GpC methylation. Used for chromatin accessibility analysis}
 
 \item{header_acc}{data frame containing cell IDs for spM of accessibility data?}
 
@@ -45,13 +45,13 @@ plot_all(
 
 \item{chr}{integer number of chromosome}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
+\item{startpos}{integer defining the start position of the analysed genomic region.}
 
-\item{endpos}{integer defining the end position of the analysed genomic region}
+\item{endpos}{integer defining the end position of the analysed genomic region.}
 
-\item{start_VR}{integer defining the start position of the variable region}
+\item{start_VR}{integer defining the start position of the variable region.}
 
-\item{end_VR}{integer defining the end position of the variable region}
+\item{end_VR}{integer defining the end position of the variable region.}
 }
 \value{
 Plot
@@ -60,5 +60,5 @@ Plot
 Plotting of CpG, GpC and gene data
 }
 \examples{
-\dontrun{plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
+\dontrun{plot_all(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
 }

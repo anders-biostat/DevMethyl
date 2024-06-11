@@ -6,21 +6,21 @@
 #' @param hx width of kernel
 #' @param ht height of kernel
 #' @param chr integer number of chromosome
-#' @param start_VR integer defining the start position of the variable region
-#' @param end_VR integer defining the end position of the variable region
+#' @param start_VR integer defining the start position of the variable region.
+#' @param end_VR integer defining the end position of the variable region.
 #' @param cpgipath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.
-#' @param npz pathway of npz file containing CpG methylation.
-#' @param npz_acc pathway of npz file containing GpC methylation. Used for chromatin accessibility analysis
+#' @param spM dgTMatrix containing CpG methylation.
+#' @param spMacc dgTMatrix containing GpC methylation. Used for chromatin accessibility analysis
 #' @param featurepath Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.
 #' @param genepath Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' @param startpos integer defining the start position of the analysed genomic region.
+#' @param endpos integer defining the end position of the analysed genomic region.
 #'
 #' @return Plot
 #' @export
 #'
-#' @examples \dontrun{plot_all(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
-plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
+#' @examples \dontrun{plot_all(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
+plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
 
   # CpGislands
         read.table(cpgipath) -> cpgi
@@ -80,8 +80,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
 
 
   # DNA methylation
-          npz.to.spM(npz) -> sp
-          map_methyl(sp, meta, header, startpos, endpos) -> mappedpt
+          map_methyl(spM, meta, header, startpos, endpos) -> mappedpt
           smooth2d(mappedpt, hx, ht) -> m
 
           as.data.frame(m)  -> df
@@ -120,8 +119,7 @@ plot_all <- function(cpgipath, npz, meta, header, npz_acc, header_acc, featurepa
 
 
   # Chromatin accessibility
-          npz.to.spM(npz_acc) -> sp_acc
-          map_methyl(sp_acc, meta, header_acc, startpos, endpos) -> mappedpt_acc
+          map_methyl(spMacc, meta, header_acc, startpos, endpos) -> mappedpt_acc
           smooth2d(mappedpt_acc, hx, ht) -> m_acc
 
           as.data.frame(m_acc)  -> df_acc
