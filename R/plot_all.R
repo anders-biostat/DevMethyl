@@ -196,7 +196,7 @@ plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepat
            5555
            6666
            "
-          cpgi_plot + cpgs_plot + methyl_plot  + acc_plot + genemodel_plot + feat_plot + plot_layout(design=design, guide="collect") -> combined_plot
+          cpgi_plot + cpgs_plot + methyl_plot  + acc_plot + genemodel_plot + feat_plot + plot_layout(design=design) -> combined_plot
 
   return(combined_plot)
 }
