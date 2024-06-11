@@ -81,6 +81,7 @@ plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepat
 
   # DNA methylation
           map_methyl(spM, meta, header, startpos, endpos) -> mappedpt
+
           smooth2d(mappedpt, hx, ht) -> m
 
           as.data.frame(m)  -> df
@@ -120,6 +121,7 @@ plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepat
 
   # Chromatin accessibility
           map_methyl(spMacc, meta, header_acc, startpos, endpos) -> mappedpt_acc
+
           smooth2d(mappedpt_acc, hx, ht) -> m_acc
 
           as.data.frame(m_acc)  -> df_acc

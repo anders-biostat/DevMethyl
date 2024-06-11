@@ -20,13 +20,13 @@ library(DevMethyl)
 ```
 
 ```{r}
-load_exdata() -> file_paths
-file_paths[[1]] -> methylpath
-file_paths[[2]]-> accpath
-file_paths[[3]]-> cpgipath
-file_paths[[4]]-> metapath
-system.file("extdata", "column_header.txt", package = "DevMethyl") -> headerpath
-system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl") -> acc_headerpath
+file_paths <- load_exdata() 
+methylpath <- file_paths[[1]]
+accpath <- file_paths[[2]]
+cpgipath <- file_paths[[3]]
+metapath <- file_paths[[4]]
+headerpath <- system.file("extdata", "column_header.txt", package = "DevMethyl")
+acc_headerpath <- system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl")
 ```
 
 ## 2.2 Preparations
@@ -45,7 +45,7 @@ ht <- 0.4
 # 3 Visualizing methylation data
 If you are working with a numpy array file (npz), you have to convert it into a sparse matrix first using `npz.to.spM`.
 ```{r npz.to.spM()}
-npz.to.spM(methylpath) -> sp
+sp <- npz.to.spM(methylpath)
 ```
 
 To plot your methylation data, you first use `map_methyl()` to map your sparse matrix to the cell ids and pseudotimes.
@@ -53,29 +53,30 @@ For this you have to make sure the cell ids are stored in a column "cell_id" of 
 ```{r}
 header <- readLines(headerpath) %>% as.data.frame()
 
-names(header)[names(header) == "."] <- "cell_id"
+  names(header)[names(header) == "."] <- "cell_id"
   
-header %>%
-  mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header
-
+header <- header %>%
+          mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
 ```
 
 Your meta data need to store the cell ids in the column "cell_id_dna" and the pseudotimes in "pt_avg".
 Depending on the amount of pseudotimes available for your cells you might need to take average values. 
 ```{r}
 meta <- read.table(metapath, header =TRUE, sep = "\t")
+
    meta$pt_avg <- rowMeans(meta[44:45], na.rm = TRUE)
 ```
 
 `map_methyl()` will return a data frame containing the methylation status (methyl) of the genomic position (pos) for each pseudotime (pt).
 ```{r map_methyl()}
-map_methyl(sp, meta, header, rstart, rend) -> mappedpt
-mappedpt %>% head()
+mappedpt <- map_methyl(sp, meta, header, rstart, rend)
+
+  mappedpt %>% head()
 ```
 
 With the mapped pseudotimes and your chosen kernel size, you now smooth the data using `smooth2d`. The function will return a matrix with your values smoothed by the a gaussian kernel.
 ```{r gauss_kernel}
-smooth2d(mappedpt, hx, ht) -> m
+m <- smooth2d(mappedpt, hx, ht)
 ```
 
 Finally you can plot your matrix using `plot_methyl`. This will return a tile plot visualizing how the methylation pattern changes during differentiation.
@@ -85,16 +86,18 @@ plot_methyl(m, mappedpt, rstart)
 
 The same can be repeated for chromatin accessibility data.
 ```{r accessibility, echo=FALSE}
-npz.to.spM(accpath) ->spAcc
+spAcc <- npz.to.spM(accpath)
 
 header_acc <- readLines(acc_headerpath) %>% as.data.frame()
  
-names(header_acc)[names(header_acc) == "."] <- "cell_id"
+  names(header_acc)[names(header_acc) == "."] <- "cell_id"
 
-  header_acc %>%
-    mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE)) -> header_acc
-  map_methyl(spAcc, meta, header_acc, rstart, rend) -> mappedpt_acc
-  smooth2d(mappedpt_acc, hx, ht) -> mAcc
+header_acc <-  header_acc %>%
+               mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
+  
+mappedpt_acc <- map_methyl(spAcc, meta, header_acc, rstart, rend)
+  
+mAcc <-  smooth2d(mappedpt_acc, hx, ht)
 ```
 
 ```{r plot_methyl(access), fig.width=7}
@@ -126,7 +129,8 @@ plot_cpgs(chr, rstart, rend)
 It can be especially relevant to compare methylation patterns to genes and genomic features. 
 For this you need to extract the genome dataset of your chosen species from the ensemble FTP site. The function `get_genemodel` returns a data frame containing genomic information like start and end point of genes, exon, coding regions and more.
 ```{r genemodel, fig.width=12}
-genepath<- "https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz"
+genepath <- "https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz"
+
 get_genemodel(genepath, chr, rstart, rend) %>% head(3)
 ```
 
@@ -138,7 +142,8 @@ plot_genemodel(genepath, chr, rstart, rend)
 ## 4.4 Regulartory feature
 To get the regulatory features, extract the regulation dataset of your chosen species from the ensemble FTP site. The function `get_regulation` returns a data frame containing start and end of enhancers and promoters and more
 ```{r reg features}
-regpath<- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
+regpath <- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
+
 get_regulation(regpath, chr, rstart, rend) %>% head(1)
 ```
 
@@ -151,7 +156,7 @@ plot_regulation(regpath, chr, rstart, rend, startVR, endVR)
 # 5 Creating summary plot
 The easiest way to get a comprehensive summary is to plot all data in one plot using `plot_all`. 
 ```{r plot features, fig.height=8, fig.width=10}
-plot_all(cpgipath, methylpath, meta, header, accpath, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
+plot_all(cpgipath, sp, meta, header, spAcc, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
 ```
 
 
