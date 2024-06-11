@@ -8,6 +8,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+# 1 Introduction
+  `DevMethyl` is a R package used for analysis of DNA methylation changes during cell differentiation. scNMT-seq data of cvarious differentiation stages can be used to compare DNA methylation and chromatin accessibility of a chosen genomic region during the process. Further, this package offers more functions to access and visualize CpG content, genomic and regulatory features of any genomic region  
+
+
+# 2 Getting Started
+
+## 2.1 Load the package
 ```{r message=FALSE, warning=FALSE}
 library(DevMethyl)
 ```
@@ -16,10 +23,10 @@ library(DevMethyl)
 load_exdata() -> file_paths
 file_paths[[1]] -> methylpath
 file_paths[[2]]-> accpath
+file_paths[[3]]-> cpgipath
+file_paths[[4]]-> metapath
 system.file("extdata", "column_header.txt", package = "DevMethyl") -> headerpath
 system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl") -> acc_headerpath
-system.file("extdata", "cell-annotation.tsv", package = "DevMethyl") -> metapath
-system.file("extdata", "cpgIslandExtUnmasked.txt" , package = "DevMethyl") -> cpgipath
 ```
 
 ## 2.2 Preparations
@@ -33,6 +40,7 @@ endVR <- 8659055
 hx <- 200
 ht <- 0.4
 ```
+
 
 # 3 Visualizing methylation data
 If you are working with a numpy array file (npz), you have to convert it into a sparse matrix first using `npz.to.spM`.
@@ -139,12 +147,13 @@ To plot the regulatory features use `plot_regulation`, which returns a segment p
 plot_regulation(regpath, chr, rstart, rend, startVR, endVR)
 ```
   
+
 # 5 Creating summary plot
 The easiest way to get a comprehensive summary is to plot all data in one plot using `plot_all`. 
 ```{r plot features, fig.height=8, fig.width=10}
 plot_all(cpgipath, methylpath, meta, header, accpath, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
-
 ```
+
 
 # 6 Session Info
 ```{r Session Info}
