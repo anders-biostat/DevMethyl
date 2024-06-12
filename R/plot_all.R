@@ -1,26 +1,24 @@
-#' Plotting of CpG, GpC and gene data
+#' Create summary plot of CpG and GpC methylation data with genomic information
 #'
+#' @param species String of species name/alias.
 #' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")
 #' @param header data frame containing cell IDs for spM
 #' @param header_acc data frame containing cell IDs for spM of accessibility data?
-#' @param hx width of kernel
-#' @param ht height of kernel
-#' @param chr integer number of chromosome
-#' @param start_VR integer defining the start position of the variable region.
-#' @param end_VR integer defining the end position of the variable region.
-#' @param cpgipath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.
+#' @param hx,ht Width and height of kernel.
+#' @param chr Integer number of chromosome
+#' @param start_VR,end_VR Integers defining the start and end position of the variable region.
+#' @param cpgipath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
 #' @param spM dgTMatrix containing CpG methylation.
 #' @param spMacc dgTMatrix containing GpC methylation. Used for chromatin accessibility analysis
 #' @param featurepath Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.
 #' @param genepath Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.
-#' @param startpos integer defining the start position of the analysed genomic region.
-#' @param endpos integer defining the end position of the analysed genomic region.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
 #'
 #' @return Plot
 #' @export
 #'
-#' @examples \dontrun{plot_all(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
-plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
+#' @examples \dontrun{plot_all("mouse", cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
+plot_all <- function(species, cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
 
   # CpGislands
         read.table(cpgipath) -> cpgi
@@ -55,7 +53,7 @@ plot_all <- function(cpgipath, spM, meta, header, spMacc, header_acc, featurepat
                 plot.margin = margin(0,1,0,1, "cm")) -> cpgi_plot
 
   # CpGs
-          cpg_positions <- get_cpgs(chr, startpos, endpos)
+          cpg_positions <- get_cpgs(species, chr, startpos, endpos)
 
           count_bp <- endpos-startpos
 

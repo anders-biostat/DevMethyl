@@ -2,9 +2,10 @@
 % Please edit documentation in R/plot_all.R
 \name{plot_all}
 \alias{plot_all}
-\title{Plotting of CpG, GpC and gene data}
+\title{Create summary plot of CpG and GpC methylation data with genomic information}
 \usage{
 plot_all(
+  species,
   cpgipath,
   spM,
   meta,
@@ -23,7 +24,9 @@ plot_all(
 )
 }
 \arguments{
-\item{cpgipath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" wether cpgIslandExt or cpgIslandExtUnmasked.}
+\item{species}{String of species name/alias.}
+
+\item{cpgipath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.}
 
 \item{spM}{dgTMatrix containing CpG methylation.}
 
@@ -39,26 +42,20 @@ plot_all(
 
 \item{genepath}{Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.}
 
-\item{hx}{width of kernel}
+\item{hx, ht}{Width and height of kernel.}
 
-\item{ht}{height of kernel}
+\item{chr}{Integer number of chromosome}
 
-\item{chr}{integer number of chromosome}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region.}
-
-\item{endpos}{integer defining the end position of the analysed genomic region.}
-
-\item{start_VR}{integer defining the start position of the variable region.}
-
-\item{end_VR}{integer defining the end position of the variable region.}
+\item{start_VR, end_VR}{Integers defining the start and end position of the variable region.}
 }
 \value{
 Plot
 }
 \description{
-Plotting of CpG, GpC and gene data
+Create summary plot of CpG and GpC methylation data with genomic information
 }
 \examples{
-\dontrun{plot_all(cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
+\dontrun{plot_all("mouse", cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
 }

@@ -3,16 +3,17 @@
 #' `plot_cpgs` downloads the sequence of the region of interest for a chosen species from `https://rest.ensembl.org` and extracts the positions of all `CG` sites found.
 #' The CpG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CpG sites in each part is calculated and displayed as a bar.
 #'
+#' @param species String of species name/alias.
 #' @param chr Integer number of chromosome.
 #' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
 #'
 #' @return Bar plot visualizing the distribution of CpG sites within a genomic range.
 #' @export
 #'
-#' @examples plot_cpgs(8, 8628165, 8684055)
-plot_cpgs <- function(chr, startpos, endpos) {
+#' @examples plot_cpgs(mouse, 8, 8628165, 8684055)
+plot_cpgs <- function(species, chr, startpos, endpos) {
 
-  cpg_positions <- get_cpgs(chr, startpos, endpos)
+  cpg_positions <- get_cpgs(species, chr, startpos, endpos)
 
   count_bp <- endpos-startpos
 

@@ -4,9 +4,11 @@
 \alias{get_cpgs}
 \title{Obtain positions of CpGs}
 \usage{
-get_cpgs(chr, startpos, endpos)
+get_cpgs(species, chr, startpos, endpos)
 }
 \arguments{
+\item{species}{String of species name/alias.}
+
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
@@ -18,5 +20,5 @@ Integer list containing genomic positions of each CpG site found within the give
 \code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \verb{https://rest.ensembl.org} and extracts the positions of all \code{CG} sites found.
 }
 \examples{
-get_cpgs(8, 8628165, 8684055)
+get_cpgs("mouse", 8, 8628165, 8684055)
 }
