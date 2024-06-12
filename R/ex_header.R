@@ -1,7 +1,7 @@
 #' Cell ids for ex_spM
 #'
 #'
-#' Data frame with cell ids for the used sparse Matrix ex_spM
+#' Data frame with cell ids for the used sparse Matrix ex_spM.
 #'
 #' @docType data
 #'

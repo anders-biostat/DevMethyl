@@ -16,7 +16,7 @@ A data frame containing 493 rows and 2 columns
 data(ex_meta)
 }
 \description{
-Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc
+Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc.
 }
 \examples{
 \dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}

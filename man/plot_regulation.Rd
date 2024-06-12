@@ -2,28 +2,26 @@
 % Please edit documentation in R/plot_regulation.R
 \name{plot_regulation}
 \alias{plot_regulation}
-\title{Plot regulatory features of genomic region}
+\title{Plot ensemble regulatory features}
 \usage{
 plot_regulation(gffpath, chr, startpos, endpos, start_VR = 0, end_VR = 0)
 }
 \arguments{
-\item{gffpath}{Location of the gff file to be read. Can be a single string of the file path, the URL or can be a connection.}
+\item{gffpath}{Location of the gff file to be read. Can be a single string of the file directory or of the URL or can be a connection.}
 
-\item{chr}{integer number of chromosome}
+\item{chr}{Integer number of chromosome.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{endpos}{integer defining the end position of the analysed genomic region}
-
-\item{start_VR}{integer defining the start position of the variable region}
-
-\item{end_VR}{integer defining the end position of the variable region}
+\item{start_VR, end_VR}{Integers defining the start and end position of the variable region.}
 }
 \value{
-segment plot
+Segment plot of regulatory features with colored annotation of a variable region if provided.
 }
 \description{
-Plot regulatory features of genomic region
+\code{plot_regulation} downloads regulatory features found between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the ensemble data set chosen and plots the data as a segment plot.
+Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
+More information here: https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html.
 }
 \examples{
 plot_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)

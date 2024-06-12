@@ -1,11 +1,13 @@
-#' Plot gene model
+#' Plot genemodel
 #'
-#' @param gtfpath Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.
-#' @param chr integer number of chromosome
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' `plot_genemodel` downloads the gene annotations between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
+#' For this you have to copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
 #'
-#' @return arrow plot
+#' @param gtfpath Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection.
+#' @param chr Integer number of chromosome.
+#' @param startpos,endpos Integer defining the start and end position of the analysed genomic region.
+#'
+#' @return Arrow plot of genes including colored annotations of the genomic features.
 #' @export
 #'
 #' @examples get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)

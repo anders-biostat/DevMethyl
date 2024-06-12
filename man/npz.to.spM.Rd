@@ -2,19 +2,21 @@
 % Please edit documentation in R/npz.to.spM.R
 \name{npz.to.spM}
 \alias{npz.to.spM}
-\title{Transform npz file to sparse Matrix}
+\title{Convert npz file to sparse Matrix}
 \usage{
 npz.to.spM(npzPath)
 }
 \arguments{
-\item{npzPath}{pathway of npz file}
+\item{npzPath}{Directory of npz file.}
 }
 \value{
-Tsparse Matrix with j = indices, p = indptr and x = data
+Tsparse matrix with j = indices, p = indptr and x = data.
 }
 \description{
-Transform npz file to sparse Matrix
+\code{npz.to.spM} converts a npz file to a Tsparse matrix.
 }
 \examples{
-\dontrun{npz.to.spM(~/chr8.npz)}
+file_paths <- load_exdata()
+methylpath <- file_paths[[1]]
+npz.to.spM(methylpath)
 }

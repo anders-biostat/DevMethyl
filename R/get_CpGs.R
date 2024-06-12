@@ -1,10 +1,11 @@
-#' Get Positions of CpGs in a genomic region
+#' Obtain positions of CpGs
 #'
-#' @param chr integer number of chromosome
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' `get_cpgs` downloads the sequence of the region of interest for a chosen species from `https://rest.ensembl.org` and extracts the positions of all `CG` sites found.
 #'
-#' @return integer list
+#' @param chr Integer number of chromosome.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#'
+#' @return Integer list containing genomic positions of each CpG site found within the given region.
 #' @export
 #'
 #' @examples get_cpgs(8, 8628165, 8684055)

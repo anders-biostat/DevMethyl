@@ -1,14 +1,19 @@
-#' Transform npz file to sparse Matrix
+#' Convert npz file to sparse Matrix
 #'
-#' @param npzPath pathway of npz file
+#' `npz.to.spM` converts a npz file to a Tsparse matrix.
 #'
-#' @return Tsparse Matrix with j = indices, p = indptr and x = data
+#' @param npzPath Directory of npz file.
+#'
+#' @return Tsparse matrix with j = indices, p = indptr and x = data.
 #' @export
 #'
-#' @examples \dontrun{npz.to.spM(~/chr8.npz)}
+#' @examples
+#' file_paths <- load_exdata()
+#' methylpath <- file_paths[[1]]
+#' npz.to.spM(methylpath)
 npz.to.spM <- function(npzPath) {
 
-  numpy <- reticulate::import("numpy")  # somehow only works with this line in the function
+  numpy <- reticulate::import("numpy")  # only works with this line in the function
   npz <- numpy$load(npzPath)
 
   sp <- sparseMatrix( j=npz["indices"], p=npz["indptr"], x=npz["data"], index1=FALSE, dims=npz["shape"], repr="T" )

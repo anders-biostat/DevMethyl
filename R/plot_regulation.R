@@ -1,13 +1,15 @@
-#' Plot regulatory features of genomic region
+#' Plot ensemble regulatory features
 #'
-#' @param gffpath Location of the gff file to be read. Can be a single string of the file path, the URL or can be a connection.
-#' @param chr integer number of chromosome
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
-#' @param start_VR integer defining the start position of the variable region
-#' @param end_VR integer defining the end position of the variable region
+#' `plot_regulation` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the ensemble data set chosen and plots the data as a segment plot.
+#' Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
+#' More information here: https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html.
 #'
-#' @return segment plot
+#' @param gffpath Location of the gff file to be read. Can be a single string of the file directory or of the URL or can be a connection.
+#' @param chr Integer number of chromosome.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#' @param start_VR,end_VR Integers defining the start and end position of the variable region.
+#'
+#' @return Segment plot of regulatory features with colored annotation of a variable region if provided.
 #' @export
 #'
 #' @examples plot_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)

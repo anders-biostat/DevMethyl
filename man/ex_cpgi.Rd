@@ -30,7 +30,8 @@ data(ex_cpgi)
 Data file containing unmasked CpG islands of mus musculus chr8:1-130,127,694.
 }
 \examples{
-\dontrun{cpgipath <- "~/ex_cpgi"
+\dontrun{
+cpgipath <- "~/ex_cpgi"
 write.table(ex_cpgi, file=cpgipath, row.names = FALSE, col.names = FALSE)
 plot_CpGislands(cpgipath, 8, 8628165, 8684055)}
 }

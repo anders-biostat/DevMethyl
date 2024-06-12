@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex_spM}
 \alias{ex_spM}
-\title{dgTMatrix containing DNA methylation data of NoME-seq}
+\title{dgTMatrix containing CpG methylation data of scNMT-seq}
 \format{
 dgTMatrix with dimensions 70001 x 833
 }
@@ -11,7 +11,7 @@ dgTMatrix with dimensions 70001 x 833
 data(ex_spM)
 }
 \description{
-dgTMatrix containing CpG methylation data of astrocytes and the NSC lineage
+dgTMatrix containing CpG methylation data of astrocytes and the NSC lineage.
 }
 \examples{
 \dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}

@@ -28,7 +28,8 @@
 #'
 #' @source \href{https://genome.ucsc.edu/cgi-bin/hgTables}{UCSC Table Browser}
 #'
-#' @examples \dontrun{cpgipath <- "~/ex_cpgi"
+#' @examples \dontrun{
+#' cpgipath <- "~/ex_cpgi"
 #' write.table(ex_cpgi, file=cpgipath, row.names = FALSE, col.names = FALSE)
 #' plot_CpGislands(cpgipath, 8, 8628165, 8684055)}
 "ex_cpgi"

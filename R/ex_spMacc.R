@@ -1,7 +1,7 @@
-#' dgTMatrix containing chromatin accessibility data of NoME-seq
+#' dgTMatrix containing chromatin accessibility data of scNMT-seq
 #'
 #'
-#' dgTMatrix containing GpC methylation data of astrocytes and the NSC lineage
+#' dgTMatrix containing GpC methylation data of astrocytes and the NSC lineage.
 #'
 #' @docType data
 #'

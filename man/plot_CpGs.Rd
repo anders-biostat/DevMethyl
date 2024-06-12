@@ -2,22 +2,21 @@
 % Please edit documentation in R/plot_cpgs.R
 \name{plot_cpgs}
 \alias{plot_cpgs}
-\title{Get bar plot visualizing amounts of CpGs within a genomic region}
+\title{Plot positions of CpG sites within a genomic range}
 \usage{
 plot_cpgs(chr, startpos, endpos)
 }
 \arguments{
-\item{chr}{integer number of chromosome}
+\item{chr}{Integer number of chromosome.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
-
-\item{endpos}{integer defining the end position of the analysed genomic region}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-bar plot
+Bar plot visualizing the distribution of CpG sites within a genomic range.
 }
 \description{
-Get bar plot visualizing amounts of CpGs within a genomic region
+\code{plot_cpgs} downloads the sequence of the region of interest for a chosen species from \verb{https://rest.ensembl.org} and extracts the positions of all \code{CG} sites found.
+The CpG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CpG sites in each part is calculated and displayed as a bar.
 }
 \examples{
 plot_cpgs(8, 8628165, 8684055)

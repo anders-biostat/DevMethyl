@@ -2,15 +2,21 @@
 % Please edit documentation in R/load_exdata.R
 \name{load_exdata}
 \alias{load_exdata}
-\title{Download example npz data}
+\title{Download example data}
 \usage{
 load_exdata()
 }
 \value{
-temporary directory
+List of directories, in which the temporary files are saved.
 }
 \description{
-Download example npz data
+Saves the needed example data as temporary files.
+\enumerate{
+\item Npz file containing CpG methylation of chromosme 8 from scNMT analysis.
+\item Npz file containing GpC methylation of chromosme 8 from scNMT analysis.
+\item Txt file containing CpG islands of mus musculus genome.
+\item Tsv file containing cell ids and pseudotime.
+}
 }
 \examples{
 load_exdata()

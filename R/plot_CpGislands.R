@@ -1,11 +1,12 @@
-#' Plot cpg islands of specific genomic region
+#' Plot cpg islands
 #'
-#' @param txtpath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
-#' @param chr integer number of chromosome
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' `plot_cpgislands` plots cpg islands obtained from the UCSC Genome Browser into a segment plot visualizing the position of islands within the genomic region of interest.
 #'
-#' @return segment plot
+#' @param txtpath Character string containing directory to text file. Alternatively, can be connection. File contains information about CpG islands of chosen species. Retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
+#' @param chr Integer number of chromosome.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#'
+#' @return Segment plot indicating the position of CpG islands within the genomic region.
 #' @export
 #'
 #' @examples \dontrun{plot_cpgislands("~/gpgi_file", 8, 8628165, 8684055)}

@@ -1,16 +1,18 @@
-#' Plot of mapped methylation data
+#' Plot mapped methylation data
 #'
-#' @param m matrix received from `smooth2d`
-#' @param mappedpt data frame containing pseudo times received from `map_methyl`
-#' @param startpos integer defining the start position of the analysed genomic region
+#' `plot_methyl` plots a matrix containing the smoothed values of scNMT-seq as a tile plot to visualizing methylation changes during differentiation.
 #'
-#' @return tile plot
+#' @param m Matrix received from `smooth2d`. Containes smoothed values and pseudotime of 2 dimensional scNMT-seq data.
+#' @param mappedpt Data frame containing pseudotimes received from `map_methyl`.
+#' @param startpos Integer defining the start position of the analysed genomic region.
+#'
+#' @return Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 #' @export
 #'
 #' @examples \dontrun{plot_methyl(m, mappedpt, 8628165)}
 plot_methyl <- function(m, mappedpt, startpos) {
 
-  as.data.frame(m)  -> df #or should I instead include the function for m and mappedpt?
+  as.data.frame(m)  -> df
 
   colnames(df) <- gsub("^V", "", colnames(df))
 

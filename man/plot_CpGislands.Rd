@@ -2,24 +2,22 @@
 % Please edit documentation in R/plot_cpgislands.R
 \name{plot_cpgislands}
 \alias{plot_cpgislands}
-\title{Plot cpg islands of specific genomic region}
+\title{Plot cpg islands}
 \usage{
 plot_cpgislands(txtpath, chr, startpos, endpos)
 }
 \arguments{
-\item{txtpath}{Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables . Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.}
+\item{txtpath}{Character string containing directory to text file. Alternatively, can be connection. File contains information about CpG islands of chosen species. Retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.}
 
-\item{chr}{integer number of chromosome}
+\item{chr}{Integer number of chromosome.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
-
-\item{endpos}{integer defining the end position of the analysed genomic region}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-segment plot
+Segment plot indicating the position of CpG islands within the genomic region.
 }
 \description{
-Plot cpg islands of specific genomic region
+\code{plot_cpgislands} plots cpg islands obtained from the UCSC Genome Browser into a segment plot visualizing the position of islands within the genomic region of interest.
 }
 \examples{
 \dontrun{plot_cpgislands("~/gpgi_file", 8, 8628165, 8684055)}

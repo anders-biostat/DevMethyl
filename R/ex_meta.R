@@ -1,7 +1,7 @@
 #' Meta data for example sparse Matrices
 #'
 #'
-#' Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc
+#' Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc.
 #'
 #' @docType data
 #'

@@ -1,6 +1,11 @@
-#' Download example npz data
+#' Download example data
 #'
-#' @return temporary directory
+#' Saves the needed example data as temporary files.
+#' 1. Npz file containing CpG methylation of chromosme 8 from scNMT analysis.
+#' 2. Npz file containing GpC methylation of chromosme 8 from scNMT analysis.
+#' 3. Txt file containing CpG islands of mus musculus genome.
+#' 4. Tsv file containing cell ids and pseudotime.
+#' @return List of directories, in which the temporary files are saved.
 #' @export
 #'
 #' @examples load_exdata()

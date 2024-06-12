@@ -13,7 +13,7 @@ A data frame containing 833 rows and 1 column
 data(ex_header)
 }
 \description{
-Data frame with cell ids for the used sparse Matrix ex_spM
+Data frame with cell ids for the used sparse Matrix ex_spM.
 }
 \examples{
 \dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}

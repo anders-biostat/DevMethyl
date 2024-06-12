@@ -2,22 +2,22 @@
 % Please edit documentation in R/plot_methyl.R
 \name{plot_methyl}
 \alias{plot_methyl}
-\title{Plot of mapped methylation data}
+\title{Plot mapped methylation data}
 \usage{
 plot_methyl(m, mappedpt, startpos)
 }
 \arguments{
-\item{m}{matrix received from \code{smooth2d}}
+\item{m}{Matrix received from \code{smooth2d}. Containes smoothed values and pseudotime of 2 dimensional scNMT-seq data.}
 
-\item{mappedpt}{data frame containing pseudo times received from \code{map_methyl}}
+\item{mappedpt}{Data frame containing pseudotimes received from \code{map_methyl}.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
+\item{startpos}{Integer defining the start position of the analysed genomic region.}
 }
 \value{
-tile plot
+Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 }
 \description{
-Plot of mapped methylation data
+\code{plot_methyl} plots a matrix containing the smoothed values of scNMT-seq as a tile plot to visualizing methylation changes during differentiation.
 }
 \examples{
 \dontrun{plot_methyl(m, mappedpt, 8628165)}

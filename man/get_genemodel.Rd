@@ -2,24 +2,23 @@
 % Please edit documentation in R/get_genemodel.R
 \name{get_genemodel}
 \alias{get_genemodel}
-\title{Get gene model of genomic region}
+\title{Obtain ensemble gene model}
 \usage{
 get_genemodel(gtfpath, chr, startpos, endpos)
 }
 \arguments{
-\item{gtfpath}{Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.}
+\item{gtfpath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection.}
 
-\item{chr}{integer number of chromosome}
+\item{chr}{Integer number of chromosome.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
-
-\item{endpos}{integer defining the end position of the analysed genomic region}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-data frame
+Data frame containing 28 columns (seqnames, start, end, width, strand, source, type, score, phase, gene_id, gene_version, gene_name, gene_source, gene_biotype, transcript_id, transcript_version, transcript_name, transcript_source, transcript_biotype, tag, transcript_support_level, exon_number, exon_id, exon_version, ccds_id, protein_id, protein_version, strand_boolean).
 }
 \description{
-Get gene model of genomic region
+\code{get_genemodel} downloads the gene annotations between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the chosen species.
+For this you have to copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
 }
 \examples{
 get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)

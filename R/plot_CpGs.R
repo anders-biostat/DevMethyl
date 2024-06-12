@@ -1,10 +1,12 @@
-#' Get bar plot visualizing amounts of CpGs within a genomic region
+#' Plot positions of CpG sites within a genomic range
 #'
-#' @param chr integer number of chromosome
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' `plot_cpgs` downloads the sequence of the region of interest for a chosen species from `https://rest.ensembl.org` and extracts the positions of all `CG` sites found.
+#' The CpG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CpG sites in each part is calculated and displayed as a bar.
 #'
-#' @return bar plot
+#' @param chr Integer number of chromosome.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#'
+#' @return Bar plot visualizing the distribution of CpG sites within a genomic range.
 #' @export
 #'
 #' @examples plot_cpgs(8, 8628165, 8684055)
