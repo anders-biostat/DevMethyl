@@ -36,7 +36,22 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
 
   cpgIslands <- getTable(query)
 
+  if (nrow(cpgIslands) == 0) {
+    # Return an empty plot if no CpG islands are found
+      ggplot() +
+      geom_blank() +
+      xlim(startpos, endpos) +
+      ylim(0, 1) +
+      ggtitle("No CpG islands found") +
+      theme_minimal() +
+      theme(axis.title.y = element_text(size=10),
+            axis.title.x = element_blank(),
+            axis.text = element_blank(),
+            plot.margin = margin(0,1,0,1, "cm")) +
+      theme(panel.grid = element_blank(),
+            plot.margin = margin(0,1,0,1, "cm")) -> cpgi_plot
 
+  } else {
         ggplot(cpgIslands, aes(y = 0.5, x = chromStart, xend = chromEnd, yend = 0.5)) +
           geom_segment(linewidth = 100, color = "darkred", alpha = 0.7) +
           xlim(startpos, endpos) +
@@ -49,9 +64,28 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
                 plot.margin = margin(0,1,0,1, "cm")) +
           theme(panel.grid = element_blank(),
                 plot.margin = margin(0,1,0,1, "cm")) -> cpgi_plot
+  }
 
   # CpGs
           cpg_positions <- get_cpgs(species, chr, startpos, endpos)
+
+          if(is.null(cpg_positions)) {
+            ggplot() +
+              geom_blank() +
+              ggtitle("No CpG sites found") +
+              theme_minimal() +
+              theme(axis.title.y = element_text(size=10),
+                    axis.text.y = element_text(size = 10),
+                    axis.ticks.y.left = element_line(),
+                    axis.title.x = element_blank(),
+                    axis.text.x = element_blank(),
+                    axis.ticks.x = element_blank(),
+                    panel.grid.minor = element_blank(),
+                    panel.grid.major = element_blank(),
+                    plot.margin = margin(0,1,0,1, "cm"),
+                    axis.line.y = element_line(color = "grey")) -> cpgs_plot
+
+          } else {
 
           count_bp <- endpos-startpos
 
@@ -73,7 +107,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
                   panel.grid.major = element_blank(),
                   plot.margin = margin(0,1,0,1, "cm"),
                   axis.line.y = element_line(color = "grey")) -> cpgs_plot
-
+}
 
   # DNA methylation
           map_methyl(spM, meta, header, startpos, endpos) -> mappedpt
@@ -164,6 +198,24 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
 
           reg_subgenes$type <- factor(reg_subgenes$type, levels =c( "exon", "CDS", "start_codon", "stop_codon", "five_prime_utr",  "three_prime_utr", "Selenocysteine"))
 
+
+          if (nrow(reg_subgenes) == 0) {
+              ggplot() +
+              geom_blank() +
+              xlim(startpos, endpos) +
+              ggtitle("No gene annotations found") +
+              theme_genes() +
+              theme(axis.line.x = element_blank(),
+                    axis.text.x = element_blank(),
+                    axis.ticks.x = element_blank(),
+                    legend.text = element_text(size = 10),
+                    legend.key.size = unit(0.4, "cm"),
+                    legend.title = element_text(size=10),
+                    axis.text.y = element_text(size = 10),
+                    axis.title.y = element_blank()) +
+              guides( fill = guide_legend( ncol= 2)) -> genemodel_plot
+
+          } else {
           ggplot( NULL, aes( xmin=start, xmax=end, y=gene_name, forward=strand_boolean ) ) +
             geom_gene_arrow( data=reg_genes) +
             geom_subgene_arrow( aes(xsubmin=substart, xsubmax=subend, fill=type ), color=NA, data=reg_subgenes ) +
@@ -178,7 +230,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
                   axis.text.y = element_text(size = 10),
                   axis.title.y = element_blank()) +
             guides( fill = guide_legend( ncol= 2)) -> genemodel_plot
-
+}
 
   # genomic features
           plot_regulation(featurepath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
