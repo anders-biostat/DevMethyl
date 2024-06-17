@@ -22,3 +22,6 @@ Integer list containing genomic positions of each CpG site found within the give
 \examples{
 get_cpgs("mouse", 8, 8628165, 8684055)
 }
+\seealso{
+\code{\link[=plot_cpgs]{plot_cpgs()}} to plot integer list as a bar plot.
+}

@@ -2,27 +2,25 @@
 % Please edit documentation in R/map_methyl.R
 \name{map_methyl}
 \alias{map_methyl}
-\title{Map methylation data to pseudo time}
+\title{Map sparse matrix to pseudo time}
 \usage{
 map_methyl(spM, meta, header, startpos, endpos)
 }
 \arguments{
-\item{spM}{sparse Matrix received from function \code{npz.to.spM} or with same format}
+\item{spM}{Tsparse matrix with j = indices, p = indptr and x = data. Can be received using \code{npz.to.spM}. Contains either CpG or GpC methylation data from scNMT-seq.}
 
-\item{meta}{data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")}
+\item{meta}{Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").}
 
-\item{header}{data frame containing cell IDs for spM, cell IDs have to have same format as in meta}
+\item{header}{Data frame containing cell IDs for spM. Cell IDs have to have same format as in meta.}
 
-\item{startpos}{integer defining the start position of the analysed genomic region}
-
-\item{endpos}{integer defining the end position of the analysed genomic region}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-data frame containing information of spM for the selected genomic region, sorted by ptime. Here i is the row index giving information of the genomic position , ptimes contains the sorted pseudo times of the cells and data contains either value -1 or 1 specifying the methylation status (unmethylated, methylated).
+Data frame containing information of spM for the selected genomic region, sorted by ptime. Here, \code{pos} is the row index indicating the genomic position, \code{pt} contains the sorted pseudotimes and \code{methyl} contains either -1 or 1, specifying the methylation status (un-/methylated).
 }
 \description{
-Map methylation data to pseudo time
+\code{map_methyl} maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from \code{header}and put as column names of \code{spM}. \code{meta} is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
 }
 \examples{
-\dontrun{map_methyl( spM, meta, header, 8628165, 8684055)}
+map_methyl(ex_spM, ex_meta, ex_header, 8000, 64000)
 }

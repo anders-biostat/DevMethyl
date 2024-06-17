@@ -2,14 +2,14 @@
 % Please edit documentation in R/plot_methyl.R
 \name{plot_methyl}
 \alias{plot_methyl}
-\title{Plot mapped methylation data}
+\title{Plot methylation data}
 \usage{
 plot_methyl(m, mappedpt, startpos)
 }
 \arguments{
-\item{m}{Matrix received from \code{smooth2d}. Containes smoothed values and pseudotime of 2 dimensional scNMT-seq data.}
+\item{m}{Matrix received from \code{smooth2d}. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.}
 
-\item{mappedpt}{Data frame containing pseudotimes received from \code{map_methyl}.}
+\item{mappedpt}{Data frame of the sparse matrix received from \code{map_methyl}. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated) of the selected region, sorted by pseudotime.}
 
 \item{startpos}{Integer defining the start position of the analysed genomic region.}
 }
@@ -17,7 +17,7 @@ plot_methyl(m, mappedpt, startpos)
 Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 }
 \description{
-\code{plot_methyl} plots a matrix containing the smoothed values of scNMT-seq as a tile plot to visualizing methylation changes during differentiation.
+\code{plot_methyl} generates a tile plot to visualize the smoothed methylation values from temporal scNMT-seq data, highlighting changes during differentiation.
 }
 \examples{
 \dontrun{plot_methyl(m, mappedpt, 8628165)}

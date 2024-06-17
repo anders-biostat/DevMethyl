@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_cpgs.R
 \name{plot_cpgs}
 \alias{plot_cpgs}
-\title{Plot positions of CpG sites within a genomic range}
+\title{Plot positions of CpG sites}
 \usage{
 plot_cpgs(species, chr, startpos, endpos)
 }
@@ -22,4 +22,7 @@ The CpG sites are then visualized as a bar plot to show the distribution across 
 }
 \examples{
 plot_cpgs(mouse, 8, 8628165, 8684055)
+}
+\seealso{
+\code{\link[=get_cpgs]{get_cpgs()}} to receive the integer list used for plotting.
 }

@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex_spMacc}
 \alias{ex_spMacc}
-\title{dgTMatrix containing chromatin accessibility data of scNMT-seq}
+\title{dgTMatrix containing GpC methylation data of scNMT-seq}
 \format{
 dgTMatrix with dimensions 70001 x 797
 }
@@ -11,7 +11,7 @@ dgTMatrix with dimensions 70001 x 797
 data(ex_spMacc)
 }
 \description{
-dgTMatrix containing GpC methylation data of astrocytes and the NSC lineage.
+dgTMatrix containing GpC methylation (chromatin accessibility) data of astrocytes and the NSC lineage.
 }
 \examples{
 \dontrun{map_methyl( ex_spMacc, ex_meta, ex_headeracc, 8000, 64000)}

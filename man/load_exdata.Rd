@@ -10,11 +10,10 @@ load_exdata()
 List of directories, in which the temporary files are saved.
 }
 \description{
-Saves the needed example data as temporary files.
+\code{load_exdata} downloads and saves example data as temporary files.
 \enumerate{
-\item Npz file containing CpG methylation of chromosme 8 from scNMT analysis.
-\item Npz file containing GpC methylation of chromosme 8 from scNMT analysis.
-\item Txt file containing CpG islands of mus musculus genome.
+\item Npz file containing CpG methylation of chromosome 8 from scNMT analysis.
+\item Npz file containing GpC methylation of chromosome 8 from scNMT analysis.
 \item Tsv file containing cell ids and pseudotime.
 }
 }

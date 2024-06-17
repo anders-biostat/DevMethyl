@@ -1,15 +1,26 @@
-#' Plot mapped methylation data
+#' Plot methylation data
 #'
-#' `plot_methyl` plots a matrix containing the smoothed values of scNMT-seq as a tile plot to visualizing methylation changes during differentiation.
+#' `plot_methyl` generates a tile plot to visualize the smoothed methylation values from temporal scNMT-seq data, highlighting changes during differentiation.
 #'
-#' @param m Matrix received from `smooth2d`. Containes smoothed values and pseudotime of 2 dimensional scNMT-seq data.
-#' @param mappedpt Data frame containing pseudotimes received from `map_methyl`.
+#' @param m Matrix received from `smooth2d`. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.
+#' @inheritParams smooth2d
 #' @param startpos Integer defining the start position of the analysed genomic region.
 #'
 #' @return Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 #' @export
 #'
-#' @examples \dontrun{plot_methyl(m, mappedpt, 8628165)}
+#' @examples
+#'
+#' # create example data frame
+#' pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
+#' pt = c(1,1,2,2,3,3,4,4,5,5)
+#' methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
+#' data.frame( pos, pt, methyl) -> mappedpt
+#'
+#' # create matrix
+#' smooth2d(mappedpt, 2, 2, 0.1, 0.1,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
+#'
+#' plot_methyl(m, mappedpt, 8628165)
 plot_methyl <- function(m, mappedpt, startpos) {
 
   as.data.frame(m)  -> df
@@ -32,7 +43,7 @@ plot_methyl <- function(m, mappedpt, startpos) {
                        limits= c(-1, 1)) +
     scale_y_continuous(breaks = seq(0, max(df$ptime), by = floor(max(df$ptime) / floor(max(mappedpt$pt)))),
                        labels = seq(0, max(mappedpt$pt), by = 1),
-                       expand = c(0, 0) )+
+                       expand = c(0, 0) ) +
    scale_x_continuous(breaks = c(seq(0, max(df$pos), by = floor(max(df$pos)/4)) ),
                        labels = function(x) x + startpos ,
                        expand = expansion(add = c(1, 1))) +

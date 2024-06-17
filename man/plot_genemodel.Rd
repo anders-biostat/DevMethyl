@@ -4,22 +4,25 @@
 \alias{plot_genemodel}
 \title{Plot genemodel}
 \usage{
-plot_genemodel(gtfpath, chr, startpos, endpos)
+plot_genemodel(genepath, chr, startpos, endpos)
 }
 \arguments{
-\item{gtfpath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection.}
+\item{genepath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.}
 
 \item{chr}{Integer number of chromosome.}
 
-\item{startpos, endpos}{Integer defining the start and end position of the analysed genomic region.}
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
 Arrow plot of genes including colored annotations of the genomic features.
 }
 \description{
 \code{plot_genemodel} downloads the gene annotations between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the chosen species and plots the data as a arrow plot.
-For this you have to copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
+For this, copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
 }
 \examples{
-get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+}
+\seealso{
+\code{\link[=get_genemodel]{get_genemodel()}} to receive the data frame used for plotting.
 }

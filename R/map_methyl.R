@@ -1,15 +1,15 @@
-#' Map methylation data to pseudo time
+#' Map sparse matrix to pseudo time
 #'
-#' @param spM sparse Matrix received from function `npz.to.spM` or with same format
-#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")
-#' @param header data frame containing cell IDs for spM, cell IDs have to have same format as in meta
-#' @param startpos integer defining the start position of the analysed genomic region
-#' @param endpos integer defining the end position of the analysed genomic region
+#' `map_methyl` maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from `header`and put as column names of `spM`. `meta` is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
 #'
-#' @return data frame containing information of spM for the selected genomic region, sorted by ptime. Here i is the row index giving information of the genomic position , ptimes contains the sorted pseudo times of the cells and data contains either value -1 or 1 specifying the methylation status (unmethylated, methylated).
+#' @inheritParams plot_all
+#' @param spM Tsparse matrix with j = indices, p = indptr and x = data. Can be received using `npz.to.spM`. Contains either CpG or GpC methylation data from scNMT-seq.
+#' @param header Data frame containing cell IDs for spM. Cell IDs have to have same format as in meta.
+#'
+#' @return Data frame containing information of spM for the selected genomic region, sorted by ptime. Here, `pos` is the row index indicating the genomic position, `pt` contains the sorted pseudotimes and `methyl` contains either -1 or 1, specifying the methylation status (un-/methylated).
 #' @export
 #'
-#' @examples \dontrun{map_methyl( spM, meta, header, 8628165, 8684055)}
+#' @examples map_methyl(ex_spM, ex_meta, ex_header, 8000, 64000)
 map_methyl <- function(spM, meta, header, startpos, endpos ) {
 
     cell_ID <- header$cell_id
