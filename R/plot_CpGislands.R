@@ -1,36 +1,34 @@
-#' Plot cpg islands
+#' Plot CpG islands
 #'
-#' `plot_cpgislands` plots cpg islands obtained from the UCSC Genome Browser into a segment plot visualizing the position of islands within the genomic region of interest.
+#' `plot_cpgislands` downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the position of islands.
+#'   Information of the CpG islands are obtained from the UCSC Genome Browser.
 #'
-#' @param txtpath Character string containing directory to text file. Alternatively, can be connection. File contains information about CpG islands of chosen species. Retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
-#' @param chr Integer number of chromosome.
-#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#' @inheritParams plot_all
 #'
 #' @return Segment plot indicating the position of CpG islands within the genomic region.
 #' @export
 #'
-#' @examples \dontrun{plot_cpgislands("~/gpgi_file", 8, 8628165, 8684055)}
-plot_cpgislands <- function(txtpath, chr, startpos, endpos) {
+#' @examples
+#' plot_cpgislands("mm39", 8, 8628165, 8684055)
+plot_cpgislands <- function(genome, chr, startpos, endpos) {
 
-  read.table(txtpath) -> cpgi
+  session <- browserSession("UCSC")
 
-  table_scheme <- c("bin", "chrom", "chrStart", "chrEnd", "name", "length", "cpgNum", "cgNum", "perCpG", "perGC", "obsExp")
+  genome(session) <- genome
 
-  cpgi$V5 <- paste(cpgi$V5, cpgi$V6)
+  chromosome <- paste("chr", chr, sep="")
 
-  cpgi$V3 <- cpgi$V3 +1
-  cpgi$V4 <- cpgi$V4 +1
+  range <- GRanges(seqnames = chromosome, ranges = IRanges(start = startpos, end = endpos))
 
-  cpgi %>%
-    dplyr::select(!V6) -> cpgi
+  track <- "cpgIslandExtUnmasked"
 
-  names(cpgi) <- table_scheme
+  # Create a UCSC table query for the specified region
+  query <- ucscTableQuery(session, table=track, range=range)
 
-  cpgi%>%
-    dplyr::filter(chrom==paste("chr", chr, sep=""), !chrStart > endpos, !chrEnd < startpos) -> cpg_islands
+  cpgIslands <- getTable(query)
 
 
-  ggplot(cpg_islands, aes(y = 0.5, x = chrStart, xend = chrEnd, yend = 0.5)) +
+  ggplot(cpgIslands, aes(y = 0.5, x = chromStart, xend = chromEnd, yend = 0.5)) +
     geom_segment(linewidth = 100, color = "darkred", alpha = 0.7) +
     xlim(startpos, endpos) +
     ylim(0,1)+

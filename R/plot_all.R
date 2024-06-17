@@ -1,45 +1,43 @@
 #' Create summary plot of CpG and GpC methylation data with genomic information
 #'
+#' `plot_all` creates a summary plot combining all plots producible with the `DevMethyl`package.
+#'   Using patchwork, the CpG and GpC methylation tile plot created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
+#'
 #' @param species String of species name/alias.
-#' @param meta data frame of meta data containing cell IDs ("cell_id_dna") and pseudo time ("ptime")
-#' @param header data frame containing cell IDs for spM
-#' @param header_acc data frame containing cell IDs for spM of accessibility data?
+#' @param genome String of the genome version used.
+#' @param meta Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").
+#' @param header,header_acc Data frame containing cell IDs for spM and spMacc. Cell IDs have to have same format as in meta.
 #' @param hx,ht Width and height of kernel.
-#' @param chr Integer number of chromosome
+#' @param chr Integer number of chromosome.
 #' @param start_VR,end_VR Integers defining the start and end position of the variable region.
-#' @param cpgipath Character string containing pathway to text file. Alternatively, can be connection. File contains information about CpG islands retrieved from https://genome.ucsc.edu/cgi-bin/hgTables. Use for "table" either cpgIslandExt or cpgIslandExtUnmasked.
-#' @param spM dgTMatrix containing CpG methylation.
-#' @param spMacc dgTMatrix containing GpC methylation. Used for chromatin accessibility analysis
-#' @param featurepath Location of the gff file to be read. Can be a single string of the file path or the URL or can be a connection.
-#' @param genepath Location of the gtf file to be read. Can be a single string containing the file path or the URL or can be a connection.
+#' @param spM,spMacc dgTMatrix containing CpG and GpC methylation.
+#' @param featurepath Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.
+#' @param genepath Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.
 #' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
 #'
-#' @return Plot
+#' @return Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).
 #' @export
 #'
-#' @examples \dontrun{plot_all("mouse", cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
-plot_all <- function(species, cpgipath, spM, meta, header, spMacc, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
+#' @examples \dontrun{plot_all("mouse", "mm39", spM, spMacc, meta, header, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
+plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
 
   # CpGislands
-        read.table(cpgipath) -> cpgi
+  session <- browserSession("UCSC")
 
-        table_scheme <- c("bin", "chrom", "chrStart", "chrEnd", "name", "length", "cpgNum", "cgNum", "perCpG", "perGC", "obsExp")
+  genome(session) <- genome
 
-        cpgi$V5 <- paste(cpgi$V5, cpgi$V6)
+  chromosome <- paste("chr", chr, sep="")
 
-        cpgi$V3 <- cpgi$V3 +1
-        cpgi$V4 <- cpgi$V4 +1
+  range <- GRanges(seqnames = chromosome, ranges = IRanges(start = startpos, end = endpos))
 
-        cpgi %>%
-          dplyr::select(!V6) -> cpgi
+  track <- "cpgIslandExtUnmasked"
 
-        names(cpgi) <- table_scheme
+  query <- ucscTableQuery(session, table=track, range=range)
 
-        cpgi%>%
-          dplyr::filter(chrom==paste("chr", chr, sep=""), !chrStart > endpos, !chrEnd < startpos) -> cpg_islands
+  cpgIslands <- getTable(query)
 
 
-        ggplot(cpg_islands, aes(y = 0.5, x = chrStart, xend = chrEnd, yend = 0.5)) +
+        ggplot(cpgIslands, aes(y = 0.5, x = chromStart, xend = chromEnd, yend = 0.5)) +
           geom_segment(linewidth = 100, color = "darkred", alpha = 0.7) +
           xlim(startpos, endpos) +
           ylim(0,1)+

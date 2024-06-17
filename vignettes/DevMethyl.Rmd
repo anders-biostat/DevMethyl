@@ -23,8 +23,7 @@ library(DevMethyl)
 file_paths <- load_exdata() 
 methylpath <- file_paths[[1]]
 accpath <- file_paths[[2]]
-cpgipath <- file_paths[[3]]
-metapath <- file_paths[[4]]
+metapath <- file_paths[[3]]
 headerpath <- system.file("extdata", "column_header.txt", package = "DevMethyl")
 acc_headerpath <- system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl")
 ```
@@ -109,9 +108,9 @@ plot_methyl(mAcc, mappedpt_acc, rstart)
 To get a comprehensive outlook of your ROI, you can look at several genomic attributes using this package. 
 
 ## 4.1 CpG islands
-With `plot_cpgislands` you can plot your data table retrieved from https://genome.ucsc.edu/cgi-bin/hgTables to visualize CpG islands within your ROI.
+With `plot_cpgislands` you'll download and plot the CpG islands within your ROI of the the genome version of your choice. The information is downlaoded from the UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgTables.
 ```{r plot_CpGi, fig.width=7}
-plot_cpgislands(cpgipath, chr, rstart, rend)
+plot_cpgislands("mm39", chr, rstart, rend)
 ```
 
 ## 4.2 CpG density
@@ -140,7 +139,7 @@ plot_genemodel(genepath, chr, rstart, rend)
 ```
 
 ## 4.4 Regulartory features
-To get the regulatory features, extract the regulation dataset of your chosen species from the ensemble FTP site. The function `get_regulation` returns a data frame containing start and end of enhancers and promoters and more
+To get the regulatory features, extract the regulation dataset of your chosen species from the ensemble FTP site. The function `get_regulation` returns a data frame containing start and end of enhancers and promoters and more.
 ```{r reg features}
 regpath <- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
 
@@ -156,7 +155,7 @@ plot_regulation(regpath, chr, rstart, rend, startVR, endVR)
 # 5 Creating summary plot
 The easiest way to get a comprehensive summary is to plot all data in one plot using `plot_all`. 
 ```{r plot features, fig.height=8, fig.width=10}
-plot_all("mouse", cpgipath, sp, meta, header, spAcc, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
+plot_all("mouse", "mm39", sp, spAcc, meta, header, header_acc, regpath, genepath, hx, ht, chr, rstart, rend, startVR, endVR)
 ```
 
 
