@@ -1,7 +1,7 @@
-#' Meta data for example sparse Matrices
+#' Meta data for example sparse matrices
 #'
 #'
-#' Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc.
+#' Data frame with meta data for example sparse matrix ex_spM and ex_spMacc, containing cell ids and pseudotimes.
 #'
 #' @docType data
 #'
@@ -14,9 +14,7 @@
 #'   \item{ptime2}{pseudo time 2}
 #'   \item{pt_avg}{average pseudo time}}
 #'
-#' @keywords datasets
-#'
 #' @references ?
 #'
-#' @examples \dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
+#' @keywords datasets
 "ex_meta"

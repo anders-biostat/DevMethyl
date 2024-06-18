@@ -1,7 +1,7 @@
 #' Plot CpG islands
 #'
 #' `plot_cpgislands` downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the position of islands.
-#'   Information of the CpG islands are obtained from the UCSC Genome Browser https://genome.ucsc.edu/cgi-bin/hgTables.
+#'   Information of the CpG islands are obtained from the UCSC Genome Browser \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
 #'
 #' @inheritParams plot_all
 #'

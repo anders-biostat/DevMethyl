@@ -9,11 +9,9 @@
 #'
 #' @format A data frame containing 797 rows and 1 column
 #' \describe{
-#'   \item{cell_id}{cell id} }
-#'
-#' @keywords datasets
+#'   \item{cell_id}{cell identifier} }
 #'
 #' @references ?
 #'
-#' @examples \dontrun{map_methyl( ex_spMacc, ex_meta, ex_headeracc, 8000, 64000)}
+#' @keywords datasets
 "ex_headeracc"

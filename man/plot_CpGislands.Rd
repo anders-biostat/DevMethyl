@@ -18,7 +18,7 @@ Segment plot indicating the position of CpG islands within the genomic region.
 }
 \description{
 \code{plot_cpgislands} downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the position of islands.
-Information of the CpG islands are obtained from the UCSC Genome Browser.
+Information of the CpG islands are obtained from the UCSC Genome Browser \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
 }
 \examples{
 plot_cpgislands("mm39", 8, 8628165, 8684055)

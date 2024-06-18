@@ -1,11 +1,11 @@
-#' Plot positions of CpG sites
+#' Plot positions of CG sites
 #'
-#' `plot_cpgs` downloads the sequence of the region of interest for a chosen species from `https://rest.ensembl.org` and extracts the positions of all `CG` sites found.
-#'   The CpG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CpG sites in each part is calculated and displayed as a bar.
+#' `plot_cpgs` downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CG sites found.
+#'   The CG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CG sites in each part is calculated and displayed as a bar.
 #'
 #' @inheritParams plot_all
 #'
-#' @return Bar plot visualizing the distribution of CpG sites within a genomic range.
+#' @return Bar plot visualizing the distribution of CG sites within a genomic range.
 #' @export
 #'
 #' @seealso [get_cpgs()] to receive the integer list used for plotting.

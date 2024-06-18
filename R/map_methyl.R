@@ -1,6 +1,6 @@
-#' Map sparse matrix to pseudo time
+#' Map sparse matrix to pseudotime
 #'
-#' `map_methyl` maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from `header`and put as column names of `spM`. `meta` is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
+#' `map_methyl` maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from `header` and put as column names of `spM`. `meta` is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
 #'
 #' @inheritParams plot_all
 #' @param spM Tsparse matrix with j = indices, p = indptr and x = data. Can be received using `npz.to.spM`. Contains either CpG or GpC methylation data from scNMT-seq.

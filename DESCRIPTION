@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: c(
     person("Hannah", "Glaser", email="hannah.glaser@mk-glaser.de", role = c("cre","aut")),
     person("Simon", "Anders", email="simon.anders@bioquant.uni-heidelberg.de", role = "ctb") )
-Description: Integrating of Methylation data and pseudotime to visualize changes in methylation patterns and chromatin accesibility during cell differentiation.
+Description: Integrating methylation data and pseudotime to visualize changes in methylation patterns during cell differentiation.
 License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
     license
 Encoding: UTF-8

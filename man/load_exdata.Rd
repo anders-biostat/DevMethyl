@@ -20,3 +20,6 @@ List of directories, in which the temporary files are saved.
 \examples{
 load_exdata()
 }
+\references{
+?
+}

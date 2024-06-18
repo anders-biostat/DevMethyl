@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex_meta}
 \alias{ex_meta}
-\title{Meta data for example sparse Matrices}
+\title{Meta data for example sparse matrices}
 \format{
 A data frame containing 493 rows and 2 columns
 \describe{
@@ -16,10 +16,7 @@ A data frame containing 493 rows and 2 columns
 data(ex_meta)
 }
 \description{
-Data frame with meta data for example sparse Matrix ex_spM and ex_spMacc.
-}
-\examples{
-\dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
+Data frame with meta data for example sparse matrix ex_spM and ex_spMacc, containing cell ids and pseudotimes.
 }
 \references{
 ?

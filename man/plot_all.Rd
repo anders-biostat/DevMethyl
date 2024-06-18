@@ -28,17 +28,17 @@ plot_all(
 
 \item{genome}{String of the genome version used.}
 
-\item{spM, spMacc}{dgTMatrix containing CpG and GpC methylation.}
+\item{spM, spMacc}{dgTMatrices containing CpG or GpC methylation.}
 
 \item{meta}{Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").}
 
-\item{header, header_acc}{Data frame containing cell IDs for spM and spMacc. Cell IDs have to have same format as in meta.}
+\item{header, header_acc}{Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.}
 
-\item{featurepath}{Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.}
+\item{featurepath}{Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.}
 
-\item{genepath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.}
+\item{genepath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.}
 
-\item{hx, ht}{Width and height of kernel.}
+\item{hx, ht}{Numeric value defining bandwidth of the Gaussian kernel in x and t direction.}
 
 \item{chr}{Integer number of chromosome.}
 
@@ -50,7 +50,7 @@ plot_all(
 Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).
 }
 \description{
-\code{plot_all} creates a summary plot combining all plots producible with the \code{DevMethyl}package.
+\code{plot_all} creates a summary plot combining all plots producible with the \code{DevMethyl} package.
 Using patchwork, the CpG and GpC methylation tile plot created by \code{plot_methyl}, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
 }
 \examples{

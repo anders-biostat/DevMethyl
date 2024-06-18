@@ -1,18 +1,18 @@
 #' Create summary plot of CpG and GpC methylation data with genomic information
 #'
-#' `plot_all` creates a summary plot combining all plots producible with the `DevMethyl`package.
+#' `plot_all` creates a summary plot combining all plots producible with the `DevMethyl` package.
 #'   Using patchwork, the CpG and GpC methylation tile plot created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
 #'
 #' @param species String of species name/alias.
 #' @param genome String of the genome version used.
 #' @param meta Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").
-#' @param header,header_acc Data frame containing cell IDs for spM and spMacc. Cell IDs have to have same format as in meta.
-#' @param hx,ht Width and height of kernel.
+#' @param header,header_acc Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.
+#' @param hx,ht Numeric value defining bandwidth of the Gaussian kernel in x and t direction.
 #' @param chr Integer number of chromosome.
 #' @param start_VR,end_VR Integers defining the start and end position of the variable region.
-#' @param spM,spMacc dgTMatrix containing CpG and GpC methylation.
-#' @param featurepath Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.
-#' @param genepath Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site https://ftp.ensembl.org/pub/.
+#' @param spM,spMacc dgTMatrices containing CpG or GpC methylation.
+#' @param featurepath Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' @param genepath Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
 #'
 #' @return Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).

@@ -7,6 +7,7 @@
 #' @return List of directories, in which the temporary files are saved.
 #' @export
 #'
+#' @references ?
 #' @examples load_exdata()
 load_exdata <- function() {
 

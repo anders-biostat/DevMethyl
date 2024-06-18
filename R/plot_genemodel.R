@@ -1,7 +1,7 @@
 #' Plot genemodel
 #'
 #' `plot_genemodel` downloads the gene annotations between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
-#'   For this, copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
+#'   For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #'
 #' @inheritParams plot_all
 #'

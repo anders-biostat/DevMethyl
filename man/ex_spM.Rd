@@ -13,9 +13,6 @@ data(ex_spM)
 \description{
 dgTMatrix containing CpG methylation data of astrocytes and the NSC lineage.
 }
-\examples{
-\dontrun{map_methyl( ex_spM, ex_meta, ex_header, 8000, 64000)}
-}
 \references{
 ?
 }

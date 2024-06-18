@@ -1,9 +1,9 @@
 #' Plot ensemble regulatory features
 #'
 #' `plot_regulation` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the ensemble data set chosen and plots the data as a segment plot.
-#'   For this, copy the link or download the GTF file of the ensemble FTP site https://ftp.ensembl.org/pub/.
+#'   For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #'   Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
-#'   More information here: https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html.
+#'   More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 #'
 #' @inheritParams plot_all
 #' @param start_VR,end_VR Integers defining the start and end position of the variable region.

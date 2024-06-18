@@ -2,7 +2,7 @@
 % Please edit documentation in R/smooth2d.R
 \name{smooth2d}
 \alias{smooth2d}
-\title{Apply Gaussian filter to 2D methylation data}
+\title{Apply Gaussian filter to temporal methylation data of scNMT-seq}
 \usage{
 smooth2d(
   mappedpt,
@@ -15,23 +15,26 @@ smooth2d(
 )
 }
 \arguments{
-\item{mappedpt}{Data frame of the sparse matrix received from \code{map_methyl}. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated) of the selected region, sorted by pseudotime.}
+\item{mappedpt}{Data frame of the sparse matrix obtained from \code{map_methyl}. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl), which is -1 or 1 (un-/methylated) for the selected region of the scNMT-seq data.}
 
-\item{hx, ht}{Width and height of kernel.}
+\item{hx, ht}{Numeric value defining bandwidth of the Gaussian kernel in x and t direction.}
 
-\item{delx, delt}{Width and height of grids.}
+\item{delx, delt}{Numeric values defining spacings of the grids in x and t directions.}
 
 \item{xrange}{Vector containing minimum and maximum of the genomic region.}
 
 \item{trange}{Vector containing minimum and maximum of the pseudo time.}
 }
 \value{
-Matrix with values smoothed and pseudotime of scNMT-seq data of cells at various differentiation stages.
+Matrix with smoothed \code{methyl} values of scNMT-seq data over a specific grid.
 }
 \description{
-\code{smooth2d} smooths the scNMT data by sliding a window of size ... over the data and applies the gaussian kernel of size (hx,ht)
+\code{smooth2d} smooths scNMT data by calculating weighted averages within a Gaussian window.
+For this it iterates over the data points, calculating a Gaussian-weighted sum within a window around each point, and normalizes it by the total weight.
 }
 \examples{
+
+# create example data frame
 pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
 pt = c(1,1,2,2,3,3,4,4,5,5)
 methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)

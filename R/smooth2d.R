@@ -1,14 +1,15 @@
-#' Apply Gaussian filter to 2D methylation data
+#' Apply Gaussian filter to temporal methylation data of scNMT-seq
 #'
-#' `smooth2d` smooths the scNMT data by sliding a window of size ... over the data and applies the gaussian kernel of size (hx,ht)
+#' `smooth2d` smooths scNMT data by calculating weighted averages within a Gaussian window.
+#'    For this it iterates over the data points, calculating a Gaussian-weighted sum within a window around each point, and normalizes it by the total weight.
 #'
 #' @inheritParams plot_all
-#' @param mappedpt Data frame of the sparse matrix received from `map_methyl`. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl) -1 or 1 (un-/methylated) of the selected region, sorted by pseudotime.
-#' @param delx,delt Width and height of grids.
+#' @param mappedpt Data frame of the sparse matrix obtained from `map_methyl`. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl), which is -1 or 1 (un-/methylated) for the selected region of the scNMT-seq data.
+#' @param delx,delt Numeric values defining spacings of the grids in x and t directions.
 #' @param xrange Vector containing minimum and maximum of the genomic region.
 #' @param trange Vector containing minimum and maximum of the pseudo time.
 #'
-#' @return  Matrix with values smoothed and pseudotime of scNMT-seq data of cells at various differentiation stages.
+#' @return  Matrix with smoothed `methyl` values of scNMT-seq data over a specific grid.
 #' @export
 #'
 #' @examples

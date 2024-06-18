@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_cpgs.R
 \name{get_cpgs}
 \alias{get_cpgs}
-\title{Obtain positions of CpGs}
+\title{Obtain positions of CGs}
 \usage{
 get_cpgs(species, chr, startpos, endpos)
 }
@@ -14,10 +14,10 @@ get_cpgs(species, chr, startpos, endpos)
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Integer list containing genomic positions of each CpG site found within the given region.
+Integer list containing genomic positions of each CG site found within the given region.
 }
 \description{
-\code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \verb{https://rest.ensembl.org} and extracts the positions of all \code{CG} sites found.
+\code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CG sites found.
 }
 \examples{
 get_cpgs("mouse", 8, 8628165, 8684055)
