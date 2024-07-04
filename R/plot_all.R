@@ -4,27 +4,32 @@
 #'   Using patchwork, the CpG and GpC methylation tile plot created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
 #'
 #' @param species String of species name/alias.
-#' @param genome String of the genome version used.
+#' @param genome String of the genome version used. Nomenclature from UCSC Genome Browser and Genome Reference Consortium are both acceptable inputs.
 #' @param meta Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").
 #' @param header,header_acc Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.
 #' @param hx,ht Numeric value defining bandwidth of the Gaussian kernel in x and t direction.
 #' @param chr Integer number of chromosome.
-#' @param start_VR,end_VR Integers defining the start and end position of the variable region.
+#' @param start_VR,end_VR Integers defining the start and end position of the variable region. Default is 0.
 #' @param spM,spMacc dgTMatrices containing CpG or GpC methylation.
-#' @param featurepath Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
-#' @param genepath Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' @param regpath Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).
+#' @param genepath Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection.  Additionally, it can be a data frame of the read gtf file (use readGFF() with one the previous mentioned options).
 #' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#' @param is_GRC A boolean argument. Use TRUE, if the `genome` input follows GRC nomenclature. This will allow `plot_all` to bypass an inner function that might cause an error. Use FALSE if the `genome` input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.
+#' @param delx,delt Numeric values defining spacings of the grids in x and t directions.
 #'
 #' @return Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).
+#'
 #' @export
 #'
-#' @examples \dontrun{plot_all("mouse", "mm39", spM, spMacc, meta, header, header_acc, featurepath, genepath, 400, 0.08, 8, 8628165, 8684055, 8653165, 8659055)}
-plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, featurepath, genepath, hx, ht, chr, startpos, endpos, start_VR, end_VR) {
+#' @examples \dontrun{plot_all("mouse", "GRCm38", spM, spMacc, meta, header, header_acc, genepath, regpath 8, 8628165, 8684055, 400, 0.08, 8653165, 8659055)}
+plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, genepath,  regpath, chr, startpos, endpos, hx, ht, start_VR=0, end_VR=0, delx = (hx/10), delt = (ht/10),  is_GRC=FALSE) {
+
+  altGenomenclature(species, genome) -> genomeIDs
 
   # CpGislands
   session <- browserSession("UCSC")
 
-  genome(session) <- genome
+  genome(session) <- genomeIDs[[2]]
 
   chromosome <- paste("chr", chr, sep="")
 
@@ -67,7 +72,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
   }
 
   # CpGs
-          cpg_positions <- get_cpgs(species, chr, startpos, endpos)
+          cpg_positions <- get_cpgs(species, genome, chr, startpos, endpos, is_GRC=is_GRC)
 
           if(is.null(cpg_positions)) {
             ggplot() +
@@ -112,7 +117,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
   # DNA methylation
           map_methyl(spM, meta, header, startpos, endpos) -> mappedpt
 
-          smooth2d(mappedpt, hx, ht) -> m
+          smooth2d(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
 
           as.data.frame(m)  -> df
 
@@ -159,13 +164,13 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
           colnames(df_acc) <- gsub("^V", "", colnames(df_acc))
 
           df_acc %>%
-            mutate(pos = row_number()) %>%
-            pivot_longer( cols = -pos, names_to = "ptime", values_to = "Value") -> df_acc
+            mutate(index = row_number()) %>%
+            pivot_longer( cols = -index, names_to = "ptime", values_to = "value") -> df_acc
 
           df_acc$ptime <- as.integer(df_acc$ptime)
 
           df_acc%>%
-            ggplot(aes(x=pos, y=ptime, fill=Value)) +
+            ggplot(aes(x=index, y=ptime, fill=value)) +
             geom_tile(show.legend = FALSE) +
             labs(fill = "methylation status") +
             scale_fill_viridis(option= "D",
@@ -233,7 +238,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, fea
 }
 
   # genomic features
-          plot_regulation(featurepath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
+          plot_regulation(regpath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
 
   # combine plots
           design <- "

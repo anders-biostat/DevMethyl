@@ -4,16 +4,16 @@
 \alias{plot_regulation}
 \title{Plot ensemble regulatory features}
 \usage{
-plot_regulation(featurepath, chr, startpos, endpos, start_VR = 0, end_VR = 0)
+plot_regulation(regpath, chr, startpos, endpos, start_VR = 0, end_VR = 0)
 }
 \arguments{
-\item{featurepath}{Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.}
+\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{start_VR, end_VR}{Integers defining the start and end position of the variable region.}
+\item{start_VR, end_VR}{Integers defining the start and end position of the variable region. Default is 0.}
 }
 \value{
 Segment plot of regulatory features with colored annotation of a variable region if provided.
@@ -26,6 +26,9 @@ More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/reg
 }
 \examples{
 plot_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
+
+reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
+plot_regulation(reg, 8, 8628165, 8684055)
 }
 \seealso{
 \code{\link[=get_regulation]{get_regulation()}} to receive the data frame used for plotting.

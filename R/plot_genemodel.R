@@ -1,6 +1,6 @@
 #' Plot genemodel
 #'
-#' `plot_genemodel` downloads the gene annotations between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
+#' `plot_genemodel` downloads the gene annotations (except transcripta annotations) between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
 #'   For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #'
 #' @inheritParams plot_all
@@ -11,6 +11,9 @@
 #' @seealso [get_genemodel()] to receive the data frame used for plotting.
 #'
 #' @examples plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+#'
+#' genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
+#' plot_genomemodel(genes, 8, 8628165, 8684055)
 plot_genemodel <- function(genepath, chr, startpos, endpos) {
 
   get_genemodel(genepath, chr, startpos, endpos) -> reg
@@ -47,7 +50,8 @@ plot_genemodel <- function(genepath, chr, startpos, endpos) {
     theme(legend.text = element_text(size = 10),
           legend.key.size = unit(0.4, "cm"),
           legend.title = element_text(size=10),
-          axis.text.y = element_text(size = 10)) +
+          axis.text.y = element_text(size = 10),
+          axis.title.y = element_blank())  +
     guides( fill = guide_legend( ncol= 2))
 
   }

@@ -6,7 +6,6 @@
 #'   More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 #'
 #' @inheritParams plot_all
-#' @param start_VR,end_VR Integers defining the start and end position of the variable region.
 #'
 #' @return Segment plot of regulatory features with colored annotation of a variable region if provided.
 #' @export
@@ -14,9 +13,12 @@
 #' @seealso [get_regulation()] to receive the data frame used for plotting.
 #'
 #' @examples plot_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
-plot_regulation <- function(featurepath, chr, startpos, endpos, start_VR=0, end_VR=0) {
+#'
+#' reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
+#' plot_regulation(reg, 8, 8628165, 8684055)
+plot_regulation <- function(regpath, chr, startpos, endpos, start_VR=0, end_VR=0) {
 
-  get_regulation(featurepath, chr, startpos, endpos) -> feat_reg
+  get_regulation(regpath, chr, startpos, endpos) -> feat_reg
 
   feat_reg$start[feat_reg$start < startpos] <- startpos
   feat_reg$end[feat_reg$end > endpos] <- endpos

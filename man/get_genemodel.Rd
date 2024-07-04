@@ -7,21 +7,25 @@
 get_genemodel(genepath, chr, startpos, endpos)
 }
 \arguments{
-\item{genepath}{Location of the gtf file to be read. Can be a single string of the file directory or of the URL or can be a connection. Contains genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.}
+\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection.  Additionally, it can be a data frame of the read gtf file (use readGFF() with one the previous mentioned options).}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Data frame containing 28 columns (seqname, start, end, width, strand, source, type, score, phase, gene_id, gene_version, gene_name, gene_source, gene_biotype, transcript_id, transcript_version, transcript_name, transcript_source, transcript_biotype, tag, transcript_support_level, exon_number, exon_id, exon_version, ccds_id, protein_id, protein_version, strand_boolean).
+Data frame containing various columns depending on the genome version and release chosen.
+Possible column names include \code{seqname}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type} , \code{gene_id} and \code{strand_boolean}.
 }
 \description{
-\code{get_genemodel} downloads the gene annotations between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen species.
+\code{get_genemodel} downloads the gene annotations between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen species and removes transcript annotations.
 For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 }
 \examples{
 get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+
+genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
+get_genomemodel(genes, 8, 8628165, 8684055)
 }
 \seealso{
 \code{\link[=plot_genemodel]{plot_genemodel()}} to plot data frame as an annotated arrow plot.

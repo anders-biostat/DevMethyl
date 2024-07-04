@@ -7,20 +7,26 @@
 #'
 #' @inheritParams plot_all
 #'
-#' @return Data frame containing 14 columns (seqnames, start, end, width, strand, source, type, score, phase, ID, bound_end, bound_start, description, feature_type).
+#' @return Data frame containing 14 columns (`seqnames`, `start`, `end`, `width`, `strand`, `source`, `type`, `score`, `phase`, `ID`, `bound_end`, `bound_start`, `description`, `feature_type`).
 #' @export
 #'
 #' @seealso [plot_genemodel()] to plot data fame as an annotated segment plot.
 #'
 #' @examples get_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
-get_regulation <- function(featurepath, chr, startpos, endpos) {
+#'
+#' reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
+#' get_regulation(reg, 8, 8628165, 8684055 )
+get_regulation <- function(regpath, chr, startpos, endpos) {
 
-  ens_feat<- as.data.frame(import.gff(featurepath))
+  if (is.data.frame(regpath)) {
+    ens_feat <- regpath %>%
+                dplyr::filter(seqid==chr) %>%
+                dplyr::filter(!start > endpos , !end < startpos)}
+  else {
+    gr <- GRanges(paste(chr, paste(startpos, endpos, sep = "-"), sep = ":"))
+    ens_feat <- as.data.frame(import.gff(regpath, which = gr))
+  }
 
-  ens_feat %>%
-    dplyr::filter(seqnames==chr) %>%
-    dplyr::filter(!start > endpos , !end < startpos) -> feat_reg
-
- return(feat_reg)
+ return(ens_feat)
 
 }

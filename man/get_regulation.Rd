@@ -4,17 +4,17 @@
 \alias{get_regulation}
 \title{Obtain ensemble regulatory features}
 \usage{
-get_regulation(featurepath, chr, startpos, endpos)
+get_regulation(regpath, chr, startpos, endpos)
 }
 \arguments{
-\item{featurepath}{Location of the gff file to be read. Can be a single string of the file directory, the URL or can be a connection. Contains regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.}
+\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Data frame containing 14 columns (seqnames, start, end, width, strand, source, type, score, phase, ID, bound_end, bound_start, description, feature_type).
+Data frame containing 14 columns (\code{seqnames}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type}, \code{score}, \code{phase}, \code{ID}, \code{bound_end}, \code{bound_start}, \code{description}, \code{feature_type}).
 }
 \description{
 \code{get_regulation} downloads regulatory features found between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the ensemble dataset chosen.
@@ -24,6 +24,9 @@ More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/reg
 }
 \examples{
 get_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
+
+reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
+get_regulation(reg, 8, 8628165, 8684055 )
 }
 \seealso{
 \code{\link[=plot_genemodel]{plot_genemodel()}} to plot data fame as an annotated segment plot.
