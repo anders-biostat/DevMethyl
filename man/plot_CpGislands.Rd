@@ -4,10 +4,12 @@
 \alias{plot_cpgislands}
 \title{Plot CpG islands}
 \usage{
-plot_cpgislands(genome, chr, startpos, endpos)
+plot_cpgislands(species, genome, chr, startpos, endpos)
 }
 \arguments{
-\item{genome}{String of the genome version used.}
+\item{species}{String of species name/alias.}
+
+\item{genome}{String of the genome version used. Nomenclature from UCSC Genome Browser and Genome Reference Consortium are both acceptable inputs.}
 
 \item{chr}{Integer number of chromosome.}
 
@@ -17,9 +19,9 @@ plot_cpgislands(genome, chr, startpos, endpos)
 Segment plot indicating the position of CpG islands within the genomic region.
 }
 \description{
-\code{plot_cpgislands} downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the position of islands.
-Information of the CpG islands are obtained from the UCSC Genome Browser \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
+\code{plot_cpgislands} downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the positions and lengths of the islands.
+Information of the CpG islands are obtained from the UCSC Genome Browser data retrieval tool \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
 }
 \examples{
-plot_cpgislands("mm39", 8, 8628165, 8684055)
+plot_cpgislands("mouse", "mm10", 8, 8620000, 8680000)
 }

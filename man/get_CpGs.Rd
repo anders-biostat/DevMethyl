@@ -4,14 +4,18 @@
 \alias{get_cpgs}
 \title{Obtain positions of CGs}
 \usage{
-get_cpgs(species, chr, startpos, endpos)
+get_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 }
 \arguments{
 \item{species}{String of species name/alias.}
 
+\item{genome}{String of the genome version used. Nomenclature from UCSC Genome Browser and Genome Reference Consortium are both acceptable inputs.}
+
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
+
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Integer list containing genomic positions of each CG site found within the given region.
@@ -20,7 +24,7 @@ Integer list containing genomic positions of each CG site found within the given
 \code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CG sites found.
 }
 \examples{
-get_cpgs("mouse", 8, 8628165, 8684055)
+get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
 }
 \seealso{
 \code{\link[=plot_cpgs]{plot_cpgs()}} to plot integer list as a bar plot.

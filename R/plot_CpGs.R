@@ -10,10 +10,10 @@
 #'
 #' @seealso [get_cpgs()] to receive the integer list used for plotting.
 #'
-#' @examples plot_cpgs("mouse", "GRCm38", 8, 8628165, 8684055)
-plot_cpgs <- function(species, GRCgenome, chr, startpos, endpos) {
+#' @examples plot_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
+plot_cpgs <- function(species, genome, chr, startpos, endpos, is_GRC=FALSE) {
 
-  cpg_positions <- get_cpgs(species, GRCgenome, chr, startpos, endpos)
+  cpg_positions <- get_cpgs(species, genome, chr, startpos, endpos, is_GRC=is_GRC)
 
   if(is.null(cpg_positions)) {
     ggplot() +

@@ -9,12 +9,20 @@
 #'
 #' @seealso [plot_cpgs()] to plot integer list as a bar plot.
 #'
-#' @examples get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055)
-get_cpgs <- function(species, GRCgenome, chr, startpos, endpos) {
+#' @examples get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
+get_cpgs <- function(species, genome, chr, startpos, endpos, is_GRC=FALSE) {
+
+  if (is_GRC) {
+    genomeID <- genome
+  }
+  else {
+    listGenomes <- altGenomenclature(species, genome)
+    genomeID <-  listGenomes[[1]]
+  }
 
   ext_muster <- "/sequence/region/%s/%s:%s..%s:1?coord_system_version=%s"
 
-  ext <- sprintf(ext_muster, species, chr, startpos, endpos, GRCgenome)
+  ext <- sprintf(ext_muster, species, chr, startpos, endpos, genomeID)
 
   server <- "https://rest.ensembl.org"
 

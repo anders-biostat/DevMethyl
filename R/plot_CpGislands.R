@@ -1,20 +1,21 @@
 #' Plot CpG islands
 #'
-#' `plot_cpgislands` downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the position of islands.
-#'   Information of the CpG islands are obtained from the UCSC Genome Browser \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
+#' `plot_cpgislands` downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the positions and lengths of the islands.
+#'   Information of the CpG islands are obtained from the UCSC Genome Browser data retrieval tool \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
 #'
 #' @inheritParams plot_all
 #'
 #' @return Segment plot indicating the position of CpG islands within the genomic region.
 #' @export
 #'
-#' @examples
-#' plot_cpgislands("mm39", 8, 8628165, 8684055)
-plot_cpgislands <- function(genome, chr, startpos, endpos) {
+#' @examples plot_cpgislands("mouse", "mm10", 8, 8620000, 8680000)
+plot_cpgislands <- function(species, genome, chr, startpos, endpos) {
+
+  altGenomenclature(species, genome) -> genomeIDs
 
   session <- browserSession("UCSC")
 
-  genome(session) <- genome
+  genome(session) <- genomeIDs[[2]]
 
   chromosome <- paste("chr", chr, sep="")
 

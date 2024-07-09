@@ -1,5 +1,5 @@
 Package: DevMethyl
-Title: Visualizing Methylation Changes
+Title: Visualizing methylation changes during differentiation
 Version: 0.0.0.9000
 Authors@R: c(
     person("Hannah", "Glaser", email="hannah.glaser@mk-glaser.de", role = c("cre","aut")),
@@ -11,7 +11,7 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Depends: 
-    R (>= 2.10), rtracklayer, reticulate, Matrix, httr, tidyverse, viridis, gggenes, patchwork
+    R (>= 2.10), rtracklayer, UCSC.utils, reticulate, Matrix, httr, tidyverse, viridis, gggenes, patchwork
 LazyData: true
 Suggests: 
     knitr,
