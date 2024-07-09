@@ -1,8 +1,8 @@
-#' Convert npz file to sparse Matrix
+#' Convert NumPy file to sparse Matrix
 #'
-#' `npz.to.spM` converts a npz file to a Tsparse matrix.
+#' `npz.to.spM` converts a NumPy file to a Tsparse matrix employable in R.
 #'
-#' @param npzPath Directory of npz file.
+#' @param npzPath Directory of NumPy file.
 #'
 #' @return Tsparse matrix with j = indices, p = indptr and x = data.
 #' @export

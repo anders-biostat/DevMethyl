@@ -33,7 +33,6 @@ Matrix with smoothed \code{methyl} values of scNMT-seq data over a specific grid
 For this it iterates over the data points, calculating a Gaussian-weighted sum within a window around each point, and normalizes it by the total weight.
 }
 \examples{
-
 # create example data frame
 pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
 pt = c(1,1,2,2,3,3,4,4,5,5)

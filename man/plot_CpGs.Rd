@@ -4,14 +4,18 @@
 \alias{plot_cpgs}
 \title{Plot positions of CG sites}
 \usage{
-plot_cpgs(species, chr, startpos, endpos)
+plot_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 }
 \arguments{
 \item{species}{String of species name/alias.}
 
+\item{genome}{String of the genome version used. Nomenclature from UCSC Genome Browser and Genome Reference Consortium are both acceptable inputs.}
+
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
+
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Bar plot visualizing the distribution of CG sites within a genomic range.
@@ -21,7 +25,7 @@ Bar plot visualizing the distribution of CG sites within a genomic range.
 The CG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CG sites in each part is calculated and displayed as a bar.
 }
 \examples{
-plot_cpgs("mouse", 8, 8628165, 8684055)
+plot_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
 }
 \seealso{
 \code{\link[=get_cpgs]{get_cpgs()}} to receive the integer list used for plotting.

@@ -17,8 +17,8 @@ plot_genemodel(genepath, chr, startpos, endpos)
 Arrow plot of genes including colored annotations of the genomic features.
 }
 \description{
-\code{plot_genemodel} downloads the gene annotations (except transcripta annotations) between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the chosen species and plots the data as a arrow plot.
-For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+\code{plot_genemodel} downloads the gene annotations (except transcript annotations) between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the chosen species and plots the data as a arrow plot.
+For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 }
 \examples{
 plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)

@@ -19,7 +19,7 @@ map_methyl(spM, meta, header, startpos, endpos)
 Data frame containing information of spM for the selected genomic region, sorted by ptime. Here, \code{pos} is the row index indicating the genomic position, \code{pt} contains the sorted pseudotimes and \code{methyl} contains either -1 or 1, specifying the methylation status (un-/methylated).
 }
 \description{
-\code{map_methyl} maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from \code{header} and put as column names of \code{spM}. \code{meta} is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
+\code{map_methyl} maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from \code{cellids} and put as column names of \code{spM}. \code{meta} is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
 }
 \examples{
 map_methyl(ex_spM, ex_meta, ex_header, 8000, 64000)

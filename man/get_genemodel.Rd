@@ -19,7 +19,7 @@ Possible column names include \code{seqname}, \code{start}, \code{end}, \code{wi
 }
 \description{
 \code{get_genemodel} downloads the gene annotations between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen species and removes transcript annotations.
-For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 }
 \examples{
 get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)

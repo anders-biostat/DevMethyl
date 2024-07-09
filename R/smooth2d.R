@@ -5,7 +5,6 @@
 #'
 #' @inheritParams plot_all
 #' @param mappedpt Data frame of the sparse matrix obtained from `map_methyl`. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl), which is -1 or 1 (un-/methylated) for the selected region of the scNMT-seq data.
-#' @param delx,delt Numeric values defining spacings of the grids in x and t directions.
 #' @param xrange Vector containing minimum and maximum of the genomic region.
 #' @param trange Vector containing minimum and maximum of the pseudo time.
 #'
@@ -13,7 +12,6 @@
 #' @export
 #'
 #' @examples
-#'
 #' # create example data frame
 #' pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
 #' pt = c(1,1,2,2,3,3,4,4,5,5)

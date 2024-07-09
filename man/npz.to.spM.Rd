@@ -2,18 +2,18 @@
 % Please edit documentation in R/npz.to.spM.R
 \name{npz.to.spM}
 \alias{npz.to.spM}
-\title{Convert npz file to sparse Matrix}
+\title{Convert NumPy file to sparse Matrix}
 \usage{
 npz.to.spM(npzPath)
 }
 \arguments{
-\item{npzPath}{Directory of npz file.}
+\item{npzPath}{Directory of NumPy file.}
 }
 \value{
 Tsparse matrix with j = indices, p = indptr and x = data.
 }
 \description{
-\code{npz.to.spM} converts a npz file to a Tsparse matrix.
+\code{npz.to.spM} converts a NumPy file to a Tsparse matrix employable in R.
 }
 \examples{
 file_paths <- load_exdata()

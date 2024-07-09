@@ -1,7 +1,7 @@
 #' Obtain ensemble regulatory features
 #'
-#' `get_regulation` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the ensemble dataset chosen.
-#'   For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' `get_regulation` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the ensemble data set chosen.
+#'   For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #'   Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
 #'   More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 #'

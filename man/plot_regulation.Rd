@@ -20,7 +20,7 @@ Segment plot of regulatory features with colored annotation of a variable region
 }
 \description{
 \code{plot_regulation} downloads regulatory features found between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the ensemble data set chosen and plots the data as a segment plot.
-For this, copy the link or download the GTF file from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
 More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 }
