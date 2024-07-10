@@ -1,7 +1,8 @@
-#' Plot genemodel
+#' Plot Ensembl genemodel
 #'
-#' `plot_genemodel` downloads the gene annotations (except transcript annotations) between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
-#'   For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' `plot_genemodel` downloads the gene annotations between `startpos`and `endpos` of the chromosome `chr` from the chosen species and plots the data as a arrow plot.
+#'   Gene annotation includes genes, exons, CDS, start codons, stop codons, five prime utrs, three prime utrs and Selenocysteines.
+#'   For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 #'
 #' @inheritParams plot_all
 #'
@@ -13,7 +14,7 @@
 #' @examples plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
 #'
 #' genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-#' plot_genomemodel(genes, 8, 8628165, 8684055)
+#' plot_genemodel(genes, 8, 8628165, 8684055)
 plot_genemodel <- function(genepath, chr, startpos, endpos) {
 
   get_genemodel(genepath, chr, startpos, endpos) -> reg

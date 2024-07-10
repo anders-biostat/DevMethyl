@@ -2,8 +2,8 @@
 #'
 #' `plot_methyl` generates a tile plot to visualize the smoothed methylation values from temporal scNMT-seq data, highlighting changes during differentiation.
 #'
-#' @param m Matrix received from `smooth2d`. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.
-#' @inheritParams smooth2d
+#' @param m Matrix received from `smooth`. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.
+#' @inheritParams smooth
 #'
 #' @return Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 #' @export
@@ -16,7 +16,7 @@
 #' data.frame( pos, pt, methyl) -> mappedpt
 #'
 #' # create matrix
-#' smooth2d(mappedpt, 2, 2, 0.1, 0.1,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
+#' smooth(mappedpt, 2, 2, 0.1, 0.1,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
 #'
 #' plot_methyl(m, mappedpt, 8628165, 8684055)
 plot_methyl <- function(m, mappedpt, startpos, endpos) {

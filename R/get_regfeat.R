@@ -1,7 +1,7 @@
-#' Obtain ensemble regulatory features
+#' Obtain Ensembl regulatory features
 #'
-#' `get_regulation` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the ensemble data set chosen.
-#'   For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' `get_regfeat` downloads regulatory features found between `startpos`and `endpos` of the chromosome `chr` from the Ensembl data set chosen.
+#'   For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 #'   Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
 #'   More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 #'
@@ -10,13 +10,13 @@
 #' @return Data frame containing 14 columns (`seqnames`, `start`, `end`, `width`, `strand`, `source`, `type`, `score`, `phase`, `ID`, `bound_end`, `bound_start`, `description`, `feature_type`).
 #' @export
 #'
-#' @seealso [plot_genemodel()] to plot data fame as an annotated segment plot.
+#' @seealso [plot_regfeat()] to plot data fame as an annotated segment plot.
 #'
-#' @examples get_regulation("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
+#' @examples get_regfeat("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
 #'
 #' reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
-#' get_regulation(reg, 8, 8628165, 8684055 )
-get_regulation <- function(regpath, chr, startpos, endpos) {
+#' get_regfeat(reg, 8, 8628165, 8684055 )
+get_regfeat <- function(regpath, chr, startpos, endpos) {
 
   if (is.data.frame(regpath)) {
     ens_feat <- regpath %>%

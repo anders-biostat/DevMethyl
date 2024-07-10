@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_cpgs.R
 \name{get_cpgs}
 \alias{get_cpgs}
-\title{Obtain positions of CGs}
+\title{Obtain positions of CpG sites}
 \usage{
 get_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 }
@@ -18,10 +18,10 @@ get_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 \item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
-Integer list containing genomic positions of each CG site found within the given region.
+Integer list containing genomic positions of each CpG site found within the given region.
 }
 \description{
-\code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CG sites found.
+\code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
 }
 \examples{
 get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)

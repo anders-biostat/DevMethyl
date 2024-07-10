@@ -117,7 +117,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
   # DNA methylation
           map_methyl(spM, meta, header, startpos, endpos) -> mappedpt
 
-          smooth2d(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
+          smooth(mappedpt, hx, ht, delx, delt) -> m
 
           as.data.frame(m)  -> df
 
@@ -157,7 +157,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
   # Chromatin accessibility
           map_methyl(spMacc, meta, header_acc, startpos, endpos) -> mappedpt_acc
 
-          smooth2d(mappedpt_acc, hx, ht) -> m_acc
+          smooth(mappedpt_acc, hx, ht, delx, delt) -> m_acc
 
           as.data.frame(m_acc)  -> df_acc
 
@@ -238,7 +238,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
 }
 
   # genomic features
-          plot_regulation(regpath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
+          plot_regfeat(regpath, chr, startpos, endpos, start_VR, end_VR) -> feat_plot
 
   # combine plots
           design <- "

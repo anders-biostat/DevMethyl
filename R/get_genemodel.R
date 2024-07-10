@@ -1,7 +1,8 @@
-#' Obtain ensemble genemodel
+#' Obtain Ensembl genemodel
 #'
 #' `get_genemodel` downloads the gene annotations between `startpos` and `endpos` of the chromosome `chr` from the chosen species and removes transcript annotations.
-#'   For this, copy the link or download the GTF file from the Ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#'    Gene annotation includes genes, exons, CDS, start codons, stop codons, five prime utrs, three prime utrs and Selenocysteines.
+#'   For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 #'
 #' @inheritParams plot_all
 #'

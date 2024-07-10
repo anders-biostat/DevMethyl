@@ -1,10 +1,10 @@
-#' Obtain positions of CGs
+#' Obtain positions of CpG sites
 #'
-#' `get_cpgs` downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CG sites found.
+#' `get_cpgs` downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
 #'
 #' @inheritParams plot_all
 #'
-#' @return Integer list containing genomic positions of each CG site found within the given region.
+#' @return Integer list containing genomic positions of each CpG site found within the given region.
 #' @export
 #'
 #' @seealso [plot_cpgs()] to plot integer list as a bar plot.
