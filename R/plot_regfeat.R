@@ -42,7 +42,7 @@ plot_regfeat <- function(regpath, chr, startpos, endpos, start_VR=0, end_VR=0) {
 
   } else {
 
-  ggplot(feat_reg, aes(y = type, x = start, xend = end, yend = type)) +
+  ggplot(feat_reg, aes(y = feature_type, x = start, xend = end, yend = feature_type)) +
     geom_segment(linewidth = 4, color = "black", alpha = 0.7) +
     labs( x= "genomic position") +
     xlim(startpos, endpos) +
