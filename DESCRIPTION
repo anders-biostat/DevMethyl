@@ -1,6 +1,6 @@
 Package: DevMethyl
 Title: Visualizing methylation changes during differentiation
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Hannah", "Glaser", email="hannah.glaser@mk-glaser.de", role = c("cre","aut")),
     person("Simon", "Anders", email="simon.anders@bioquant.uni-heidelberg.de", role = "ctb") )
