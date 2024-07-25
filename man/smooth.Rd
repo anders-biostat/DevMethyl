@@ -17,13 +17,13 @@ smooth(
 \arguments{
 \item{mappedpt}{Data frame of the sparse matrix obtained from \code{map_methyl}. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl), which is -1 or 1 (un-/methylated) for the selected region of the scNMT-seq data.}
 
-\item{hx, ht}{Numeric value defining bandwidth of the Gaussian kernel in x and t direction.}
+\item{hx, ht}{Numeric values defining bandwidth of the Gaussian kernel in x and t direction.}
 
 \item{delx, delt}{Numeric values defining spacings of the grids in x and t directions.}
 
 \item{xrange}{Vector containing minimum and maximum of the genomic region.}
 
-\item{trange}{Vector containing minimum and maximum of the pseudo time.}
+\item{trange}{Vector containing minimum and maximum of the pseudotimes.}
 }
 \value{
 Matrix with smoothed \code{methyl} values of scNMT-seq data over a specific grid.
@@ -39,5 +39,5 @@ pt = c(1,1,2,2,3,3,4,4,5,5)
 methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
 data.frame( pos, pt, methyl) -> mappedpt
 
-smooth(mappedpt, 2, 2, 0.1, 0.1,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt))
+smooth(mappedpt, 2, 2, 0.1, 0.1)
 }

@@ -45,7 +45,7 @@ plot_all(
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{hx, ht}{Numeric value defining bandwidth of the Gaussian kernel in x and t direction.}
+\item{hx, ht}{Numeric values defining bandwidth of the Gaussian kernel in x and t direction.}
 
 \item{start_VR, end_VR}{Integers defining the start and end position of the variable region. Default is 0.}
 
@@ -59,6 +59,8 @@ Patchwork plot combining tile plots of CpG and GpC methylation with plots contai
 \description{
 \code{plot_all} creates a summary plot combining all plots producible with the \code{DevMethyl} package.
 Using patchwork, the CpG and GpC methylation tile plot created by \code{plot_methyl}, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
+Based on the size of the genomic region analysed, this analysis might take a while.
+This functions returns empty plots within, if errors occurs or if no data is found. To find the reason of an empty plot try the individual function.
 }
 \examples{
 \dontrun{plot_all("mouse", "GRCm38", spM, spMacc, meta, header, header_acc, genepath, regpath 8, 8628165, 8684055, 400, 0.08, 8653165, 8659055)}

@@ -25,7 +25,7 @@ methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
 data.frame( pos, pt, methyl) -> mappedpt
 
 # create matrix
-smooth(mappedpt, 2, 2, 0.1, 0.1,  xrange = range(mappedpt$pos), trange=range(mappedpt$pt)) -> m
+smooth(mappedpt, 2, 2, 0.1, 0.1) -> m
 
 plot_methyl(m, mappedpt, 8628165, 8684055)
 }

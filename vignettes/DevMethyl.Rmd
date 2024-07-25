@@ -76,7 +76,6 @@ editor_options:
 To analyze your data using `DevMethyl`, we first need to install and load the package.
 
 ```{r loading, message=FALSE, warning=FALSE}
-# installation?
 library(DevMethyl)
 ```
 
@@ -94,6 +93,7 @@ These files can be obtained using `load_exdata`.
 file_paths <- load_exdata() 
 
 methylpath <- file_paths[[1]]
+methylpath
 ```
 
 Using DevMethyl's `npz.to.spM`, the Compressed Sparse Row matrix returned from `MethSCAn prepare` will first be converted into a Tsparse matrix employable in R.
@@ -111,7 +111,9 @@ metapath <- file_paths[[3]]
 
 meta <- read.table(metapath, header =TRUE, sep = "\t")
 
-   meta$pt_avg <- rowMeans(meta[44:45], na.rm = TRUE)
+   meta$pt_avg <- rowMeans(meta[2:3], na.rm = TRUE)
+   
+   meta %>% head()
 ```
 
 Further you will need a file mapping each row index of the sparse matrix to its cell IDs.
@@ -119,7 +121,8 @@ The file "column_header" contains the column header of the sparse matrix we use 
 These cell IDs need to be of the same format as the cell IDs in "meta" and stored in a column called "cell_id" of a data frame.
 
 ```{r header}
-header <- readLines(system.file("extdata", "column_header.txt", package = "DevMethyl")) %>% as.data.frame()
+header <- readLines(system.file("extdata", "column_header.txt", package = "DevMethyl")) %>% 
+          as.data.frame()
 
   names(header)[names(header) == "."] <- "cell_id"
 ```
@@ -140,10 +143,10 @@ Based on the used sparse matrix and ROI, you might need to adjust your kernel si
 species <- "mouse"
 genome <- "mm10"
 chr <- 8
-rstart <- 8628200
-rend <- 8684000
-startVR<- 8653165
-endVR <- 8659055
+rstart <-  8628200
+rend <-    8684000
+startVR <- 8653165
+endVR <-   8659055
 hx <- 200
 ht <- 0.4
 delx <- 20
@@ -181,7 +184,6 @@ Finally, you can plot your matrix using `plot_methyl`, the mapped pseudotimes an
 This will create a tile plot visualizing how the DNA methylation pattern changes during differentiation.
 
 In this example you can see, especially in the VR 8653165-8659055, major changes of the methylation pattern around ptime 1 and between 5 and 6.
-Biological interpretation:---
 
 ```{r plot_methyl, fig.width=7}
 plot_methyl(m, mappedpt, rstart, rend)
@@ -271,7 +273,7 @@ genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mu
 
 get_genemodel(genepath, chr, rstart, rend) -> genemodel
 
-  subset(genemodel,select=c(1:5,7,11))
+  subset(genemodel,select = c(1:5,7,11))
 ```
 
 To plot this data, use `plot_genemodel`, which creates an arrow plot of the genes within the given ROI with colored genomic annotations.
@@ -289,7 +291,9 @@ For input options see 4.3 Genemodel.
 ```{r reg features}
 regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
 
-get_regfeat(regpath, chr, rstart, rend) %>% head(1)
+get_regfeat(regpath, chr, rstart, rend) -> regfeat
+
+  subset(regfeat, select = c(1,4,5,10,11,13))
 ```
 
 To plot these features use `plot_regfeat`, which generates a segment plot including a colored annotation of the variable region.

@@ -2,12 +2,14 @@
 #'
 #' `plot_all` creates a summary plot combining all plots producible with the `DevMethyl` package.
 #'   Using patchwork, the CpG and GpC methylation tile plot created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
+#'   Based on the size of the genomic region analysed, this analysis might take a while.
+#'   This functions returns empty plots within, if errors occurs or if no data is found. To find the reason of an empty plot try the individual function.
 #'
 #' @param species String of species name/alias.
 #' @param genome String of the genome version used. Nomenclature from UCSC Genome Browser and Genome Reference Consortium are both acceptable inputs.
 #' @param meta Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").
 #' @param header,header_acc Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.
-#' @param hx,ht Numeric value defining bandwidth of the Gaussian kernel in x and t direction.
+#' @param hx,ht Numeric values defining bandwidth of the Gaussian kernel in x and t direction.
 #' @param chr Integer number of chromosome.
 #' @param start_VR,end_VR Integers defining the start and end position of the variable region. Default is 0.
 #' @param spM,spMacc dgTMatrices containing CpG or GpC methylation.
@@ -72,7 +74,12 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
   }
 
   # CpGs
-          cpg_positions <- get_cpgs(species, genome, chr, startpos, endpos, is_GRC=is_GRC)
+            cpg_positions <- tryCatch({
+              get_cpgs(species, genome, chr, startpos, endpos, is_GRC = is_GRC)
+            }, error = function(e) {
+              error_message <<- conditionMessage(e)
+              return(NULL)
+            })
 
           if(is.null(cpg_positions)) {
             ggplot() +

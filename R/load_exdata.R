@@ -29,7 +29,7 @@ load_exdata <- function() {
   tempfile2 <- file.path(tempdir(), "8_GpC_trunc.npz")
   download.file(url2, tempfile2, mode = "wb")
 
-  url3 <- "https://heibox.uni-heidelberg.de/f/fdc8bb53bf784cb092ab/?dl=1"
+  url3 <- "https://heibox.uni-heidelberg.de/f/d6b63b2211e14b2a88f2/?dl=1"
   tempfile3 <- file.path(tempdir(), "cell-annotation.tsv")
   download.file(url3, tempfile3, mode = "wb")
 
