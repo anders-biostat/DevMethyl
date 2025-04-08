@@ -22,11 +22,12 @@ BiocManager::install("UCSC.utils")
 BiocManager::install("rtracklayer")
 
 install.packages("devtools")
-devtools::install_github("anders-biostat/DevMethyl")
+devtools::install_github("anders-biostat/DevMethyl", build_vignettes = TRUE)
 ```
 
 ## Vignette
 For detailed examples and in-depth information, please refer to the package vignette.
+
 You can view the vignette by running:
 ``` r
 vignette("DevMethyl", package="DevMethyl")
