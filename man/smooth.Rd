@@ -2,7 +2,7 @@
 % Please edit documentation in R/smooth.R
 \name{smooth}
 \alias{smooth}
-\title{Apply Gaussian filter to temporal methylation data of scNMT-seq}
+\title{Apply Gaussian filter to temporal methylation data from scNMT-seq}
 \usage{
 smooth(
   mappedpt,
@@ -34,10 +34,10 @@ For this it iterates over the data points, calculating a Gaussian-weighted sum w
 }
 \examples{
 # create example data frame
-pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
-pt = c(1,1,2,2,3,3,4,4,5,5)
-methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
-data.frame( pos, pt, methyl) -> mappedpt
+pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626, 5627)
+pt = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)
+methyl = c(1, 1, 1, -1, 1, -1, -1, 1, -1, -1)
+data.frame(pos, pt, methyl) -> mappedpt
 
 smooth(mappedpt, 2, 2, 0.1, 0.1)
 }

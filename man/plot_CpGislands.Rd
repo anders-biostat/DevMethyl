@@ -19,7 +19,7 @@ plot_cpgislands(species, genome, chr, startpos, endpos)
 Segment plot indicating the position of CpG islands within the genomic region.
 }
 \description{
-\code{plot_cpgislands} downloads and plots CpG islands of the chosen genomic region as a segment plot visualizing the positions and lengths of the islands.
+\code{plot_cpgislands} downloads and plots CpG islands of the chosen genomic region as a segment plot, visualizing the positions and lengths of the islands.
 Information of the CpG islands are obtained from the UCSC Genome Browser data retrieval tool \url{https://genome.ucsc.edu/cgi-bin/hgTables}.
 }
 \examples{

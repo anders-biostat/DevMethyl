@@ -1,9 +1,9 @@
 ---
-title: "DevMethyl: Visualizing methylation changes during differentiation"
+title: "DevMethyl: Visualizing methylation changes during cell differentiation"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteEncoding{UTF-8}
-  %\VignetteIndexEntry{DevMethyl: Visualizing methylation changes during differentiation}
+  %\VignetteIndexEntry{DevMethyl: Visualizing methylation changes during cell differentiation}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
   markdown: 
@@ -12,53 +12,54 @@ editor_options:
 
 # 1 Introduction
 
-| Epigenetic mechanisms like DNA methylation and histone modification govern the dynamic changes in gene expression that are essential for stem cell differentiation. 
-  Understanding the complex interplay between the layers of transcriptomics, epigenomics and genomics is crucial to advancing in developmental and medical research.
+| Epigenetic mechanisms such as DNA methylation and histone modifications drive the dynamic changes in gene expression essential for stem cell differentiation. 
+  Understanding the complex interplay between the layers of transcriptomics, epigenomics and genomics is crucial for advancing both developmental and medical research.
 | 
-| `DevMethyl` is an R package designed for the analysis of single-cell multi-omics data of cells at various differentiation states. 
-  It is used to visualize the changes of the epigenetic landscape (DNA methylation and chromatin accessibility) during stem cell progression, while providing access to genomic information like CpG content, genomic and regulatory features. 
-  This package was created to provide a easy access to summarized information on any specific genomic region of interest, enabling users to efficiently navigate through extensive data.
+| `DevMethyl` is an R package designed to analyze single-cell multi-omics data from cells at various differentiation states. 
+  It allows visualization of changes in the epigenetic landscape - specifically DNA methylation and chromatin accessibility - during stem cell progression, while providing access to genomic context like CpG content, genomic and regulatory features. 
+  This package was created to provide easy access to summarized information on any specific genomic region of interest, enabling users to efficiently navigate through large-scale datasets.
 | 
 | 
 | 
 | 
 | 
 
-## 1.1 DNA methylation
+## 1.1 DNA Methylation
 
 | In the mammalian genome, methylation of CpG dinucleotides is one of the major epigenetic mechanisms. 
-  During this process, a methyl group is transferred to the C5 position of the cytosine to form 5-methylcytosine. 
-  This modification, especially in promoter and enhancer regions, can repress gene expression by recruiting proteins and binding transcription factors to the DNA. 
+  During this process, a methyl group is transferred to the C5 position of the cytosine, forming 5-methylcytosine. 
+  This modification, especially in promoters and enhancers, can repress gene expression by recruiting proteins and blocking transcription factor binding. 
   Conversely, demethylation can induce gene transcription (Ambrosi et al., 2017; Moore et al., 2013). 
-  Disruption of methylation processes is often associated with various human diseases, with alterations frequently found on CpG islands, in promoters and enhancers (Meier & Recillas-Targa, 2017).
+  Disruption of methylation processes is frequently linked to various diseases, often involving altered CpG methylation in regulatory regions (Meier & Recillas-Targa, 2017).
 | 
-| DNA methylation can also be used to measure chromatin accessibility. 
+| DNA methylation is also a proxy for assessing chromatin accessibility. 
   Chromatin structure is determined by the binding of nucleosomes and other proteins to the DNA, influencing the access of factors to the DNA, thereby regulating genomic processes (Mansisidor & Risca, 2022). 
-  As non-CpG sites are rarely methylated in the mammalian genome, the transfer of a methyl group to a non-CpG site (like GpC) prior a bisulfite sequencing enables the distinction between accessible and non-accessible DNA (Clark et al., 2018).
+  Since non-CpG sites are rarely methylated in the mammalian genome, the methylation of GpC sites - induced prior to bisulfite sequencing - enables the distinction between accessible and non-accessible DNA (Clark et al., 2018).
 | 
-| Understanding the dynamic changes in these species-specific methylation patterns and chromatin structure during cell differentiation can help elucidate the mechanisms underlying gene regulation, cellular identity and human diseases.
+| 
+| Understanding how these species-specific methylation patterns and chromatin structures change during differentiation provides key insight into gene regulation, cellular identity, and disease mechanisms.
 | 
 | 
 | 
 | 
 
-## 1.2 Single-cell triple-omics of adult neural stem cell lineage
+## 1.2 Single-cell Triple-Omics of Adult Neural Stem Cell Lineage
 
-| To demonstrate how `DevMethyl` works, we used scNMT-seq data set of the adult neural stem cell lineage obtained from Kremer et al (2022). 
-  Single-cell parallel profiling techniques, such as scNMT-seq enable the analysis of multiple genomic properties simultaneously, allowing detailed comparison of transcriptomics and epigenomics at single-cell level. 
-  Kremer et al. (2022) used in their experiment astrocytes, oligodendrocytes, quiescent and active neural stem cells (qNSC, aNSC), transit-amplifying progenitors (TAPs) and neuroblasts from the ventricular-subventricular zone (vSVZ). 
-  Additionally, they included astrocytes from the stratum, as well as as neuroblasts and neurons from the olfactory bulb.
+| To demonstrate how `DevMethyl` works, we used a scNMT-seq (single-cell nucleosome, methylation and transcription sequencing) dataset of the adult neural stem cell (NSC) lineage from Kremer, Cerrizuela, et al. (2024). 
+  Single-cell parallel profiling techniques such as scNMT-seq enable the analysis of multiple genomic properties simultaneously, allowing detailed comparison of transcriptomics and epigenomics at single-cell level. 
+  Kremer, Cerrizuela, et al. (2024) profiled astrocytes, oligodendrocytes, quiescent and active neural stem cells, transit-amplifying progenitors and neuroblasts from the ventricular-subventricular zone. 
+  Additionally, they included astrocytes from the striatum, as well as as neuroblasts and neurons from the olfactory bulb.
 | 
-| After completing scNMT-seq, they performed methylase-assisted bisulfite sequencing (MAB-seq). 
+| After completing scNMT-seq, they performed methylase-assisted bisulfite sequencing. 
   The resulting genomic reads were trimmed and further processed using the bisulfite read mapper and methylation caller Bismark 0.22.3 (Krueger & Andrews, 2011). 
   Single end alignment was performed to the genome build *GRCm38* (mm10). 
-  To discriminate CpG and GpC in the cytosine methylation calls, they used the NOMe-seq option of Bismark’s coverage2cytosine script.
+  To discriminate CpG and GpC in the cytosine methylation calls, they used the NOMe-seq option of Bismark’s `coverage2cytosine` script.
 | 
-| The methylation files were analysed using the python package `MethSCAn` (Kremer et al., 2024). 
-  `MethSCAn prepare` prepares and stores the methylation data of each chromosome in a Compressed Sparse Row (CSR) matrix in which columns represents the cells and rows represents the base pairs. 
-  The methylation data is represented as -1 and 1 (un-/methylated respectively) while missing values are not explicitly recorded.
+| The methylation files were analyzed using the python package `MethSCAn` (Kremer, Braun, et al., 2024). 
+  `MethSCAn prepare` prepares and stores the methylation data of each chromosome in a Compressed Sparse Row matrix in which columns represents the cells and rows represents the base pairs. 
+  The methylation data is encoded as -1 and 1 (un-/methylated respectively), while missing values are not explicitly recorded.
 | 
-| Further information about the data acquisition and processing can be found in Kremer et al., 2022 and Kremer et al., 2024.
+| Further information about the data acquisition and processing can be found in Kremer, Cerrizuela, et al. (2024) and Kremer, Braun, et al. (2024).
  
 | 
 | 
@@ -71,9 +72,9 @@ editor_options:
 
 | 
 
-## 2.1 Load the package
+## 2.1 Load the Package
 
-To analyze your data using `DevMethyl`, we first need to install and load the package.
+Install and load `DevMethyl` to begin your analysis.
 
 ```{r loading, message=FALSE, warning=FALSE}
 library(DevMethyl)
@@ -84,8 +85,8 @@ library(DevMethyl)
 The main function of `DevMethyl` is the visualization of methylation pattern during cellular differentiation.
 This package is designed to analyze single-cell bisulfite-sequencing data that has been processed by a methylation caller like Bismark or Biscuit and implemented in the python package `MethSCAn`.
 
-For explanatory purposes, we chose to analyze a simplified numpy sparse matrix of chromosome 8 from scNMT-sequencing of a murine adult NSC lineage.
-The sparse matrices contain the CpG or GpC methylation data and were acquired as described above (1.2).
+For explanatory purposes, we analyze a simplified numpy sparse matrix of chromosome 8 from scNMT-sequencing of a murine adult NSC lineage.
+The sparse matrices contain the CpG or GpC methylation data and were acquired as described above (see Section 1.2 for details).
 To simplify this analysis we reduced the matrix to the genomic region 8628100-8684100.
 These files can be obtained using `load_exdata`.
 
@@ -96,57 +97,58 @@ methylpath <- file_paths[[1]]
 methylpath
 ```
 
-Using DevMethyl's `npz.to.spM`, the Compressed Sparse Row matrix returned from `MethSCAn prepare` will first be converted into a Tsparse matrix employable in R.
+Use DevMethyl's `npz.to.spM` to convert the npz-formatted Compressed Sparse Row matrix from `MethSCAn prepare` into a Tsparse matrix employable in R.
 
 ```{r npz.to.spM()}
 sp <- npz.to.spM(methylpath)
 ```
 
-Later in the analysis you will need the meta data of the scNMT-seq, containing cell IDs and pseudotime of the cells used.
-These cell IDs need to be stored in the column "cell_id_dna" and the pseudotimes in "pt_avg".
-Depending on the number of pseudotimes available for your cells you might need to take average values.
+Later in the analysis you will need the meta data with the columns "cell_id_dna" and "pt_avg" containing cell IDs and the average pseudotimes of the cells used.
 
+Our meta data contains two pseudotimes, we therefore take the average of "ptime" and "ptime2".
 ```{r meta}
 metapath <- file_paths[[3]]
 
 meta <- read.table(metapath, header =TRUE, sep = "\t")
 
-   meta$pt_avg <- rowMeans(meta[2:3], na.rm = TRUE)
+meta$pt_avg <- rowMeans(meta[2:3], na.rm = TRUE)
    
-   meta %>% head()
+  meta %>% head()
 ```
 
-Further you will need a file mapping each row index of the sparse matrix to its cell IDs.
-The file "column_header" contains the column header of the sparse matrix we use (sp), which are the cell IDs.
-These cell IDs need to be of the same format as the cell IDs in "meta" and stored in a column called "cell_id" of a data frame.
+To correctly assign cell IDs to the sparseMatrix columns, you need to supply a `column_header` data frame with a column named `cell_id`, containing the cell IDs in the same format as the `cell_id_dna` column in your meta data `meta`.
 
 ```{r header}
 header <- readLines(system.file("extdata", "column_header.txt", package = "DevMethyl")) %>% 
           as.data.frame()
 
   names(header)[names(header) == "."] <- "cell_id"
-```
-
-```{r header name adjustments, include=FALSE}
-header <- header %>%
+  
+  header <- header %>%
           mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
+
+
+  head(header)
 ```
 
-It might save you time to assign your settings to variables before starting your analysis.
-Our transcription reads were mapped to the mouse genome *mm10/GRCm38* and we chose chromosome 8 to analyse the variable region (VR) 8653165-8659055.
-For the genome variant you can use either nomenclature (UCSC or GRC).
-To compare our VR with non-VRs we chose our region of interest (ROI) 8628200-8684000.
-VRs can be discovered using `MethSCAn scan` or you can leave these variables out and continue using a random ROI.
-Based on the used sparse matrix and ROI, you might need to adjust your kernel size (hx, ht) and the spacing of the grids in x and t directions (delx, delt).
+Assigning your settings to variables before starting the analysis can save you time when using this package for the first time and especially when trying out different genomic regions.
+For this analysis you will need the species name and the genome variant used for the data acquisition. You can use either nomenclature (UCSC or GRC) for the genome variant. 
+Further, you will have to select a region of interest (ROI) to be analyzed. While it is feasible to analyze ROIs longer than 500 000 bases, it is not recommended due to the extensive time required and the limited readability of the results. 
+`MethSCAn scan` provides genomic areas with differing methylation levels across cells, called variable methylated regions (VMRs). You can use a VMR you are interested in ("VMRstart", "VMRend") and chose the limits of your ROI ("ROIstart", "ROIend") including the VMR or can omit the VMR and proceed with a random ROI.
+Based on the sparse matrix and ROI used, you may need to adjust the kernel size ("hx", "ht") and the grid spacing in x and t directions ("delx", "delt").
+
+Our transcription reads were mapped to the mouse genome *mm10/GRCm38* and we chose chromosome 8 to analyze the VMR 8653165-8659055.
+To compare our VMR with non-VMRs we selected 8628200-8684000 as our ROI. 
+
 
 ```{r Settings}
 species <- "mouse"
 genome <- "mm10"
 chr <- 8
-rstart <-  8628200
-rend <-    8684000
-startVR <- 8653165
-endVR <-   8659055
+ROIstart <-  8628200
+ROIend <-    8684000
+VMRstart <- 8653165
+VMRend <-   8659055
 hx <- 200
 ht <- 0.4
 delx <- 20
@@ -160,33 +162,33 @@ delt <- 0.04
 | 
 | 
 
-# 3 Visualizing methylation data
+# 3 Visualizing Methylation Data
 
 To plot your methylation data, start by using `map_methyl` to map your methylation data to the cell IDs and pseudotimes.
-`map_methyl` returns a data frame containing the sorted pseudotime (pt) mapped to its methylation status (methyl) for each genomic position (pos).
-Inputs required for this functions include the Tsparse matrix with the methylation data, the meta data, the column header of the sparse matrix (cell ids) and the limits of your ROI.
+`map_methyl` returns a data frame containing each genomic position ("pos") mapped to its methylation status ("methyl") and sorted by their pseudotime ("pt").
+Inputs required for this function include a Tsparse matrix with the methylation data, the meta data, the column header of the sparse matrix (cell ids) and the limits of your ROI.
 
 ```{r map_methyl()}
-mappedpt <- map_methyl(sp, meta, header, rstart, rend)
+mappedpt <- map_methyl(sp, meta, header, ROIstart, ROIend)
 
   mappedpt %>% head()
 ```
 
 Once you have the mapped pseudotimes and chosen a kernel size, you can smooth the data using `smooth`.
 This function will apply a Gaussian filter to produce a matrix with smoothed "methyl" values over a specific grid.
-Here, you need the mapped pseudotimes, kernel and grid sizes, and the limits of the genomic position and pseudotimes.
+Here, you need the mapped pseudotimes, kernel and grid sizes, and the limits of the genomic position and pseudotime.
 
 ```{r gauss_kernel}
-m <- smooth(mappedpt, hx, ht, delx, delt )
+m <- smooth(mappedpt, hx, ht, delx, delt,  xrange = range(mappedpt$pos), trange = range(mappedpt$pt))
 ```
 
-Finally, you can plot your matrix using `plot_methyl`, the mapped pseudotimes and the limits of your ROI.
+Finally, you can plot your matrix using `plot_methyl` with your mapped pseudotimes and the limits of your ROI.
 This will create a tile plot visualizing how the DNA methylation pattern changes during differentiation.
 
-In this example you can see, especially in the VR 8653165-8659055, major changes of the methylation pattern around ptime 1 and between 5 and 6.
+In this example you can see, especially in the VMR 8653165-8659055, major changes of the methylation pattern around pseudotime 1 and between 5 and 6.
 
 ```{r plot_methyl, fig.width=7}
-plot_methyl(m, mappedpt, rstart, rend)
+plot_methyl(m, mappedpt, ROIstart, ROIend)
 ```
 
 The same procedure can be applied to chromatin accessibility data.
@@ -202,13 +204,13 @@ spAcc <- npz.to.spM(accpath)
 # preparation of GpC cell IDs
 header_acc <- readLines(system.file("extdata", "column_header_accessibility.txt", package = "DevMethyl")) %>% as.data.frame()
  
-  names(header_acc)[names(header_acc) == "."] <- "cell_id"
+names(header_acc)[names(header_acc) == "."] <- "cell_id"
 
-  header_acc <-  header_acc %>%
+header_acc <-  header_acc %>%
                mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
   
 # map GpC methylation data to the cell IDs and pseudotimes
-mappedpt_acc <- map_methyl(spAcc, meta, header_acc, rstart, rend)
+mappedpt_acc <- map_methyl(spAcc, meta, header_acc, ROIstart, ROIend)
 
 # smooth methylation data
 mAcc <-  smooth(mappedpt_acc, hx, ht, delx, delt)
@@ -218,7 +220,7 @@ Plotting the smoothed GpC methylation as a tile plot will show how chromatin acc
 Comparing this to the tile plot of the DNA methylome might provide additional insights.
 
 ```{r plot_methyl(access), fig.width=7}
-plot_methyl(mAcc, mappedpt_acc, rstart, rend)
+plot_methyl(mAcc, mappedpt_acc, ROIstart, ROIend)
 ```
 
 | 
@@ -228,78 +230,92 @@ plot_methyl(mAcc, mappedpt_acc, rstart, rend)
 | 
 | 
 
-# 4 Visualizing genomic attributes
+# 4 Visualizing Genomic Attributes
 
-To gain a comprehensive outlook of your ROI, you can analyze several genomic attributes using this package.
+Additionally, you can analyze several genomic attributes with this package to gain a comprehensive outlook of your ROI.
 
-## 4.1 CpG islands
+## 4.1 CpG Islands
 
 Use `plot_cpgislands` to download and plot CpG islands within your ROI for the genome version of your choice.
-The returned segment plot visualizes the positions and lengths of the islands.
+The returned segment plot visualizes each island as a segment, where the start and end point on the x-axis represent the islands boundaries.
 This information is sourced from the UCSC Table Browser data retrieval tool (<https://genome.ucsc.edu/cgi-bin/hgTables>).
 
+In this analysis, one CpG island was found right behind the VMR.
+
 ```{r plot_CpGi, fig.width=7}
-plot_cpgislands(species, genome, chr, rstart, rend)
+plot_cpgislands(species, genome, chr, ROIstart, ROIend)
 ```
 
-## 4.2 CpG density
+## 4.2 CpG Density
 
-To examine the distribution of CpG sites use `get_cpgs` to receive an integer list containing the genomic positions of the CpG sites found in your ROI.
+To examine the distribution of CpG sites, use `get_cpgs` to receive an integer list containing the genomic positions of the CpG sites found in your ROI.
 
 ```{r get_cpgs}
-get_cpgs(species, genome, chr, rstart, rend) %>% head()
+get_cpgs(species, genome, chr, ROIstart, ROIend) %>% head()
 ```
 
-The CpG sites can then be visualized as a bar plot to show the distribution across the genomic region using `plot_cpgs`.
-The genomic range is divided into 50 equal parts, and the number of CpG sites are calculated and displayed as a bar for each part.
+The CpG sites can be visualized as a bar plot to show the distribution across the genomic region using `plot_cpgs`.
+The genomic range is divided into equal bins, and the number of CpG sites are calculated and displayed as a bar for each bin. You can determine the bin size by changing the parameter `n_bins`.
 
+Here, the CpG sites accumulate after the VMR, where the CpG island was found.
 ```{r plot_CpGs, fig.width=7}
-plot_cpgs(species, genome, chr, rstart, rend)
+plot_cpgs(species, genome, chr, ROIstart, ROIend, n_bins = 50)
 ```
 
-## 4.3 Genemodel
+## 4.3 Gene Model
 
 Comparing methylation patterns to genes and other genomic features can provide valuable insight for biological interpretation.
-The function `get_genemodel` downloads the gene annotations within the ROI of the chromosome. Gene annotation includes genes, exons, CDS, start codons, stop codons, five prime utrs, three prime utrs and Selenocysteines.
+The function `get_genemodel` downloads gene annotations within the ROI. Gene annotations includes genes, exons, CDS, start codons, stop codons, five prime utrs, three prime utrs and Selenocysteines.
 To do this, extract the genome data set of your chosen species from the Ensembl FTP site (Harrison et al., 2023).
-You have the option to either store the file locally and access it via the directory path, or access it directly using its URL.
-In addition, the file can be represented as a data frame after reading the GFF file.
-You have the same input options when using `plot_genemodel`, `get_regfeat` and `plot_regfeat`.
 
-For our example data, we used release 102 of *mus musculus*, saving it as a data frame to avoid repeated downloads.
+
+For the parameter `gene_path` you have the option to provide the data:
+
+  1. File path - Save the file locally and provide the directory path.
+  2. URL - Provide a direct link to access the data from the Ensembl website.
+  3. Data frame - Use `readGFF` to load the data into a data frame and pass it directly. You can use the URL or the file directory for `readGFF`. This is the fastest version if you intend to rerun the function with the same genome.
+
+
+For our example data, we used release 102 of *mus musculus*, and saved it as a data frame to avoid repeated downloads.
 
 ```{r genemodel, fig.width=12}
 genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
 
-get_genemodel(genepath, chr, rstart, rend) -> genemodel
+get_genemodel(genepath, chr, ROIstart, ROIend) -> genemodel
 
   subset(genemodel,select = c(1:5,7,11))
 ```
 
 To plot this data, use `plot_genemodel`, which creates an arrow plot of the genes within the given ROI with colored genomic annotations.
+The `genepath` parameter accepts the same input options as in `get_genemodel` (see Section 4.3 for details).
+
+In our case, you can observe that the ROI contains 6 genes - five on the minus strand and one on the plus strand. Genes that extend beyond the ROI are truncated in the plot. For instance, the genes `Arglu1` and `Efnb2` both extend the ROI limits, but are still included in the plot. The exact limits of the genes and their genomic features can be accessed using `get_genemodel`.
+The color-coding represents the genomic features of each gene.
 
 ```{r plot genemodel, fig.width=7}
-plot_genemodel(genepath, chr, rstart, rend)
+plot_genemodel(genepath, chr, ROIstart, ROIend) 
 ```
 
-## 4.4 Regulatory features
+## 4.4 Regulatory Features
 
 The function `get_regfeat` returns a data frame containing start and end positions of enhancers and promoters and other regulatory elements.
 For regulatory features, extract the regulation data set of your chosen species from the Ensembl FTP site (Harrison et al., 2023).
-For input options see 4.3 Genemodel.
+The `regpath` parameter accepts the same input options as `genepath` in `get_genemodel` (see Section 4.3 for details).
 
 ```{r reg features}
 regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
 
-get_regfeat(regpath, chr, rstart, rend) -> regfeat
+get_regfeat(regpath, chr, ROIstart, ROIend) -> regfeat
 
   subset(regfeat, select = c(1,4,5,10,11,13))
 ```
 
-To plot these features use `plot_regfeat`, which generates a segment plot including a colored annotation of the variable region.
+To plot these features use `plot_regfeat`, which generates a segment plot including a colored annotation of the VMR, if provided.
+The `regpath` parameter accepts the same input options as `genepath` in `get_genemodel` (see Section 4.3 for details).
 
+Here, you can see the chosen VMR contains a promoter and two CTCF Binding Sites.
 ```{r plot features, fig.width=7}
-plot_regfeat(regpath, chr, rstart, rend, startVR, endVR)
+plot_regfeat(regpath, chr, ROIstart, ROIend, VMRstart, VMRend)
 ```
 
 | 
@@ -309,13 +325,13 @@ plot_regfeat(regpath, chr, rstart, rend, startVR, endVR)
 | 
 | 
 
-# 5 Creating summary plot
+# 5 Creating a Summary Plot
 
-The easiest way to get a comprehensive summary of your ROI, is to use `plot_all`.
-This function uses the `DevMethyl` functions and the `patchwork` package to integrate and visualize the previous mentioned information into one single plot.
+The easiest way to get a comprehensive summary of your ROI and VMR, is to use `plot_all`.
+This function combined all visualization functions of `DevMethyl` and the `patchwork` package to integrate and visualize the previous mentioned information into one single plot.
 
 ```{r plot all, fig.height=8, fig.width=10}
-plot_all(species, genome, sp, spAcc, meta, header, header_acc, genepath, regpath, chr, rstart, rend, hx, ht, startVR, endVR)
+plot_all(species, genome, sp, spAcc, meta, header, header_acc, genepath, regpath, chr, ROIstart, ROIend, hx, ht, VMRstart, VMRend, n_bins = 40)
 ```
 
 | 
@@ -349,21 +365,20 @@ sessionInfo()
 |   https://doi.org/10.1038/s41467-018-03149-4 
 |
 | Harrison, P. W., Amode, M. R., Austine-Orimoloye, O., Azov, Andrey G., Barba, M., Barnes, I., Becker, A., 
-|   Bennett, R., Berry, A., Bhai, J., Bhurji, S. K., Boddu, S., Branco Lins, P. R., Brooks, L., Ramaraju, Shashank B., 
+|   Bennett, R., Berry, A., Bhai, J., Bhurji, S. K., Boddu, S., Branco Lins, P. R., Brooks, L., Ramaraju, Shashank B.,
 |   Campbell, Lahcen I., Martinez, M. C., Charkhchi, M., Chougule, K., . . . Yates, Andrew D. (2023). 
 |   Ensembl 2024. Nucleic Acids Research, 52(D1), D891-D899. https://doi.org/10.1093/nar/gkad1049 
 |
 | Karolchik D, Hinrichs AS, Furey TS, Roskin KM, Sugnet CW, Haussler D, Kent WJ. 
 |   The UCSC Table Browser data retrieval tool. Nucleic Acids Res. 2004 Jan 1;32(Database issue):D493-6.
 |
-| Kremer, L. P., Cerrizuela, S., Shukairi, M. E. A., Ellinger, T., Straub, J., Dehler, S., Korkmaz, A., Weichenhan, D., 
-|   Plass, C., Anders, S., & Martin-Villalba, A. (2022). 
-|   Single-cell triple-omics uncovers DNA methylation as key feature of stemness in the healthy and ischemic 
-|   adult brain. bioRxiv, 2022.2007.2013.499860. https://doi.org/10.1101/2022.07.13.499860 
-|
 | Kremer, L. P. M., Braun, M. M., Ovchinnikova, S., Küchenhoff, L., Cerrizuela, S., Martin-Villalba, A., & Anders, S. 
-|   (2024). Analyzing single-cell bisulfite sequencing data with <em>MethSCAn</em>. bioRxiv, 2022.2006.2015.496318. 
-|   https://doi.org/10.1101/2022.06.15.496318 
+|   (2024). Analyzing single-cell bisulfite sequencing data with MethSCAn. Nature Methods, 21(9), 1616-1623. 
+|   https://doi.org/10.1038/s41592-024-02347-x 
+|
+| Kremer, L. P. M., Cerrizuela, S., El-Sammak, H., Al Shukairi, M. E., Ellinger, T., Straub, J., Korkmaz, A., 
+|   Volk, K., Brunken, J., Kleber, S., Anders, S., & Martin-Villalba, A. (2024). DNA methylation controls stemness of 
+|   astrocytes in health and ischaemia. Nature, 634(8033), 415-423. https://doi.org/10.1038/s41586-024-07898-9
 |
 | Krueger, F., & Andrews, S. R. (2011). Bismark: a flexible aligner and methylation caller for Bisulfite-Seq 
 |   applications. Bioinformatics, 27(11), 1571-1572. https://doi.org/10.1093/bioinformatics/btr167 

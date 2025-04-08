@@ -4,7 +4,7 @@
 \alias{plot_cpgs}
 \title{Plot positions of CpG sites}
 \usage{
-plot_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
+plot_cpgs(species, genome, chr, startpos, endpos, n_bins = 50, is_GRC = FALSE)
 }
 \arguments{
 \item{species}{String of species name/alias.}
@@ -15,17 +15,19 @@ plot_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
+\item{n_bins}{Integer defining the number of bins to group the cpg sites.}
+
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Bar plot visualizing the distribution of CpG sites within a genomic range.
 }
 \description{
-\code{plot_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
-The CpG sites are then visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into 50 equal parts, and number of CpG sites in each part is calculated and displayed as a bar.
+\code{plot_cpgs} downloads the sequence of a region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
+The CpG sites are visualized as a bar plot to show the distribution across the genomic region. The genomic range is divided into equal bins, and the number of CpG sites are calculated and displayed as a bar for each bin.
 }
 \examples{
-plot_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
+plot_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, n_bins = 50, is_GRC = TRUE)
 }
 \seealso{
 \code{\link[=get_cpgs]{get_cpgs()}} to receive the integer list used for plotting.

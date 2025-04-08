@@ -1,4 +1,4 @@
-#' Apply Gaussian filter to temporal methylation data of scNMT-seq
+#' Apply Gaussian filter to temporal methylation data from scNMT-seq
 #'
 #' `smooth` smooths scNMT data by calculating weighted averages within a Gaussian window.
 #'    For this it iterates over the data points, calculating a Gaussian-weighted sum within a window around each point, and normalizes it by the total weight.
@@ -13,13 +13,13 @@
 #'
 #' @examples
 #' # create example data frame
-#' pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
-#' pt = c(1,1,2,2,3,3,4,4,5,5)
-#' methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
-#' data.frame( pos, pt, methyl) -> mappedpt
+#' pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626, 5627)
+#' pt = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)
+#' methyl = c(1, 1, 1, -1, 1, -1, -1, 1, -1, -1)
+#' data.frame(pos, pt, methyl) -> mappedpt
 #'
 #' smooth(mappedpt, 2, 2, 0.1, 0.1)
-smooth <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange=range(mappedpt$pt) ) {
+smooth <- function(mappedpt, hx, ht, delx = (hx/10), delt = (ht/10),  xrange = range(mappedpt$pos), trange = range(mappedpt$pt)) {
 
   pyfcts$gaussian_smoothing(mappedpt$pos, mappedpt$pt, mappedpt$methyl, xrange[1], xrange[2], delx, trange[1], trange[2], delt, hx, ht)
 

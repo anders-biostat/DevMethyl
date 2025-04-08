@@ -16,6 +16,6 @@ npz.to.spM <- function(npzPath) {
   numpy <- reticulate::import("numpy")  # only works with this line in the function
   npz <- numpy$load(npzPath)
 
-  sp <- sparseMatrix( j=npz["indices"], p=npz["indptr"], x=npz["data"], index1=FALSE, dims=npz["shape"], repr="T" )
+  sp <- sparseMatrix( j = npz["indices"], p = npz["indptr"], x = npz["data"], index1 = FALSE, dims = npz["shape"], repr = "T" )
   return(sp)
 }

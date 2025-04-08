@@ -7,19 +7,24 @@
 map_methyl(spM, meta, header, startpos, endpos)
 }
 \arguments{
-\item{spM}{Tsparse matrix with j = indices, p = indptr and x = data. Can be received using \code{npz.to.spM}. Contains either CpG or GpC methylation data from scNMT-seq.}
+\item{spM}{TsparseMatrix containing sparse methylation data (either CpG or GpC) from scNMT-seq with j = indices, p = indptr and x = data. Can be generated from npz-files using \code{npz.to.spM}.}
 
 \item{meta}{Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").}
 
-\item{header}{Data frame containing cell IDs for spM. Cell IDs have to have same format as in meta.}
+\item{header}{Data frame with a column \code{cell_id} mapping the sparse matrix column indices to cell IDs. This must match the format used in \code{meta$cell_id_dna}.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Data frame containing information of spM for the selected genomic region, sorted by ptime. Here, \code{pos} is the row index indicating the genomic position, \code{pt} contains the sorted pseudotimes and \code{methyl} contains either -1 or 1, specifying the methylation status (un-/methylated).
+Data frame with three columns, containing information of spM for the selected genomic region, sorted by ptime.
+\describe{
+\item{pos}{Genomic position (row index of the matrix).}
+\item{pt}{Pseudotime value for the corresponding cell.}
+\item{methyl}{Methylation status: -1 (unmethylated), 1 (methylated).}
+}
 }
 \description{
-\code{map_methyl} maps the sparse Matrix containing the methylation data to its meta data. For this, the cell ids are retrieved from \code{cellids} and put as column names of \code{spM}. \code{meta} is used to sort the cell ids according to their pseudotimes and map the pseudotimes to the methylation data of the genomic region of interest.
+\code{map_methyl} maps the sparse methylation matrix to its meta data. It uses the \code{header} to assign column names (cell IDs) to the sparse Matrix, then sorts and maps the matrix columns to pseudotimes based on \code{meta}.
 }
 \examples{
 map_methyl(ex_spM, ex_meta, ex_header, 8000, 64000)

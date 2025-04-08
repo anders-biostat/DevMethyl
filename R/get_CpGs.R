@@ -1,6 +1,6 @@
 #' Obtain positions of CpG sites
 #'
-#' `get_cpgs` downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
+#' `get_cpgs` downloads the sequence of a region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
 #'
 #' @inheritParams plot_all
 #'
@@ -9,8 +9,8 @@
 #'
 #' @seealso [plot_cpgs()] to plot integer list as a bar plot.
 #'
-#' @examples get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
-get_cpgs <- function(species, genome, chr, startpos, endpos, is_GRC=FALSE) {
+#' @examples get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC = TRUE)
+get_cpgs <- function(species, genome, chr, startpos, endpos, is_GRC = FALSE) {
 
   if (is_GRC) {
     genomeID <- genome

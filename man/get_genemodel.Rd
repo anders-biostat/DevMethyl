@@ -7,14 +7,14 @@
 get_genemodel(genepath, chr, startpos, endpos)
 }
 \arguments{
-\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection.  Additionally, it can be a data frame of the read gtf file (use readGFF() with one the previous mentioned options).}
+\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection. Additionally, it can be a data frame of the read gtf file (use readGFF() with one of the previous mentioned options).}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Data frame containing various columns depending on the genome version and release chosen.
+Data frame containing various columns, depending on the chosen genome version and release.
 Possible column names include \code{seqname}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type} , \code{gene_id} and \code{strand_boolean}.
 }
 \description{
@@ -25,8 +25,10 @@ For this, copy the link or download the GTF file from the Ensembl FTP site \url{
 \examples{
 get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
 
+# or
+\dontrun{
 genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-get_genomemodel(genes, 8, 8628165, 8684055)
+get_genemodel(genes, 8, 8628165, 8684055)}
 }
 \seealso{
 \code{\link[=plot_genemodel]{plot_genemodel()}} to plot data frame as an annotated arrow plot.

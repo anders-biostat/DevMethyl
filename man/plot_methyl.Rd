@@ -10,6 +10,8 @@ plot_methyl(m, mappedpt, startpos, endpos)
 \item{m}{Matrix received from \code{smooth}. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.}
 
 \item{mappedpt}{Data frame of the sparse matrix obtained from \code{map_methyl}. Contains relative genomic position (pos), pseudotime of the cells (pt) and methylation status (methyl), which is -1 or 1 (un-/methylated) for the selected region of the scNMT-seq data.}
+
+\item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
 Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
@@ -20,9 +22,9 @@ Tile plot visualizing methylation pattern of a genomic region at various differe
 \examples{
 # create example data frame
 pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
-pt = c(1,1,2,2,3,3,4,4,5,5)
-methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
-data.frame( pos, pt, methyl) -> mappedpt
+pt = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)
+methyl = c(1, 1, 1, -1, 1, -1, -1, 1, -1, -1)
+data.frame(pos, pt, methyl) -> mappedpt
 
 # create matrix
 smooth(mappedpt, 2, 2, 0.1, 0.1) -> m

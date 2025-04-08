@@ -13,7 +13,7 @@ A data frame containing 493 rows and 2 columns
 \item{pt_avg}{average pseudotime}}
 }
 \source{
-Data frame containing cell annotations from \href{https://doi.org/10.1101/2022.07.13.499860}{(Kremer et al., 2022)}. Additionally, average values of the pseudotimes were calculated.
+Data frame containing cell annotations from \href{https://doi.org/10.1038/s41586-024-07898-9}{(Kremer, Cerrizuela, et al., 2024)}. Additionally, average values of the pseudotimes were calculated.
 }
 \usage{
 data(ex_meta)
@@ -22,8 +22,6 @@ data(ex_meta)
 Data frame of meta data for example sparse matrix ex_spM, containing cell ids and pseudotimes.
 }
 \references{
-Kremer, L. P., Cerrizuela, S., Shukairi, M. E. A., Ellinger, T., Straub, J., Dehler, S., Korkmaz, A., Weichenhan, D., Plass, C., Anders, S., & Martin-Villalba, A. (2022). \if{html}{\out{<br>}}
-Single-cell triple-omics uncovers DNA methylation as key feature of stemness in the healthy and ischemic adult brain. \if{html}{\out{<br>}}
-bioRxiv, 2022.2007.2013.499860 \url{https://doi.org/10.1101/2022.07.13.499860}.
+Kremer, L. P. M., Cerrizuela, S., El-Sammak, H., Al Shukairi, M. E., Ellinger, T., Straub, J., Korkmaz, A., Volk, K., Brunken, J., Kleber, S., Anders, S., & Martin-Villalba, A. (2024). DNA methylation controls stemness of astrocytes in health and ischaemia. Nature, 634(8033), 415-423. https://doi.org/10.1038/s41586-024-07898-9
 }
 \keyword{datasets}

@@ -17,7 +17,7 @@ get_regfeat(regpath, chr, startpos, endpos)
 Data frame containing 14 columns (\code{seqnames}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type}, \code{score}, \code{phase}, \code{ID}, \code{bound_end}, \code{bound_start}, \code{description}, \code{feature_type}).
 }
 \description{
-\code{get_regfeat} downloads regulatory features found between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the Ensembl data set chosen.
+\code{get_regfeat} downloads regulatory features found between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen Ensembl dataset.
 For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 Regulatory features include promoters, enhancers, open chromatin regions, transcription factor binding and CTF binding sites.
 More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
@@ -25,8 +25,10 @@ More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/reg
 \examples{
 get_regfeat("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
 
+# or
+\dontrun{
 reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
-get_regfeat(reg, 8, 8628165, 8684055 )
+get_regfeat(reg, 8, 8628165, 8684055)}
 }
 \seealso{
 \code{\link[=plot_regfeat]{plot_regfeat()}} to plot data fame as an annotated segment plot.

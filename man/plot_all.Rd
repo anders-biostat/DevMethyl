@@ -19,10 +19,11 @@ plot_all(
   endpos,
   hx,
   ht,
-  start_VR = 0,
-  end_VR = 0,
+  start_VMR = 0,
+  end_VMR = 0,
   delx = (hx/10),
   delt = (ht/10),
+  n_bins = 50,
   is_GRC = FALSE
 )
 }
@@ -37,7 +38,7 @@ plot_all(
 
 \item{header, header_acc}{Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.}
 
-\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection.  Additionally, it can be a data frame of the read gtf file (use readGFF() with one the previous mentioned options).}
+\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection. Additionally, it can be a data frame of the read gtf file (use readGFF() with one of the previous mentioned options).}
 
 \item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).}
 
@@ -47,21 +48,23 @@ plot_all(
 
 \item{hx, ht}{Numeric values defining bandwidth of the Gaussian kernel in x and t direction.}
 
-\item{start_VR, end_VR}{Integers defining the start and end position of the variable region. Default is 0.}
+\item{start_VMR, end_VMR}{Integers defining the start and end position of the variable methylated region. Default is 0.}
 
 \item{delx, delt}{Numeric values defining spacings of the grids in x and t directions.}
 
-\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
+\item{n_bins}{Integer defining the number of bins to group the cpg sites.}
+
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).
 }
 \description{
 \code{plot_all} creates a summary plot combining all plots producible with the \code{DevMethyl} package.
-Using patchwork, the CpG and GpC methylation tile plot created by \code{plot_methyl}, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined to one plot.
+Using patchwork, the CpG and GpC methylation tile plots created by \code{plot_methyl}, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined into one plot.
 Based on the size of the genomic region analysed, this analysis might take a while.
-This functions returns empty plots within, if errors occurs or if no data is found. To find the reason of an empty plot try the individual function.
+This functions returns empty plots within the summary plot, if errors occurs or if no data is found. To find the reason of an empty plot try the individual function.
 }
 \examples{
-\dontrun{plot_all("mouse", "GRCm38", spM, spMacc, meta, header, header_acc, genepath, regpath 8, 8628165, 8684055, 400, 0.08, 8653165, 8659055)}
+\dontrun{plot_all("mouse", "GRCm38", spM, spMacc, meta, header, header_acc, genepath, regpath, 8, 8628165, 8684055, 400, 0.08, 8653165, 8659055, n_bins = 50, is_GRC = TRUE)}
 }

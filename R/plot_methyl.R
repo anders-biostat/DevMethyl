@@ -4,6 +4,7 @@
 #'
 #' @param m Matrix received from `smooth`. Contains smoothed values and pseudotime of scNMT-seq data of cells at various differentiation stages.
 #' @inheritParams smooth
+#' @inheritParams plot_all
 #'
 #' @return Tile plot visualizing methylation pattern of a genomic region at various differentiation stages.
 #' @export
@@ -11,9 +12,9 @@
 #' @examples
 #' # create example data frame
 #' pos = c(5618, 5619, 5620,5621, 5622, 5623, 5624,5625, 5626,5627)
-#' pt = c(1,1,2,2,3,3,4,4,5,5)
-#' methyl = c(1,1,1,-1,1,-1,-1,1,-1,-1)
-#' data.frame( pos, pt, methyl) -> mappedpt
+#' pt = c(1, 1, 2, 2, 3, 3, 4, 4, 5, 5)
+#' methyl = c(1, 1, 1, -1, 1, -1, -1, 1, -1, -1)
+#' data.frame(pos, pt, methyl) -> mappedpt
 #'
 #' # create matrix
 #' smooth(mappedpt, 2, 2, 0.1, 0.1) -> m
@@ -32,18 +33,18 @@ plot_methyl <- function(m, mappedpt, startpos, endpos) {
   df$ptime <- as.integer(df$ptime)
 
   df%>%
-    ggplot(aes(x=index, y=ptime, fill=value)) +
+    ggplot(aes(x = index, y = ptime, fill = value)) +
     geom_tile() +
     labs(fill = "methylation status") +
-    scale_fill_viridis(option= "D",
-                       breaks= c(-0.8, 0.8),
+    scale_fill_viridis(option = "D",
+                       breaks = c(-0.8, 0.8),
                        labels = c("unmethylated", "methylated"),
-                       limits= c(-1, 1)) +
+                       limits = c(-1, 1)) +
     scale_y_continuous(breaks = seq(0, max(df$ptime), by = floor(max(df$ptime) / floor(max(mappedpt$pt)) ) ),
                        labels = seq(0, max(mappedpt$pt), by = 1),
-                       expand = c(0, 0) ) +
-    scale_x_continuous(breaks = c(seq(0, max(df$index), length.out=4)),
-                       labels = c(round(seq(startpos, endpos, length.out=4)) ),
+                       expand = c(0, 0)) +
+    scale_x_continuous(breaks = c(seq(0, max(df$index), length.out = 4)),
+                       labels = c(round(seq(startpos, endpos, length.out = 4)) ),
                        expand = expansion(add = c(1, 1))) +
     theme( panel.background = element_rect(fill = "transparent")) +
     theme(axis.title.x = element_text(size = 10),

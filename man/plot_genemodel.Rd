@@ -7,25 +7,27 @@
 plot_genemodel(genepath, chr, startpos, endpos)
 }
 \arguments{
-\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection.  Additionally, it can be a data frame of the read gtf file (use readGFF() with one the previous mentioned options).}
+\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection. Additionally, it can be a data frame of the read gtf file (use readGFF() with one of the previous mentioned options).}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Arrow plot of genes including colored annotations of the genomic features.
+Arrow plot of genes including colored annotations of the genomic features. Arrows directed to the left are minus strand genes and arrows directed to the right are plus strand genes.
 }
 \description{
-\code{plot_genemodel} downloads the gene annotations between \code{startpos}and \code{endpos} of the chromosome \code{chr} from the chosen species and plots the data as a arrow plot.
+\code{plot_genemodel} downloads the gene annotations between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen species and plots the data as a arrow plot.
 Gene annotation includes genes, exons, CDS, start codons, stop codons, five prime utrs, three prime utrs and Selenocysteines.
 For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 }
 \examples{
 plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
 
+# or
+\dontrun{
 genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-plot_genemodel(genes, 8, 8628165, 8684055)
+plot_genemodel(genes, 8, 8628165, 8684055)}
 }
 \seealso{
 \code{\link[=get_genemodel]{get_genemodel()}} to receive the data frame used for plotting.

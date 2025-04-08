@@ -15,16 +15,16 @@ get_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function that might cause an error. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Integer list containing genomic positions of each CpG site found within the given region.
 }
 \description{
-\code{get_cpgs} downloads the sequence of the region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
+\code{get_cpgs} downloads the sequence of a region of interest for a chosen species from \url{https://rest.ensembl.org} and extracts the positions of all CpG sites found.
 }
 \examples{
-get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC=TRUE)
+get_cpgs("mouse", "GRCm38", 8, 8628165, 8684055, is_GRC = TRUE)
 }
 \seealso{
 \code{\link[=plot_cpgs]{plot_cpgs()}} to plot integer list as a bar plot.
