@@ -11,6 +11,7 @@ This package was created to provide a easy access to summarized information on a
 ## Installation
 
 You can install the development version of DevMethyl from [GitHub](https://github.com/).
+
 Make sure you have the packages `rtacklayer` and `UCSC.utils` installed first.
 
 ``` r
