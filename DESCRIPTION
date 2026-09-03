@@ -2,7 +2,7 @@ Package: DevMethyl
 Title: Visualizing methylation changes during cell differentiation
 Version: 0.0.0.9001
 Authors@R: c(
-    person("Hannah", "Glaser", email="hannah.glaser@mk-glaser.de", role = c("cre","aut")),
+    person("Hannah", "Glaser", email="hannah.glsr@gmail.com", role = c("cre","aut")),
     person("Simon", "Anders", email="simon.anders@bioquant.uni-heidelberg.de", role = "ctb") )
 Description: Integrating methylation data and pseudotime to visualize changes in methylation patterns during cell differentiation.
 License: MIT + file LICENSE
