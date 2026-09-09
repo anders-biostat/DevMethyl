@@ -26,10 +26,10 @@ get_cpgs <- function(species, genome, chr, startpos, endpos, is_GRC = FALSE) {
 
   server <- "https://rest.ensembl.org"
 
-  url <- GET(paste(server,  ext , sep = ""), content_type("text/plain"))
+  url <- httr::GET(paste(server,  ext , sep = ""), httr::content_type("text/plain"))
 
-  stop_for_status(url)
-  sequence <- content(url)
+  httr::stop_for_status(url)
+  sequence <- httr::content(url)
 
   cpg_positions <- unlist(gregexpr("CG", sequence))
 

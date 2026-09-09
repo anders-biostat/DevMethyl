@@ -1,7 +1,8 @@
 #' Create summary plot of CpG and GpC methylation data with genomic information
 #'
 #' `plot_all` creates a summary plot combining all plots producible with the `DevMethyl` package.
-#'   Using patchwork, the CpG and GpC methylation tile plots created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot and the segment plot of regulatory features are combined into one plot.
+#'   Using patchwork, the CpG and GpC methylation tile plots created by `plot_methyl`, the CpGi segment plot, the CpGs bar plot, the gene annotation arrow plot
+#'   and the segment plot of regulatory features are combined into one plot.
 #'   Based on the size of the genomic region analysed, this analysis might take a while.
 #'   This functions returns empty plots within the summary plot, if errors occurs or if no data is found. To find the reason of an empty plot try the individual function.
 #'
@@ -13,30 +14,52 @@
 #' @param chr Integer number of chromosome.
 #' @param start_VMR,end_VMR Integers defining the start and end position of the variable methylated region. Default is 0.
 #' @param spM,spMacc dgTMatrices containing CpG or GpC methylation.
-#' @param regpath Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).
-#' @param genepath Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection. Additionally, it can be a data frame of the read gtf file (use readGFF() with one of the previous mentioned options).
+#' @param regpath Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().
+#' @param genepath Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+#' Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().
 #' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
 #' @param n_bins Integer defining the number of bins to group the cpg sites.
-#' @param is_GRC A boolean argument. Use TRUE, if the `genome` input follows GRC nomenclature. This will allow `plot_all` to bypass an inner function. Use FALSE if the `genome` input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.
+#' @param is_GRC A boolean argument. Use TRUE, if the `genome` input follows GRC nomenclature. This will allow `plot_all` to bypass an inner function.
+#' Use FALSE if the `genome` input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.
 #' @param delx,delt Numeric values defining spacings of the grids in x and t directions.
 #'
 #' @return Patchwork plot combining tile plots of CpG and GpC methylation with plots containing genomic information (CpG islands, CpG site, gene annotations and regulatory features).
 #'
+#' @importFrom ggplot2 ggplot aes geom_blank geom_bar geom_tile geom_segment geom_bar ggtitle labs xlim ylim scale_x_continuous scale_y_continuous theme_minimal theme guides guide_legend element_blank element_text element_line element_rect margin
+#' @importFrom grid unit
 #' @export
 #'
-#' @examples \dontrun{plot_all("mouse", "GRCm38", spM, spMacc, meta, header, header_acc, genepath, regpath, 8, 8628165, 8684055, 400, 0.08, 8653165, 8659055, n_bins = 50, is_GRC = TRUE)}
-plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, genepath,  regpath, chr, startpos, endpos, hx, ht, start_VMR=0, end_VMR=0, delx = (hx/10), delt = (ht/10), n_bins = 50,  is_GRC = FALSE) {
+#' @examples \dontrun{plot_all(species = "mouse",
+#'                             genome ="GRCm38",
+#'                             spM = spM,
+#'                             spMacc = spMacc,
+#'                             meta = meta,
+#'                             header= header,
+#'                             header_acc = header_acc,
+#'                             genepath = genepath,
+#'                             regpath = regpath,
+#'                             chr = 8,
+#'                             startpos = 8628165,
+#'                             endpos = 8684055,
+#'                             hx = 400,
+#'                             ht = 0.08,
+#'                             start_VMR =8653165,
+#'                             end_VMR = 8659055,
+#'                             n_bins = 50,
+#'                             is_GRC = TRUE)}
+plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, genepath, regpath, chr, startpos, endpos, hx, ht, start_VMR=0, end_VMR=0, delx = (hx/10), delt = (ht/10), n_bins = 50,  is_GRC = FALSE) {
 
   altGenomenclature(species, genome) -> genomeIDs
 
   # CpGislands
-            session <- browserSession("UCSC")
-            genome(session) <- genomeIDs[[2]]
+            session <- rtracklayer::browserSession("UCSC")
+            GenomeInfoDb::genome(session) <- genomeIDs[[2]]
             chromosome <- paste("chr", chr, sep = "")
-            range <- GRanges(seqnames = chromosome, ranges = IRanges(start = startpos, end = endpos))
-            query <- ucscTableQuery(session, table = "cpgIslandExtUnmasked", range = range)
+            range <- GenomicRanges::GRanges(seqnames = chromosome, ranges = IRanges::IRanges(start = startpos, end = endpos))
+            query <- rtracklayer::ucscTableQuery(session, table = "cpgIslandExtUnmasked", range = range)
 
-            cpgIslands <- getTable(query)
+            cpgIslands <- rtracklayer::getTable(query)
 
             if (nrow(cpgIslands) == 0) {
               # Return an empty plot if no CpG islands are found
@@ -69,6 +92,8 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
             }
 
   # CpGs
+            error_message <- NULL
+
             cpg_positions <- tryCatch({
               get_cpgs(species, genome, chr, startpos, endpos, is_GRC = is_GRC)
             }, error = function(e) {
@@ -130,8 +155,8 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
           colnames(df) <- gsub("^V", "", colnames(df))
 
           df %>%
-            mutate(pos = row_number()) %>%
-            pivot_longer(cols = -pos, names_to = "ptime", values_to = "Value") -> df
+            dplyr::mutate(pos = dplyr::row_number()) %>%
+            tidyr::pivot_longer(cols = -pos, names_to = "ptime", values_to = "Value") -> df
 
           df$ptime <- as.integer(df$ptime)
 
@@ -139,7 +164,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
             ggplot(aes(x = pos, y = ptime, fill = Value)) +
             geom_tile() +
             labs(fill = "methylation status") +
-            scale_fill_viridis(option = "D",
+            viridis::scale_fill_viridis(option = "D",
                                breaks = c(-0.8, 0.8),
                                labels = c("unmethylated", "methylated"),
                                limits = c(-1, 1)) +
@@ -170,8 +195,8 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
           colnames(df_acc) <- gsub("^V", "", colnames(df_acc))
 
           df_acc %>%
-            mutate(index = row_number()) %>%
-            pivot_longer(cols = -index, names_to = "ptime", values_to = "value") -> df_acc
+            dplyr::mutate(index = dplyr::row_number()) %>%
+            tidyr::pivot_longer(cols = -index, names_to = "ptime", values_to = "value") -> df_acc
 
           df_acc$ptime <- as.integer(df_acc$ptime)
 
@@ -179,7 +204,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
             ggplot(aes(x = index, y = ptime, fill = value)) +
             geom_tile(show.legend = FALSE) +
             labs(fill = "methylation status") +
-            scale_fill_viridis(option = "D",
+            viridis::scale_fill_viridis(option = "D",
                                breaks = c(-0.8, 0.8),
                                labels = c("unmethylated", "methylated"),
                                limits = c(-1, 1)) +
@@ -196,6 +221,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
             labs(y = "ptime") -> acc_plot
 
   # gene model
+
           get_genemodel(genepath, chr, startpos, endpos) -> reg
 
           reg$start[reg$start < startpos] <- startpos
@@ -205,7 +231,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
 
           reg %>% dplyr::filter(type != "gene") %>%
             dplyr::rename(substart = start, subend = end) %>%
-            left_join(dplyr::select(reg_genes, gene_id, start, end), by ="gene_id") -> reg_subgenes
+            dplyr::left_join(dplyr::select(reg_genes, gene_id, start, end), by ="gene_id") -> reg_subgenes
 
           reg_subgenes$type <- factor(reg_subgenes$type, levels = c("exon", "CDS", "start_codon", "stop_codon", "five_prime_utr",  "three_prime_utr", "Selenocysteine"))
 
@@ -215,7 +241,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
               geom_blank() +
               xlim(startpos, endpos) +
               ggtitle("No gene annotations found") +
-              theme_genes() +
+              gggenes::theme_genes() +
               theme(axis.line.x = element_blank(),
                     axis.text.x = element_blank(),
                     axis.ticks.x = element_blank(),
@@ -228,10 +254,10 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
 
           } else {
           ggplot(NULL, aes(xmin = start, xmax = end, y = gene_name, forward = strand_boolean)) +
-            geom_gene_arrow(data = reg_genes) +
-            geom_subgene_arrow(aes(xsubmin = substart, xsubmax = subend, fill = type), color = NA, data = reg_subgenes) +
+            gggenes::geom_gene_arrow(data = reg_genes) +
+            gggenes::geom_subgene_arrow(aes(xsubmin = substart, xsubmax = subend, fill = type), color = NA, data = reg_subgenes) +
             xlim(startpos, endpos) +
-            theme_genes() +
+            gggenes::theme_genes() +
             theme(axis.line.x = element_blank(),
                   axis.text.x = element_blank(),
                   axis.ticks.x = element_blank(),
@@ -257,7 +283,7 @@ plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, gen
            5555
            6666
            "
-          cpgi_plot + cpgs_plot + methyl_plot  + acc_plot + genemodel_plot + feat_plot + plot_layout(design = design) -> combined_plot
+          cpgi_plot + cpgs_plot + methyl_plot  + acc_plot + genemodel_plot + feat_plot + patchwork::plot_layout(design = design) -> combined_plot
 
   return(combined_plot)
 }

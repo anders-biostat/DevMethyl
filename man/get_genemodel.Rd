@@ -7,7 +7,8 @@
 get_genemodel(genepath, chr, startpos, endpos)
 }
 \arguments{
-\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory or of the URL or can be a connection. Additionally, it can be a data frame of the read gtf file (use readGFF() with one of the previous mentioned options).}
+\item{genepath}{Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().}
 
 \item{chr}{Integer number of chromosome.}
 
@@ -23,12 +24,9 @@ Gene annotation includes genes, exons, CDS, start codons, stop codons, five prim
 For this, copy the link or download the GTF file from the Ensembl FTP site \url{https://ftp.ensembl.org/pub/}.
 }
 \examples{
-get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+genes_url <- "https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz"
+get_genemodel(genes_url, 8,  8628165, 8684055)
 
-# or
-\dontrun{
-genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-get_genemodel(genes, 8, 8628165, 8684055)}
 }
 \seealso{
 \code{\link[=plot_genemodel]{plot_genemodel()}} to plot data frame as an annotated arrow plot.

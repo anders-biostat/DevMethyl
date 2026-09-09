@@ -13,16 +13,16 @@ plot_cpgislands <- function(species, genome, chr, startpos, endpos) {
 
   altGenomenclature(species, genome) -> genomeIDs
 
-  session <- browserSession("UCSC")
-  genome(session) <- genomeIDs[[2]]
+  session <- rtracklayer::browserSession("UCSC")
+  GenomeInfoDb::genome(session) <- genomeIDs[[2]]
   chromosome <- paste("chr", chr, sep = "")
-  range <- GRanges(seqnames = chromosome, ranges = IRanges(start = startpos, end = endpos))
+  range <- GenomicRanges::GRanges(seqnames = chromosome, ranges = IRanges::IRanges(start = startpos, end = endpos))
 
   message("Trying to download CpG island data from UCSC...")
 
   cpg_data <- tryCatch({
-    query <- ucscTableQuery(session, table = "cpgIslandExtUnmasked", range = range)
-    cpgIslands <- getTable(query)
+    query <- rtracklayer::ucscTableQuery(session, table = "cpgIslandExtUnmasked", range = range)
+    cpgIslands <- rtracklayer::getTable(query)
 
     if (nrow(cpgIslands) == 0) {
       # Return an empty plot if no CpG islands are found

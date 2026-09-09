@@ -4,7 +4,6 @@ export(altGenomenclature)
 export(get_cpgs)
 export(get_genemodel)
 export(get_regfeat)
-export(load_exdata)
 export(map_methyl)
 export(npz.to.spM)
 export(plot_all)
@@ -14,3 +13,29 @@ export(plot_genemodel)
 export(plot_methyl)
 export(plot_regfeat)
 export(smooth)
+importFrom(ggplot2,
+  aes,
+  element_blank,
+  element_line,
+  element_rect,
+  element_text,
+  geom_bar,
+  geom_blank,
+  geom_segment,
+  geom_tile,
+  ggplot,
+  ggtitle,
+  guide_legend,
+  guides,
+  labs,
+  margin,
+  scale_x_continuous,
+  scale_x_discrete,
+  scale_y_continuous,
+  theme,
+  theme_minimal,
+  xlim,
+  ylim
+)
+importFrom(grid,unit)
+importFrom(magrittr,"%>%")

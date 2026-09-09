@@ -10,7 +10,7 @@
 #' @examples altGenomenclature("mouse", "mm10")
 altGenomenclature <- function(species, genome) {
 
-  df <- list_UCSC_genomes(species)
+  df <- UCSC.utils::list_UCSC_genomes(species)
 
   row <- df[grep(genome, df$description), ]
 

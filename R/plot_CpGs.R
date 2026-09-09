@@ -7,6 +7,7 @@
 #'
 #' @return Bar plot visualizing the distribution of CpG sites within a genomic range.
 #' @export
+#' @importFrom ggplot2 scale_x_discrete
 #'
 #' @seealso [get_cpgs()] to receive the integer list used for plotting.
 #'

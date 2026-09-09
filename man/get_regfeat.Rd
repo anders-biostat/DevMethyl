@@ -7,14 +7,17 @@
 get_regfeat(regpath, chr, startpos, endpos)
 }
 \arguments{
-\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).}
+\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().}
 
 \item{chr}{Integer number of chromosome.}
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 }
 \value{
-Data frame containing 14 columns (\code{seqnames}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type}, \code{score}, \code{phase}, \code{ID}, \code{bound_end}, \code{bound_start}, \code{description}, \code{feature_type}).
+A data frame containing the regulatory features and the following 14 columns:
+\code{seqnames}, \code{start}, \code{end}, \code{width}, \code{strand}, \code{source}, \code{type}, \code{score}, \code{phase}, \code{ID}, \code{bound_end}, \code{bound_start}, \code{description}, and \code{feature_type}.
+If the input is a data frame created with \code{readGFF()}, the \code{width} column is not included.
 }
 \description{
 \code{get_regfeat} downloads regulatory features found between \code{startpos} and \code{endpos} of the chromosome \code{chr} from the chosen Ensembl dataset.
@@ -23,12 +26,10 @@ Regulatory features include promoters, enhancers, open chromatin regions, transc
 More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 }
 \examples{
-get_regfeat("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055)
+reg_url <- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
+get_regfeat(reg_url, 8, 8628165, 8684055)
 
-# or
-\dontrun{
-reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
-get_regfeat(reg, 8, 8628165, 8684055)}
+
 }
 \seealso{
 \code{\link[=plot_regfeat]{plot_regfeat()}} to plot data fame as an annotated segment plot.

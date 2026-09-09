@@ -17,7 +17,8 @@ plot_cpgs(species, genome, chr, startpos, endpos, n_bins = 50, is_GRC = FALSE)
 
 \item{n_bins}{Integer defining the number of bins to group the cpg sites.}
 
-\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function.
+Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Bar plot visualizing the distribution of CpG sites within a genomic range.

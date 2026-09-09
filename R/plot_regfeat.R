@@ -12,14 +12,12 @@
 #'
 #' @seealso [get_regfeat()] to receive the data frame used for plotting.
 #'
-#' @examples plot_regfeat("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
-#'
-#' # or
-#' \dontrun{
-#' reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
-#' plot_regfeat(reg, 8, 8628165, 8684055)}
+#' @examples
+#' reg_url <- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
+#' plot_regfeat(reg_url, 8, 8628165, 8684055)
 plot_regfeat <- function(regpath, chr, startpos, endpos, start_VMR = 0, end_VMR = 0) {
 
+  # function itself check if its a df, url or path and adjusts and filters --> should not be skipped
   get_regfeat(regpath, chr, startpos, endpos) -> feat_reg
 
   feat_reg$start[feat_reg$start < startpos] <- startpos
@@ -40,7 +38,7 @@ plot_regfeat <- function(regpath, chr, startpos, endpos, start_VMR = 0, end_VMR 
             plot.margin = margin(0, 1, 0, 1, "cm")) +
       theme(panel.grid = element_blank(),
             axis.title.x = element_text(margin = margin(t = 10))) +
-      annotate("rect", xmin = start_VMR, xmax = end_VMR, ymin = 0, ymax = 0.05, color = "transparent", fill = "red")
+      ggplot2::annotate("rect", xmin = start_VMR, xmax = end_VMR, ymin = 0, ymax = 0.05, color = "transparent", fill = "red")
 
   } else {
 
@@ -48,7 +46,7 @@ plot_regfeat <- function(regpath, chr, startpos, endpos, start_VMR = 0, end_VMR 
     geom_segment(linewidth = 4, color = "black", alpha = 0.7) +
     labs( x= "genomic position") +
     xlim(startpos, endpos) +
-    scale_y_discrete(position = "left") +
+    ggplot2::scale_y_discrete(position = "left") +
     theme_minimal() +
     theme(axis.line.x = element_line(linewidth = 0.5, colour = "black", linetype = 1),
           axis.title.y = element_blank(),
@@ -59,7 +57,7 @@ plot_regfeat <- function(regpath, chr, startpos, endpos, start_VMR = 0, end_VMR 
     theme(panel.grid.major.x = element_blank(),
           panel.grid.minor.x = element_blank(),
           axis.title.x = element_text(margin = margin(t = 10))) +
-    annotate("rect", xmin = start_VMR, xmax = end_VMR, ymin = 0, ymax = 0.1, color = "transparent", fill = "red")
+    ggplot2::annotate("rect", xmin = start_VMR, xmax = end_VMR, ymin = 0, ymax = 0.1, color = "transparent", fill = "red")
 
   }
 }

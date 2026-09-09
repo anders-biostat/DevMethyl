@@ -8,14 +8,13 @@
 #' @export
 #'
 #' @examples
-#' file_paths <- load_exdata()
-#' methylpath <- file_paths[[1]]
+#' methylpath <- file.path( system.file("extdata",package="DevMethyl", "8_trunc.npz" ) )
 #' npz.to.spM(methylpath)
 npz.to.spM <- function(npzPath) {
 
   numpy <- reticulate::import("numpy")  # only works with this line in the function
   npz <- numpy$load(npzPath)
 
-  sp <- sparseMatrix( j = npz["indices"], p = npz["indptr"], x = npz["data"], index1 = FALSE, dims = npz["shape"], repr = "T" )
+  sp <- Matrix::sparseMatrix( j = npz["indices"], p = npz["indptr"], x = npz["data"], index1 = FALSE, dims = npz["shape"], repr = "T" )
   return(sp)
 }

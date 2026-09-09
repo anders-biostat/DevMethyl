@@ -12,17 +12,14 @@ This package was created to provide a easy access to summarized information on a
 
 You can install the development version of DevMethyl from [GitHub](https://github.com/).
 
-Make sure you have the packages `rtacklayer` and `UCSC.utils` installed first.
-
 ``` r
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
 
-BiocManager::install("UCSC.utils")
-BiocManager::install("rtracklayer")
+install.packages("remotes")
+remotes::install_github(
+  "anders-biostat/DevMethyl",
+  build_vignettes = TRUE,
+  dependencies = TRUE)
 
-install.packages("devtools")
-devtools::install_github("anders-biostat/DevMethyl", build_vignettes = TRUE)
 ```
 
 ## Vignette

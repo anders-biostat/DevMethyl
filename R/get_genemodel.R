@@ -13,27 +13,40 @@
 #'
 #' @seealso [plot_genemodel()] to plot data frame as an annotated arrow plot.
 #'
-#' @examples get_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+#' @examples
+#' genes_url <- "https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz"
+#' get_genemodel(genes_url, 8,  8628165, 8684055)
 #'
-#' # or
-#' \dontrun{
-#' genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-#' get_genemodel(genes, 8, 8628165, 8684055)}
 get_genemodel <- function(genepath, chr, startpos, endpos) {
 
-  gr <- GRanges(paste(chr, paste(startpos, endpos, sep = "-"), sep = ":"))
-
   if (is.data.frame(genepath)) {
-    ens <- genepath %>%
-            dplyr::filter(seqid == chr) %>%
-            dplyr::filter(start < endpos, end > startpos)  }
-  else {
-    ens <- as.data.frame(import.gff(genepath, which = gr)) }
+    if ("seqid" %in% names(genepath)) {
+      genepath <- dplyr::rename(genepath, seqnames = seqid)
+    }
 
-  ens %>%
-    dplyr::filter(type != "transcript") %>%
-    mutate(strand_boolean = if_else(strand == "+", TRUE, FALSE) ) -> reg
+    if (!"seqnames" %in% names(genepath)) {
+      stop("The data frame must contain a `seqid` or `seqnames` column.")
+    }
+
+    ens <- genepath[
+        genepath$seqnames == chr &
+        genepath$start <= endpos &
+        genepath$end >= startpos,
+      ,
+      drop = FALSE]
+
+    }
+  else {
+    gr <- GenomicRanges::GRanges(paste(chr, paste(startpos, endpos, sep = "-"), sep = ":"))
+    ens <- as.data.frame(rtracklayer::import.gff(genepath, which = gr))
+    }
+
+  reg <- ens %>%
+        dplyr::filter(type != "transcript") %>%
+        dplyr::mutate(strand_boolean = dplyr::if_else(strand == "+", TRUE, FALSE) )
 
 
  return(reg)
 }
+
+

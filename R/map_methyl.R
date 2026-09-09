@@ -24,17 +24,17 @@ map_methyl <- function(spM, meta, header, startpos, endpos) {
     meta %>%
       as.data.frame() %>%
       dplyr::select(cell_id_dna, pt_avg) %>%
-      filter(!is.na(pt_avg)) -> meta2
+      dplyr::filter(!is.na(pt_avg)) -> meta2
 
       sorted_cellID_df <- meta2[order(meta2$pt_avg), ]
       rownames(sorted_cellID_df) <- NULL
       sorted_cellID <- sorted_cellID_df$cell_id_dna
 
-    TspM <- as(spM[startpos:endpos, sorted_cellID], "TsparseMatrix")
+    TspM <- methods::as(spM[startpos:endpos, sorted_cellID], "TsparseMatrix")
 
   #match sorted ptime with spMatrix
     sorted_cellID_df %>%
-      mutate(index = 0:(n() - 1)) %>%
+      dplyr::mutate(index = seq_len(dplyr::n()) - 1L) %>%
       dplyr::select(index, pt_avg) -> sorted_ptime
 
     mappedpt <- sorted_ptime$pt_avg[match(TspM@j, sorted_ptime$index)]

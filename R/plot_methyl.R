@@ -27,8 +27,8 @@ plot_methyl <- function(m, mappedpt, startpos, endpos) {
   colnames(df) <- gsub("^V", "", colnames(df))
 
   df %>%
-    mutate(index = row_number()) %>%
-    pivot_longer( cols = -index, names_to = "ptime", values_to = "value") -> df
+    dplyr::mutate(index = dplyr::row_number()) %>%
+    tidyr::pivot_longer( cols = -index, names_to = "ptime", values_to = "value") -> df
 
   df$ptime <- as.integer(df$ptime)
 
@@ -36,7 +36,7 @@ plot_methyl <- function(m, mappedpt, startpos, endpos) {
     ggplot(aes(x = index, y = ptime, fill = value)) +
     geom_tile() +
     labs(fill = "methylation status") +
-    scale_fill_viridis(option = "D",
+    viridis::scale_fill_viridis(option = "D",
                        breaks = c(-0.8, 0.8),
                        labels = c("unmethylated", "methylated"),
                        limits = c(-1, 1)) +
@@ -45,7 +45,7 @@ plot_methyl <- function(m, mappedpt, startpos, endpos) {
                        expand = c(0, 0)) +
     scale_x_continuous(breaks = c(seq(0, max(df$index), length.out = 4)),
                        labels = c(round(seq(startpos, endpos, length.out = 4)) ),
-                       expand = expansion(add = c(1, 1))) +
+                       expand = ggplot2::expansion(add = c(1, 1))) +
     theme( panel.background = element_rect(fill = "transparent")) +
     theme(axis.title.x = element_text(size = 10),
           axis.text.x = element_text(size = 10),

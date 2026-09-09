@@ -88,13 +88,9 @@ This package is designed to analyze single-cell bisulfite-sequencing data that h
 For explanatory purposes, we analyze a simplified numpy sparse matrix of chromosome 8 from scNMT-sequencing of a murine adult NSC lineage.
 The sparse matrices contain the CpG or GpC methylation data and were acquired as described above (see Section 1.2 for details).
 To simplify this analysis we reduced the matrix to the genomic region 8628100-8684100.
-These files can be obtained using `load_exdata`.
 
 ```{r methyldata}
-file_paths <- load_exdata() 
-
-methylpath <- file_paths[[1]]
-methylpath
+methylpath <- file.path( system.file("extdata",package="DevMethyl", "8_trunc.npz" ) )
 ```
 
 Use DevMethyl's `npz.to.spM` to convert the npz-formatted Compressed Sparse Row matrix from `MethSCAn prepare` into a Tsparse matrix employable in R.
@@ -107,7 +103,7 @@ Later in the analysis you will need the meta data with the columns "cell_id_dna"
 
 Our meta data contains two pseudotimes, we therefore take the average of "ptime" and "ptime2".
 ```{r meta}
-metapath <- file_paths[[3]]
+metapath <- file.path( system.file("extdata",package="DevMethyl", "cell-annotation-short.tsv" ) )
 
 meta <- read.table(metapath, header =TRUE, sep = "\t")
 
@@ -195,8 +191,8 @@ The same procedure can be applied to chromatin accessibility data.
 In this case, the meta data from the CpG methylation data can also be used for the GpC data set.
 
 ```{r accessibility}
-# download of example numpy file of GpC methylation (chromatin accessibility)
-accpath <- file_paths[[2]]
+# use example numpy file of GpC methylation (chromatin accessibility)
+accpath <- file.path( system.file("extdata",package="DevMethyl", "8_GpC_trunc.npz" ) )
 
 # convert to a T sparse matrix employable in R
 spAcc <- npz.to.spM(accpath)
@@ -242,24 +238,103 @@ This information is sourced from the UCSC Table Browser data retrieval tool (<ht
 
 In this analysis, one CpG island was found right behind the VMR.
 
-```{r plot_CpGi, fig.width=7}
+```{r plot_CpGi, eval=FALSE}
 plot_cpgislands(species, genome, chr, ROIstart, ROIend)
+```
+```{r plot_CpGi_hidden, echo=FALSE, fig.width=7}
+tryCatch(
+  {
+    plot_cpgislands(
+      species = species,
+      genome = genome,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend
+    )
+  },
+  error = function(e) {
+    message(
+      "The UCSC request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_cpgislands_plot",
+        package = "DevMethyl"
+      )
+    )
+  }
+) 
 ```
 
 ## 4.2 CpG Density
 
 To examine the distribution of CpG sites, use `get_cpgs` to receive an integer list containing the genomic positions of the CpG sites found in your ROI.
 
-```{r get_cpgs}
+```{r get_cpgs, eval=FALSE}
 get_cpgs(species, genome, chr, ROIstart, ROIend) %>% head()
+```
+```{r get_cpgs_hidden, echo=FALSE}
+tryCatch(
+  {
+    get_cpgs(
+      species = species,
+      genome = genome,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_cpgs.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) %>% head()
 ```
 
 The CpG sites can be visualized as a bar plot to show the distribution across the genomic region using `plot_cpgs`.
 The genomic range is divided into equal bins, and the number of CpG sites are calculated and displayed as a bar for each bin. You can determine the bin size by changing the parameter `n_bins`.
 
 Here, the CpG sites accumulate after the VMR, where the CpG island was found.
-```{r plot_CpGs, fig.width=7}
+```{r plot_CpGs, eval=FALSE}
 plot_cpgs(species, genome, chr, ROIstart, ROIend, n_bins = 50)
+```
+```{r plot_CpGs_hidden, echo=FALSE, fig.width=7}
+tryCatch(
+  {
+    plot_cpgs(
+      species = species,
+      genome = genome,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend,
+      n_bins = 50
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_cpgs_plot.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) 
 ```
 
 ## 4.3 Gene Model
@@ -278,13 +353,43 @@ For the parameter `gene_path` you have the option to provide the data:
 
 For our example data, we used release 102 of *mus musculus*, and saved it as a data frame to avoid repeated downloads.
 
-```{r genemodel, fig.width=12}
+```{r genemodel, eval=FALSE}
 genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
 
 get_genemodel(genepath, chr, ROIstart, ROIend) -> genemodel
 
   subset(genemodel,select = c(1:5,7,11))
 ```
+```{r genemodel_hidden, echo=FALSE, fig.width=12}
+genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
+
+tryCatch(
+  {
+    get_genemodel(
+      genepath = genepath,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_genemodel.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) -> genemodel
+
+subset(genemodel,select = c(1:5,7,11))
+```
+
 
 To plot this data, use `plot_genemodel`, which creates an arrow plot of the genes within the given ROI with colored genomic annotations.
 The `genepath` parameter accepts the same input options as in `get_genemodel` (see Section 4.3 for details).
@@ -292,8 +397,33 @@ The `genepath` parameter accepts the same input options as in `get_genemodel` (s
 In our case, you can observe that the ROI contains 6 genes - five on the minus strand and one on the plus strand. Genes that extend beyond the ROI are truncated in the plot. For instance, the genes `Arglu1` and `Efnb2` both extend the ROI limits, but are still included in the plot. The exact limits of the genes and their genomic features can be accessed using `get_genemodel`.
 The color-coding represents the genomic features of each gene.
 
-```{r plot genemodel, fig.width=7}
+```{r plot_genemodel, eval=FALSE}
 plot_genemodel(genepath, chr, ROIstart, ROIend) 
+```
+```{r plot_genemodel_hidden, echo=FALSE, fig.width=7}
+tryCatch(
+  {
+    plot_genemodel(
+      genepath = genepath,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_genemodel_plot.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) 
 ```
 
 ## 4.4 Regulatory Features
@@ -302,10 +432,39 @@ The function `get_regfeat` returns a data frame containing start and end positio
 For regulatory features, extract the regulation data set of your chosen species from the Ensembl FTP site (Harrison et al., 2023).
 The `regpath` parameter accepts the same input options as `genepath` in `get_genemodel` (see Section 4.3 for details).
 
-```{r reg features}
+```{r reg_features, eval=FALSE}
 regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
 
 get_regfeat(regpath, chr, ROIstart, ROIend) -> regfeat
+
+  subset(regfeat, select = c(1,4,5,10,11,13))
+```
+```{r reg_features_hidden, echo=FALSE}
+regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
+
+tryCatch(
+  {
+    get_regfeat(
+      regpath = regpath,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_regfeat.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) -> regfeat
 
   subset(regfeat, select = c(1,4,5,10,11,13))
 ```
@@ -314,8 +473,35 @@ To plot these features use `plot_regfeat`, which generates a segment plot includ
 The `regpath` parameter accepts the same input options as `genepath` in `get_genemodel` (see Section 4.3 for details).
 
 Here, you can see the chosen VMR contains a promoter and two CTCF Binding Sites.
-```{r plot features, fig.width=7}
+```{r plot_features, eval=FALSE}
 plot_regfeat(regpath, chr, ROIstart, ROIend, VMRstart, VMRend)
+```
+```{r plot_features_hidden, echo=FALSE, fig.width=7}
+tryCatch(
+  {
+    plot_regfeat(
+      regpath = regpath,
+      chr = chr,
+      startpos = ROIstart,
+      endpos = ROIend,
+      start_VMR = VMRstart,
+      end_VMR = VMRend
+    )
+  },
+  error = function(e) {
+    message(
+      "The Ensembl request failed; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_regfeat_plot.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) 
 ```
 
 | 
@@ -330,8 +516,29 @@ plot_regfeat(regpath, chr, ROIstart, ROIend, VMRstart, VMRend)
 The easiest way to get a comprehensive summary of your ROI and VMR, is to use `plot_all`.
 This function combined all visualization functions of `DevMethyl` and the `patchwork` package to integrate and visualize the previous mentioned information into one single plot.
 
-```{r plot all, fig.height=8, fig.width=10}
+```{r plot all, eval=FALSE}
 plot_all(species, genome, sp, spAcc, meta, header, header_acc, genepath, regpath, chr, ROIstart, ROIend, hx, ht, VMRstart, VMRend, n_bins = 40)
+```
+```{r plot_all_hidden, echo=FALSE, fig.height=8, fig.width=10}
+tryCatch(
+  {
+    plot_all(species, genome, sp, spAcc, meta, header, header_acc, genepath, regpath, chr, ROIstart, ROIend, hx, ht, VMRstart, VMRend, n_bins = 40)
+    
+  },
+  error = function(e) {
+    message(
+      "The request has failed. Possibly caused by HTTP 500 error; using the bundled example data."
+    )
+
+    readRDS(
+      system.file(
+        "extdata",
+        "example_summary_plot.rds",
+        package = "DevMethyl"
+      )
+    )
+  }
+) 
 ```
 
 | 

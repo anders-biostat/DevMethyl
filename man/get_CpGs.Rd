@@ -15,7 +15,8 @@ get_cpgs(species, genome, chr, startpos, endpos, is_GRC = FALSE)
 
 \item{startpos, endpos}{Integers defining the start and end position of the analysed genomic region.}
 
-\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function. Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
+\item{is_GRC}{A boolean argument. Use TRUE, if the \code{genome} input follows GRC nomenclature. This will allow \code{plot_all} to bypass an inner function.
+Use FALSE if the \code{genome} input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.}
 }
 \value{
 Integer list containing genomic positions of each CpG site found within the given region.

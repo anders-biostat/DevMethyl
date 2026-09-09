@@ -16,7 +16,6 @@ Tsparse matrix with j = indices, p = indptr and x = data.
 \code{npz.to.spM} converts a NumPy file to a Tsparse matrix employable in R.
 }
 \examples{
-file_paths <- load_exdata()
-methylpath <- file_paths[[1]]
+methylpath <- file.path( system.file("extdata",package="DevMethyl", "8_trunc.npz" ) )
 npz.to.spM(methylpath)
 }

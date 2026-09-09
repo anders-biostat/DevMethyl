@@ -11,14 +11,13 @@
 #'
 #' @seealso [get_genemodel()] to receive the data frame used for plotting.
 #'
-#' @examples plot_genemodel("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz", 8,  8628165, 8684055)
+#' @examples
+#' genes_url <- "https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz"
+#' plot_genemodel(genes_url, 8, 8628165, 8684055)
 #'
-#' # or
-#' \dontrun{
-#' genes <- readGFF("https://ftp.ensembl.org/pub/release-110/gtf/mus_musculus/Mus_musculus.GRCm39.110.gtf.gz")
-#' plot_genemodel(genes, 8, 8628165, 8684055)}
 plot_genemodel <- function(genepath, chr, startpos, endpos) {
 
+  # function itself check if its a df, url or path and adjusts and filters --> should not be skipped
   get_genemodel(genepath, chr, startpos, endpos) -> reg
 
   reg$start[reg$start < startpos] <- startpos
@@ -28,7 +27,7 @@ plot_genemodel <- function(genepath, chr, startpos, endpos) {
 
   reg %>% dplyr::filter(type != "gene") %>%
     dplyr::rename(substart = start, subend = end) %>%
-    left_join( dplyr::select(reg_genes, gene_id, start, end), by = "gene_id") -> reg_subgenes
+    dplyr::left_join( dplyr::select(reg_genes, gene_id, start, end), by = "gene_id") -> reg_subgenes
 
   reg_subgenes$type <- factor(reg_subgenes$type, levels =c("exon", "CDS", "start_codon", "stop_codon", "five_prime_utr",  "three_prime_utr", "Selenocysteine"))
 
@@ -37,7 +36,7 @@ plot_genemodel <- function(genepath, chr, startpos, endpos) {
       geom_blank() +
       xlim(startpos, endpos) +
       ggtitle("No gene annotations found") +
-      theme_genes() +
+      gggenes::theme_genes() +
       theme(legend.text = element_text(size = 10),
             legend.key.size = unit(0.4, "cm"),
             legend.title = element_text(size = 10),
@@ -46,10 +45,10 @@ plot_genemodel <- function(genepath, chr, startpos, endpos) {
 
   } else {
   ggplot(NULL, aes( xmin = start, xmax = end, y = gene_name, forward = strand_boolean)) +
-    geom_gene_arrow(data = reg_genes) +
-    geom_subgene_arrow(aes(xsubmin = substart, xsubmax = subend, fill = type), color = NA, data = reg_subgenes) +
+    gggenes::geom_gene_arrow(data = reg_genes) +
+    gggenes::geom_subgene_arrow(aes(xsubmin = substart, xsubmax = subend, fill = type), color = NA, data = reg_subgenes) +
     xlim(startpos, endpos) +
-    theme_genes() +
+    gggenes::theme_genes() +
     theme(legend.text = element_text(size = 10),
           legend.key.size = unit(0.4, "cm"),
           legend.title = element_text(size = 10),

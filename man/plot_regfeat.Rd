@@ -7,7 +7,8 @@
 plot_regfeat(regpath, chr, startpos, endpos, start_VMR = 0, end_VMR = 0)
 }
 \arguments{
-\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}. Can be a single string of the file directory, the URL or can be a connection. Additionally, it can be a data frame of the read gff file (use readGFF() with one of the previous mentioned options).}
+\item{regpath}{Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
+Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().}
 
 \item{chr}{Integer number of chromosome.}
 
@@ -25,12 +26,8 @@ Regulatory features include promoters, enhancers, open chromatin regions, transc
 More information here: \url{https://www.ensembl.org/info/genome/funcgen/data/regulatory-features.html}.
 }
 \examples{
-plot_regfeat("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz", 8, 8628165, 8684055, 8653165, 8659055)
-
-# or
-\dontrun{
-reg <- readGFF("https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz")
-plot_regfeat(reg, 8, 8628165, 8684055)}
+reg_url <- "https://ftp.ensembl.org/pub/release-110/regulation/mus_musculus/mus_musculus.GRCm39.Regulatory_Build.regulatory_features.20221007.gff.gz"
+plot_regfeat(reg_url, 8, 8628165, 8684055)
 }
 \seealso{
 \code{\link[=get_regfeat]{get_regfeat()}} to receive the data frame used for plotting.
