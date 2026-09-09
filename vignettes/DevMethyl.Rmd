@@ -121,7 +121,7 @@ header <- readLines(system.file("extdata", "column_header.txt", package = "DevMe
   names(header)[names(header) == "."] <- "cell_id"
   
   header <- header %>%
-          mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
+          dplyr::mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
 
 
   head(header)
@@ -175,7 +175,7 @@ This function will apply a Gaussian filter to produce a matrix with smoothed "me
 Here, you need the mapped pseudotimes, kernel and grid sizes, and the limits of the genomic position and pseudotime.
 
 ```{r gauss_kernel}
-m <- smooth(mappedpt, hx, ht, delx, delt,  xrange = range(mappedpt$pos), trange = range(mappedpt$pt))
+m <- DevMethyl::smooth(mappedpt, hx, ht, delx, delt,  xrange = range(mappedpt$pos), trange = range(mappedpt$pt))
 ```
 
 Finally, you can plot your matrix using `plot_methyl` with your mapped pseudotimes and the limits of your ROI.
@@ -203,13 +203,13 @@ header_acc <- readLines(system.file("extdata", "column_header_accessibility.txt"
 names(header_acc)[names(header_acc) == "."] <- "cell_id"
 
 header_acc <-  header_acc %>%
-               mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
+               dplyr::mutate(cell_id = sub("_(?!A).*", "",cell_id, perl = TRUE))
   
 # map GpC methylation data to the cell IDs and pseudotimes
 mappedpt_acc <- map_methyl(spAcc, meta, header_acc, ROIstart, ROIend)
 
 # smooth methylation data
-mAcc <-  smooth(mappedpt_acc, hx, ht, delx, delt)
+mAcc <-  DevMethyl::smooth(mappedpt_acc, hx, ht, delx, delt)
 ```
 
 Plotting the smoothed GpC methylation as a tile plot will show how chromatin accessibility changes during differentiation.
@@ -354,14 +354,14 @@ For the parameter `gene_path` you have the option to provide the data:
 For our example data, we used release 102 of *mus musculus*, and saved it as a data frame to avoid repeated downloads.
 
 ```{r genemodel, eval=FALSE}
-genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
+genepath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
 
 get_genemodel(genepath, chr, ROIstart, ROIend) -> genemodel
 
   subset(genemodel,select = c(1:5,7,11))
 ```
 ```{r genemodel_hidden, echo=FALSE, fig.width=12}
-genepath <- readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
+genepath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
 
 tryCatch(
   {
@@ -433,14 +433,14 @@ For regulatory features, extract the regulation data set of your chosen species 
 The `regpath` parameter accepts the same input options as `genepath` in `get_genemodel` (see Section 4.3 for details).
 
 ```{r reg_features, eval=FALSE}
-regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
+regpath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
 
 get_regfeat(regpath, chr, ROIstart, ROIend) -> regfeat
 
   subset(regfeat, select = c(1,4,5,10,11,13))
 ```
 ```{r reg_features_hidden, echo=FALSE}
-regpath <- readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
+regpath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
 
 tryCatch(
   {
@@ -533,7 +533,7 @@ tryCatch(
     readRDS(
       system.file(
         "extdata",
-        "example_summary_plot.rds",
+        "example_summary_plot_small.rds",
         package = "DevMethyl"
       )
     )
