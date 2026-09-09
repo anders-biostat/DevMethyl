@@ -10,11 +10,12 @@ This package was created to provide a easy access to summarized information on a
 
 ## Installation
 
-You can install the development version of DevMethyl from [GitHub](https://github.com/).
+You can install the development version of `DevMethyl` from [GitHub](https://github.com/).
 
 ``` r
 
 install.packages("remotes")
+
 remotes::install_github(
   "anders-biostat/DevMethyl",
   build_vignettes = TRUE,
