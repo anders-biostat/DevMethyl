@@ -11,14 +11,14 @@
 #' @param meta Data frame of meta data containing cell IDs ("cell_id_dna") and pseudotime ("ptime").
 #' @param header,header_acc Data frames containing cell IDs for spM or spMacc. Cell IDs have to have same format as in meta.
 #' @param hx,ht Numeric values defining bandwidth of the Gaussian kernel in x and t direction.
-#' @param chr Integer number of chromosome.
+#' @param chr A chromosome number, supplied as an integer or a character string representing an integer (e.g., `1` or `"1"`).
 #' @param start_VMR,end_VMR Integers defining the start and end position of the variable methylated region. Default is 0.
 #' @param spM,spMacc dgTMatrices containing CpG or GpC methylation.
 #' @param regpath Regulatory features of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #' Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().
 #' @param genepath Genome of the chosen species retrieved from the ensemble FTP site \url{https://ftp.ensembl.org/pub/}.
 #' Provide either a single character string containing the path or URL of a GFF file, or a GFF-derived data frame created with readGFF() or returned by get_regfeat().
-#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region.
+#' @param startpos,endpos Integers defining the start and end position of the analysed genomic region, supplied as an integer or a character string representing an integer (e.g., `1` or `"1"`).
 #' @param n_bins Integer defining the number of bins to group the cpg sites.
 #' @param is_GRC A boolean argument. Use TRUE, if the `genome` input follows GRC nomenclature. This will allow `plot_all` to bypass an inner function.
 #' Use FALSE if the `genome` input does not follow GRC nomenclature or if you are unsure. In this case, the inner function will be executed to retrieve the correct format. Default is FALSE.
@@ -50,6 +50,68 @@
 #'                             is_GRC = TRUE)}
 plot_all <- function(species, genome, spM, spMacc, meta, header, header_acc, genepath, regpath, chr, startpos, endpos, hx, ht, start_VMR=0, end_VMR=0, delx = (hx/10), delt = (ht/10), n_bins = 50,  is_GRC = FALSE) {
 
+  # Check required arguments
+  check_arg <- function(x, type = c("dataframe", "string", "integer_like" , "number", "sparseMatrix", "gff")) {
+    type <- match.arg(type)
+    name <- deparse1(substitute(x))
+    caller <- sys.call(-1)
+
+    fail <- function(msg) stop(msg, call. = FALSE)
+
+    if (missing(x)) {
+      fail(sprintf("Please provide '%s'.", name))
+    }
+
+    single_string <- function(z) {
+      is.character(z) && length(z) == 1L && !is.na(z) && nzchar(z)
+    }
+    is_file <- function(z) single_string(z) && file.exists(z) && !dir.exists(z)
+    is_url  <- function(z) single_string(z) && grepl("^https?://[^[:space:]]+$", z)
+
+    is_number <- function(z) is.numeric(z) && length(z) == 1L && is.finite(z)
+    is_numeric_string <- function(z) {
+      single_string(z) &&
+        is_number(suppressWarnings(as.numeric(z)))
+    }
+
+    valid <- switch(
+      type,
+      dataframe    = is.data.frame(x),
+      string       = single_string(x),
+      integer_like = is_number(x) && x == round(x) || is_numeric_string(x),
+      number       = is_number(x) ,
+      sparseMatrix = methods::is(x, "sparseMatrix"),
+      gff          = is.data.frame(x) || is_file(x) || is_url(x)
+    )
+
+    if (!isTRUE(valid)) {
+      fail(sprintf(
+        "%sInvalid '%s': expected type '%s', got class '%s'.",
+        if (!is.null(caller)) sprintf("In %s: ", deparse1(caller[[1]])) else "",
+        name, type, paste(class(x), collapse = "/")
+      ))
+    }
+
+    invisible(x)
+  }
+
+  check_arg(species,     "string")
+  check_arg(genome,   "string")
+  check_arg(spM,   "sparseMatrix")
+  check_arg(spMacc, "sparseMatrix")
+  check_arg(meta,     "dataframe")
+  check_arg(header,   "dataframe")
+  check_arg(header_acc,   "dataframe")
+  check_arg(genepath, "gff")
+  check_arg(regpath,     "gff")
+  check_arg(chr,   "integer_like")
+  check_arg(startpos,   "integer_like")
+  check_arg(endpos, "integer_like")
+  check_arg(hx,   "number")
+  check_arg(ht, "number")
+
+
+  # Check first nomenclature
   altGenomenclature(species, genome) -> genomeIDs
 
   # CpGislands

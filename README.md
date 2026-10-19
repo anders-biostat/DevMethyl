@@ -30,3 +30,5 @@ You can view the vignette by running:
 ``` r
 vignette("DevMethyl", package="DevMethyl")
 ```
+
+![Example plot](man/figures/plotall_vignette.png)

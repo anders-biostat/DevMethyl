@@ -361,7 +361,7 @@ get_genemodel(genepath, chr, ROIstart, ROIend) -> genemodel
   subset(genemodel,select = c(1:5,7,11))
 ```
 ```{r genemodel_hidden, echo=FALSE, fig.width=12}
-genepath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz")
+genepath <- "https://ftp.ensembl.org/pub/release-102/gtf/mus_musculus/Mus_musculus.GRCm38.102.gtf.gz"
 
 tryCatch(
   {
@@ -440,7 +440,7 @@ get_regfeat(regpath, chr, ROIstart, ROIend) -> regfeat
   subset(regfeat, select = c(1,4,5,10,11,13))
 ```
 ```{r reg_features_hidden, echo=FALSE}
-regpath <- rtracklayer::readGFF("https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz")
+regpath <- "https://ftp.ensembl.org/pub/release-102/regulation/mus_musculus/mus_musculus.GRCm38.Regulatory_Build.regulatory_features.20180516.gff.gz"
 
 tryCatch(
   {
